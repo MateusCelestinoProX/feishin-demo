@@ -1,0 +1,5 @@
+graphify-out/
+assets/*.map
+tray-panel.html
+README.md
+.git/
