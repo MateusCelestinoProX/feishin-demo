@@ -324,9 +324,9 @@
     "semantic_hash": ""
   },
   "assets/feishin-demo-engine.js": {
-    "mtime": 1794361525.2758455,
-    "seen": 1794361647.2974038,
-    "ast_hash": "59ee27b239b00cf0fc382ba21ba4b651",
+    "mtime": 1794409366.0544627,
+    "seen": 1794409404.627172,
+    "ast_hash": "a64f0a2d70e25cbb6cf2a8dd8aab7648",
     "semantic_hash": ""
   },
   "assets/feishin-demo-ui.js": {
@@ -1101,6 +1101,12 @@
     "mtime": 1794360674.29453,
     "seen": 1794361647.2974951,
     "ast_hash": "5d4be32a12c9ff036f1548b522235eb3",
+    "semantic_hash": ""
+  },
+  "vercel.json": {
+    "mtime": 1794409332.2834175,
+    "seen": 1794409404.62725,
+    "ast_hash": "1368ee2174bb6aab59e60467469559a3",
     "semantic_hash": ""
   }
 }

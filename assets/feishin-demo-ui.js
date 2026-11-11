@@ -186,6 +186,12 @@
         document.getElementById('btn-download-action').onclick = () => {
             setTimeout(closeApkModal, 800);
         };
+        const syncActionBtn = document.getElementById('btn-download-sync-action');
+        if (syncActionBtn) {
+            syncActionBtn.onclick = () => {
+                setTimeout(closeApkModal, 800);
+            };
+        }
         modal.onclick = (e) => {
             if (e.target === modal) closeApkModal();
         };

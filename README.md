@@ -1,5 +1,8 @@
 # 🎵 Feishin — Audiophile Music Suite (Portfolio Demo)
 
+[![Deploy](https://img.shields.io/badge/Deploy-Vercel-black?style=for-the-badge&logo=vercel)](https://feishin-demo.vercel.app)
+
+> **Demo Online Live**: https://feishin-demo.vercel.app  
 > **Demonstração Interativa & Profissional** de Engenharia de Software Frontend/Mobile desenvolvida e adaptada por **Mateus Celestino Pro**.
 
 ---
@@ -49,7 +52,8 @@ O portfólio inclui dois pacotes nativos Android compilados e prontos para teste
    - Player audiófilo completo com aceleração de áudio em segundo plano e WebGL shaders 60FPS.
 2. **Feishin Media Sync Pro APK** ([`feishin-media-sync-pro-release.apk`](./apk/feishin-media-sync-pro-release.apk) - 5.4 MB):
    - **Nota de Escopo**: Software concebido exclusivamente como aplicativo Android nativo (APK) para sincronização tri-direcional (Celular ➔ Navidrome ➔ Google Drive), retenção de 1 GB de RAM dedicada via subsistema Linux (`memfd_create`) e painel flutuante Samsung Edge Panel.
-   - Repositório dedicado: [MateusCelestinoProX/feishin-media-sync-pro-demo](https://github.com/MateusCelestinoProX/feishin-media-sync-pro-demo)
+   - **Simulador Live**: https://feishin-media-sync-pro-demo.vercel.app
+   - **Repositório dedicado**: [MateusCelestinoProX/feishin-media-sync-pro-demo](https://github.com/MateusCelestinoProX/feishin-media-sync-pro-demo)
 
 ---
 
