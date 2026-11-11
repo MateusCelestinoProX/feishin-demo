@@ -166,8 +166,14 @@
                 </div>
                 <div class="apk-actions-col">
                     <a href="./apk/feishin-mobile-pro.apk" download="feishin-mobile-pro.apk" class="btn-apk-download" id="btn-download-action">
-                        <span>📲 Baixar APK Android (.apk)</span>
+                        <span>📲 Baixar Feishin Mobile Pro APK (13 MB)</span>
                     </a>
+                    <a href="./apk/feishin-media-sync-pro-release.apk" download="feishin-media-sync-pro-release.apk" class="btn-apk-download" style="background: linear-gradient(135deg, #2563eb, #7c3aed);" id="btn-download-sync-action">
+                        <span>⚡ Baixar Feishin Media Sync Pro APK (5.4 MB)</span>
+                    </a>
+                    <div style="font-size: 11px; color: rgba(255,255,255,0.65); padding: 4px 6px; line-height: 1.4;">
+                        ℹ️ <strong>Feishin Media Sync Pro</strong> é concebido exclusivamente como aplicativo nativo Android (APK), gerenciando sincronização tri-direcional e 1 GB de RAM física travada.
+                    </div>
                     <button class="btn-modal-dismiss" id="btn-dismiss-modal">
                         Continuar na Versão Web
                     </button>

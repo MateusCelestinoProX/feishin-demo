@@ -41,6 +41,18 @@ Esta demonstração apresenta a suíte audiófila **Feishin** em uma arquitetura
 
 ---
 
+## 📱 Versões Nativas Android (APK)
+
+O portfólio inclui dois pacotes nativos Android compilados e prontos para teste:
+
+1. **Feishin Mobile Pro APK** ([`feishin-mobile-pro.apk`](./apk/feishin-mobile-pro.apk) - 13 MB):
+   - Player audiófilo completo com aceleração de áudio em segundo plano e WebGL shaders 60FPS.
+2. **Feishin Media Sync Pro APK** ([`feishin-media-sync-pro-release.apk`](./apk/feishin-media-sync-pro-release.apk) - 5.4 MB):
+   - **Nota de Escopo**: Software concebido exclusivamente como aplicativo Android nativo (APK) para sincronização tri-direcional (Celular ➔ Navidrome ➔ Google Drive), retenção de 1 GB de RAM dedicada via subsistema Linux (`memfd_create`) e painel flutuante Samsung Edge Panel.
+   - Repositório dedicado: [MateusCelestinoProX/feishin-media-sync-pro-demo](https://github.com/MateusCelestinoProX/feishin-media-sync-pro-demo)
+
+---
+
 ## 📱 Versão Nativa Android (APK)
 
 O repositório inclui a versão mobile nativa já compilada:

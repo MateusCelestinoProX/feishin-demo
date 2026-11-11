@@ -330,9 +330,9 @@
     "semantic_hash": ""
   },
   "assets/feishin-demo-ui.js": {
-    "mtime": 1794360978.771877,
-    "seen": 1794361647.297405,
-    "ast_hash": "3e88dab11f0b14bc53f6073f1888b0f5",
+    "mtime": 1794362061.4676306,
+    "seen": 1794362136.0575511,
+    "ast_hash": "47a442b6b9149843d3af6f496075d840",
     "semantic_hash": ""
   },
   "assets/feishin-mobile-enhancer.js": {
@@ -894,9 +894,9 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1794361582.5636575,
-    "seen": 1794361647.2974699,
-    "ast_hash": "71850b1736ece26dc7d0e40aac04c37a",
+    "mtime": 1794362072.6893682,
+    "seen": 1794362136.057626,
+    "ast_hash": "7d1df75487820e70a416bf975ab4f7e3",
     "semantic_hash": ""
   },
   "index.html": {
@@ -921,12 +921,6 @@
     "mtime": 1794360706.6956449,
     "seen": 1794361647.297472,
     "ast_hash": "d03032da8f321bccbe08bf014e6c4e33",
-    "semantic_hash": ""
-  },
-  "demo_verification.png": {
-    "mtime": 1794361085.2673445,
-    "seen": 1794361647.297473,
-    "ast_hash": "39b2a75056ab7f448135defab546da83",
     "semantic_hash": ""
   },
   "media/covers/cover_01.jpg": {
