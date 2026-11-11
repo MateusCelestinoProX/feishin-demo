@@ -72,75 +72,19 @@
         }
     }
 
-    // 3. Build Top Bar & Controls
-    function createTopBar() {
-        const bar = document.createElement('div');
-        bar.id = 'feishin-demo-top-bar';
-        bar.innerHTML = `
-            <div class="demo-glass-badge" id="btn-open-apk-modal" title="Baixar APK Mobile Nativo">
-                <span class="demo-badge-dot"></span>
-                <span>📱 Baixar APK Android</span>
-            </div>
-            <div class="demo-mode-toggle">
-                <button class="demo-mode-btn active" data-mode="auto" id="btn-mode-auto">Auto</button>
-                <button class="demo-mode-btn" data-mode="desktop" id="btn-mode-desktop">Desktop</button>
-                <button class="demo-mode-btn" data-mode="mobile" id="btn-mode-mobile">Mobile</button>
-            </div>
+    // 3. Build Top macOS Discreet APK Action Button
+    function createMacOsApkBadge() {
+        if (document.getElementById('btn-open-apk-modal')) return;
+        const btn = document.createElement('button');
+        btn.id = 'btn-open-apk-modal';
+        btn.className = 'feishin-macos-apk-badge';
+        btn.title = 'Testar APK Android Nativo';
+        btn.innerHTML = `
+            <span class="demo-badge-dot"></span>
+            <span>📱 Baixar APK Android</span>
         `;
-        document.body.appendChild(bar);
-
-        // Mode Switching
-        const btnAuto = document.getElementById('btn-mode-auto');
-        const btnDesk = document.getElementById('btn-mode-desktop');
-        const btnMob = document.getElementById('btn-mode-mobile');
-        const allBtns = [btnAuto, btnDesk, btnMob];
-
-        function setMode(mode) {
-            allBtns.forEach(b => b.classList.remove('active'));
-            document.body.classList.remove('demo-mode-desktop', 'demo-mode-mobile');
-
-            if (mode === 'desktop') {
-                btnDesk.classList.add('active');
-                document.body.classList.add('demo-mode-desktop');
-                localStorage.setItem('feishin_demo_view_mode', 'desktop');
-            } else if (mode === 'mobile') {
-                btnMob.classList.add('active');
-                document.body.classList.add('demo-mode-mobile');
-                localStorage.setItem('feishin_demo_view_mode', 'mobile');
-            } else {
-                btnAuto.classList.add('active');
-                localStorage.removeItem('feishin_demo_view_mode');
-                applyAutoMode();
-            }
-        }
-
-        btnAuto.onclick = () => setMode('auto');
-        btnDesk.onclick = () => setMode('desktop');
-        btnMob.onclick = () => setMode('mobile');
-
-        // Restore saved mode or auto
-        const savedMode = localStorage.getItem('feishin_demo_view_mode');
-        if (savedMode) setMode(savedMode);
-        else applyAutoMode();
-
-        window.addEventListener('resize', () => {
-            if (!localStorage.getItem('feishin_demo_view_mode')) {
-                applyAutoMode();
-            }
-        });
-
-        document.getElementById('btn-open-apk-modal').onclick = () => openApkModal();
-    }
-
-    function applyAutoMode() {
-        const isMobileDevice = window.innerWidth <= 768 || /Android|iPhone|iPad|Mobile/i.test(navigator.userAgent);
-        if (isMobileDevice) {
-            document.body.classList.remove('demo-mode-desktop');
-            document.body.classList.add('demo-mode-mobile');
-        } else {
-            document.body.classList.remove('demo-mode-mobile');
-            document.body.classList.add('demo-mode-desktop');
-        }
+        btn.onclick = () => openApkModal();
+        document.body.appendChild(btn);
     }
 
     // 4. Build Glassmorphism Modal ("Popup de Vidro")
@@ -221,12 +165,12 @@
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
             createSplashScreen();
-            createTopBar();
+            createMacOsApkBadge();
             createApkModal();
         });
     } else {
         createSplashScreen();
-        createTopBar();
+        createMacOsApkBadge();
         createApkModal();
     }
 })();

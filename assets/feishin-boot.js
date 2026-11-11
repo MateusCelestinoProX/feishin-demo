@@ -332,25 +332,47 @@
 
 
 
-        // Remover Home completamente e garantir Faixas (Songs) em store_settings
+        // ---- 4. Configuração Nativa macOS Desktop (Sidebar, WindowBar & Fila) ----
+        const defaultMacSidebar = [
+            { disabled: false, id: 'Home', label: 'Início', route: '/home' },
+            { disabled: false, id: 'Tracks', label: 'Músicas', route: '/library/songs' },
+            { disabled: false, id: 'Albums', label: 'Álbuns', route: '/library/albums' },
+            { disabled: false, id: 'Artists', label: 'Artistas', route: '/library/artists' },
+            { disabled: false, id: 'Folders', label: 'Pastas', route: '/library/folders' },
+            { disabled: false, id: 'Genres', label: 'Gêneros', route: '/library/genres' },
+            { disabled: false, id: 'Playlists', label: 'Playlists', route: '/playlists' },
+            { disabled: false, id: 'Favorites', label: 'Favoritos', route: '/favorites' }
+        ];
+
         const rawSettings = localStorage.getItem('store_settings');
-        if (rawSettings) {
-            const parsed = JSON.parse(rawSettings);
-            let changed = false;
-            const target = parsed?.state?.general?.sidebarItems || parsed?.general?.sidebarItems;
-            if (Array.isArray(target)) {
-                const hadHome = target.some(item => item && (item.id === 'Home' || item.route === '/home'));
-                if (hadHome) {
-                    const filtered = target.filter(item => item && item.id !== 'Home' && item.route !== '/home' && item.route !== '/');
-                    if (parsed?.state?.general?.sidebarItems) parsed.state.general.sidebarItems = filtered;
-                    if (parsed?.general?.sidebarItems) parsed.general.sidebarItems = filtered;
-                    changed = true;
-                }
-            }
-            if (changed) {
-                localStorage.setItem('store_settings', JSON.stringify(parsed));
-            }
+        let settingsObj = null;
+        try {
+            settingsObj = rawSettings ? JSON.parse(rawSettings) : null;
+        } catch(e) {}
+        if (!settingsObj || !settingsObj.state) {
+            settingsObj = { state: {}, version: 11 };
         }
+        if (!settingsObj.state.window) settingsObj.state.window = {};
+        settingsObj.state.window.windowBarStyle = 'macos';
+        settingsObj.state.window.windowBarTrackinfo = true;
+        if (!settingsObj.state.general) settingsObj.state.general = {};
+        settingsObj.state.general.confirmQueueChanges = false;
+        settingsObj.state.general.sidebarItems = defaultMacSidebar;
+        localStorage.setItem('store_settings', JSON.stringify(settingsObj));
+
+        // Ensure sidebar is open on desktop macOS
+        const rawApp = localStorage.getItem('store_app');
+        let appObj = null;
+        try {
+            appObj = rawApp ? JSON.parse(rawApp) : null;
+        } catch(e) {}
+        if (!appObj || !appObj.state) {
+            appObj = { state: {}, version: 0 };
+        }
+        if (!appObj.state.sidebar) appObj.state.sidebar = {};
+        appObj.state.sidebar.collapsed = false;
+        appObj.state.sidebar.leftWidth = 260;
+        localStorage.setItem('store_app', JSON.stringify(appObj));
 
         // Força abertura limpa na página de Faixas (Tracks) como verdadeira Home
         if (!sessionStorage.getItem('feishin_session_started') || window.location.hash === '#/home' || window.location.hash === '#' || window.location.hash === '#/') {
