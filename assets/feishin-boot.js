@@ -70,7 +70,8 @@
 
     // ---- 2. Interceptador de Rede Resiliente: Telemetria & Autenticação Offline ----
     const ORIG_FETCH = window.fetch ? window.fetch.bind(window) : null;
-    const BLOCKED = /(umami\.jeffvli\.org|api\.github\.com\/repos\/jeffvli\/feishin)/;
+    const GITHUB_RELEASE = /(api\.github\.com\/repos\/jeffvli\/feishin)/;
+    const BLOCKED = /(umami\.jeffvli\.org)/;
 
     const SUBSONIC_AUTH_MOCK = {
         "subsonic-response": {
@@ -115,6 +116,19 @@
                 if (BLOCKED.test(urlStr)) {
                     return Promise.resolve(new Response('{}', { status: 200, headers: { 'content-type': 'application/json' } }));
                 }
+                if (GITHUB_RELEASE.test(urlStr)) {
+                    const releaseObj = {
+                        tag_name: "v1.17.0",
+                        name: "v1.17.0",
+                        published_at: "2026-10-01T00:00:00Z",
+                        prerelease: false
+                    };
+                    const resData = urlStr.includes('/latest') ? releaseObj : [releaseObj];
+                    return Promise.resolve(new Response(JSON.stringify(resData), {
+                        status: 200,
+                        headers: { 'content-type': 'application/json' }
+                    }));
+                }
                 if (/(getUser\.view|ping\.view|getOpenSubsonicExtensions\.view|getLicense\.view)/i.test(urlStr)) {
                     return ORIG_FETCH(input, init).catch(() => {
                         return new Response(JSON.stringify(SUBSONIC_AUTH_MOCK), {
@@ -142,6 +156,49 @@
             };
 
             xhr.send = function (data) {
+                if (GITHUB_RELEASE.test(reqUrl)) {
+                    const releaseObj = {
+                        tag_name: "v1.17.0",
+                        name: "v1.17.0",
+                        published_at: "2026-10-01T00:00:00Z",
+                        prerelease: false
+                    };
+                    const resData = reqUrl.includes('/latest') ? releaseObj : [releaseObj];
+                    const mockData = JSON.stringify(resData);
+                    setTimeout(() => {
+                        try { Object.defineProperty(xhr, 'readyState', { value: 4, configurable: true, writable: true }); } catch (e) {}
+                        try { Object.defineProperty(xhr, 'status', { value: 200, configurable: true, writable: true }); } catch (e) {}
+                        try { Object.defineProperty(xhr, 'statusText', { value: 'OK', configurable: true, writable: true }); } catch (e) {}
+                        try { Object.defineProperty(xhr, 'responseText', { value: mockData, configurable: true, writable: true }); } catch (e) {}
+                        try { Object.defineProperty(xhr, 'response', { value: mockData, configurable: true, writable: true }); } catch (e) {}
+                        try { xhr.dispatchEvent(new Event('readystatechange')); } catch (e) {}
+                        try { xhr.dispatchEvent(new Event('load')); } catch (e) {}
+                        try { xhr.dispatchEvent(new Event('loadend')); } catch (e) {}
+                        if (typeof xhr.onreadystatechange === 'function') {
+                            try { xhr.onreadystatechange(new Event('readystatechange')); } catch (e) {}
+                        }
+                        if (typeof xhr.onload === 'function') {
+                            try { xhr.onload(new Event('load')); } catch (e) {}
+                        }
+                        if (typeof xhr.onloadend === 'function') {
+                            try { xhr.onloadend(new Event('loadend')); } catch (e) {}
+                        }
+                    }, 10);
+                    return;
+                }
+                if (BLOCKED.test(reqUrl)) {
+                    setTimeout(() => {
+                        try { Object.defineProperty(xhr, 'readyState', { value: 4, configurable: true, writable: true }); } catch (e) {}
+                        try { Object.defineProperty(xhr, 'status', { value: 200, configurable: true, writable: true }); } catch (e) {}
+                        try { Object.defineProperty(xhr, 'statusText', { value: 'OK', configurable: true, writable: true }); } catch (e) {}
+                        try { Object.defineProperty(xhr, 'responseText', { value: '{}', configurable: true, writable: true }); } catch (e) {}
+                        try { Object.defineProperty(xhr, 'response', { value: '{}', configurable: true, writable: true }); } catch (e) {}
+                        try { xhr.dispatchEvent(new Event('readystatechange')); } catch (e) {}
+                        try { xhr.dispatchEvent(new Event('load')); } catch (e) {}
+                        try { xhr.dispatchEvent(new Event('loadend')); } catch (e) {}
+                    }, 10);
+                    return;
+                }
                 const isAuthEndpoint = /(getUser\.view|ping\.view|getOpenSubsonicExtensions\.view|getLicense\.view)/i.test(reqUrl);
                 if (isAuthEndpoint) {
                     const fulfillMock = () => {

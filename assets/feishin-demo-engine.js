@@ -662,8 +662,23 @@
             }));
         }
 
-        // Block external telemetries & GitHub version checks
-        if (/umami\.jeffvli\.org|api\.github\.com\/repos\/jeffvli\/feishin/.test(url)) {
+        // GitHub release mock (avoids undefined tag_name crashing jV in React update hooks)
+        if (url.includes('api.github.com/repos/jeffvli/feishin')) {
+            const releaseObj = {
+                tag_name: "v1.17.0",
+                name: "v1.17.0",
+                published_at: "2026-10-01T00:00:00Z",
+                prerelease: false
+            };
+            const responseData = url.includes('/latest') ? releaseObj : [releaseObj];
+            return Promise.resolve(new Response(JSON.stringify(responseData), {
+                status: 200,
+                headers: { 'Content-Type': 'application/json; charset=utf-8' }
+            }));
+        }
+
+        // Block external telemetries
+        if (/umami\.jeffvli\.org/.test(url)) {
             return Promise.resolve(new Response('{}', { status: 200, headers: { 'Content-Type': 'application/json' } }));
         }
 
@@ -715,7 +730,19 @@
                 return;
             }
 
-            if (/umami\.jeffvli\.org|api\.github\.com\/repos\/jeffvli\/feishin/.test(requestUrl)) {
+            if (requestUrl.includes('api.github.com/repos/jeffvli/feishin')) {
+                const releaseObj = {
+                    tag_name: "v1.17.0",
+                    name: "v1.17.0",
+                    published_at: "2026-10-01T00:00:00Z",
+                    prerelease: false
+                };
+                const responseData = requestUrl.includes('/latest') ? releaseObj : [releaseObj];
+                respondJson(responseData);
+                return;
+            }
+
+            if (/umami\.jeffvli\.org/.test(requestUrl)) {
                 respondJson({});
                 return;
             }

@@ -427,12 +427,19 @@ body.feishin-route-recently-added [class*="animated-page"] {
     width: 100% !important;
 }
 
+/* Semântica de linhas virtuais: container acessível não intercepta eventos do mouse */
+div[role="row"] {
+    pointer-events: none !important;
+}
+div[role="row"] > * {
+    pointer-events: auto !important;
+}
+
 /* Linha de Título Combinado (Capa à Esquerda + Título/Artista à Direita) */
 .fs-title-combined-column-module-title-combined {
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
-    width: 100% !important;
     height: 100% !important;
     gap: 12px !important;
 }
