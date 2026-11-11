@@ -1,0 +1,2 @@
+import{r as o,e as m,j as r,bw as c,dM as d}from"./index-C3w9ueFE.js";const l="fs-animated-page-module-animated-page",p={animatedPage:l},g=o.forwardRef((i,s)=>{return r.jsx("main",{className:p.animatedPage,ref:s,children:i.children})});export{g as A};
+//# sourceMappingURL=animated-page-c6WcGlbL.js.map

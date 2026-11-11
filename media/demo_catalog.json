@@ -1,0 +1,844 @@
+[
+  {
+    "id": "demo_song_1",
+    "parent": "2nnrLv2ds76VjrbNmFKlBv",
+    "isDir": false,
+    "title": "Planeta Sonho",
+    "album": "Planeta Sonho",
+    "artist": "14 Bis",
+    "coverArt": "demo_cover_1",
+    "size": 10439689,
+    "contentType": "audio/mpeg",
+    "suffix": "mp3",
+    "duration": 258,
+    "bitRate": 320,
+    "path": "Music/14 Bis/Planeta Sonho/01_14_Bis_Planeta_Sonho.mp3",
+    "playCount": 1,
+    "created": "2026-10-26T04:10:02.838723658Z",
+    "albumId": "2nnrLv2ds76VjrbNmFKlBv",
+    "artistId": "3fyDJEw6z04Gxn13eNRBhG",
+    "type": "music",
+    "played": "2026-10-29T02:37:58.922936314Z",
+    "bpm": 0,
+    "comment": "Feishin Track Editor Verified",
+    "sortName": "planeta sonho",
+    "mediaType": "song",
+    "musicBrainzId": "",
+    "isrc": [],
+    "genres": [],
+    "replayGain": {},
+    "channelCount": 2,
+    "samplingRate": 48000,
+    "bitDepth": 0,
+    "moods": [],
+    "artists": [
+      {
+        "id": "3fyDJEw6z04Gxn13eNRBhG",
+        "name": "14 Bis"
+      }
+    ],
+    "displayArtist": "14 Bis",
+    "albumArtists": [
+      {
+        "id": "3fyDJEw6z04Gxn13eNRBhG",
+        "name": "14 Bis"
+      }
+    ],
+    "displayAlbumArtist": "14 Bis",
+    "contributors": [],
+    "displayComposer": "",
+    "explicitStatus": "",
+    "groupings": [],
+    "works": [],
+    "movements": [],
+    "localAudioUrl": "./media/songs/01_14_Bis_Planeta_Sonho.mp3",
+    "localCoverUrl": "./media/covers/cover_01.jpg",
+    "track": 1
+  },
+  {
+    "id": "demo_song_2",
+    "parent": "2H0l8G4AKBwC8f2Tbc3Wq4",
+    "isDir": false,
+    "title": "03' Adolescence",
+    "album": "03' Adolescence",
+    "artist": "J. Cole",
+    "coverArt": "demo_cover_2",
+    "size": 10690660,
+    "contentType": "audio/mpeg",
+    "suffix": "mp3",
+    "duration": 264,
+    "bitRate": 320,
+    "path": "Music/J. Cole/03' Adolescence/02_J__Cole_03__Adolescence.mp3",
+    "created": "2026-10-26T04:10:02.840064698Z",
+    "albumId": "2H0l8G4AKBwC8f2Tbc3Wq4",
+    "artistId": "5YhDBnoh6UaqjlqFRgoORm",
+    "type": "music",
+    "bpm": 0,
+    "comment": "",
+    "sortName": "03' adolescence",
+    "mediaType": "song",
+    "musicBrainzId": "",
+    "isrc": [],
+    "genres": [],
+    "replayGain": {},
+    "channelCount": 2,
+    "samplingRate": 48000,
+    "bitDepth": 0,
+    "moods": [],
+    "artists": [
+      {
+        "id": "5YhDBnoh6UaqjlqFRgoORm",
+        "name": "J. Cole"
+      }
+    ],
+    "displayArtist": "J. Cole",
+    "albumArtists": [
+      {
+        "id": "5YhDBnoh6UaqjlqFRgoORm",
+        "name": "J. Cole"
+      }
+    ],
+    "displayAlbumArtist": "J. Cole",
+    "contributors": [],
+    "displayComposer": "",
+    "explicitStatus": "",
+    "groupings": [],
+    "works": [],
+    "movements": [],
+    "localAudioUrl": "./media/songs/02_J__Cole_03__Adolescence.mp3",
+    "localCoverUrl": "./media/covers/cover_02.jpg",
+    "track": 2
+  },
+  {
+    "id": "demo_song_3",
+    "parent": "2nbBbfcfDcwvkKRoliraOs",
+    "isDir": false,
+    "title": "Somewhere Tonight",
+    "album": "Somewhere Tonight",
+    "artist": "Beach House",
+    "coverArt": "demo_cover_3",
+    "size": 3110856,
+    "contentType": "audio/mpeg",
+    "suffix": "mp3",
+    "duration": 254,
+    "bitRate": 96,
+    "path": "Music/Beach House/Somewhere Tonight/03_Beach_House_Somewhere_Tonight.mp3",
+    "playCount": 1,
+    "created": "2026-10-26T04:24:39.673613106Z",
+    "albumId": "2nbBbfcfDcwvkKRoliraOs",
+    "artistId": "1azvk1CKDLG8Al6d7rXnLz",
+    "type": "music",
+    "played": "2026-10-29T02:55:59.867849163Z",
+    "bpm": 0,
+    "comment": "",
+    "sortName": "somewhere tonight",
+    "mediaType": "song",
+    "musicBrainzId": "",
+    "isrc": [],
+    "genres": [],
+    "replayGain": {},
+    "channelCount": 2,
+    "samplingRate": 48000,
+    "bitDepth": 0,
+    "moods": [],
+    "artists": [
+      {
+        "id": "1azvk1CKDLG8Al6d7rXnLz",
+        "name": "Beach House"
+      }
+    ],
+    "displayArtist": "Beach House",
+    "albumArtists": [
+      {
+        "id": "1azvk1CKDLG8Al6d7rXnLz",
+        "name": "Beach House"
+      }
+    ],
+    "displayAlbumArtist": "Beach House",
+    "contributors": [],
+    "displayComposer": "",
+    "explicitStatus": "",
+    "groupings": [],
+    "works": [],
+    "movements": [],
+    "localAudioUrl": "./media/songs/03_Beach_House_Somewhere_Tonight.mp3",
+    "localCoverUrl": "./media/covers/cover_03.jpg",
+    "track": 3
+  },
+  {
+    "id": "demo_song_4",
+    "parent": "6de45zbSGGTdfwqoppD4Re",
+    "isDir": false,
+    "title": "Total Eclipse of the Heart (Single Version)",
+    "album": "Total Eclipse of the Heart (Single Version)",
+    "artist": "Bonnie Tyler",
+    "genre": "Unknown",
+    "coverArt": "demo_cover_4",
+    "size": 5377164,
+    "contentType": "audio/mpeg",
+    "suffix": "mp3",
+    "duration": 332,
+    "bitRate": 128,
+    "path": "Music/Bonnie Tyler/Total Eclipse of the Heart (Single Version)/04_Bonnie_Tyler_Total_Eclipse_of_the_Heart__Single_.mp3",
+    "created": "2026-10-26T04:24:39.675720467Z",
+    "albumId": "6de45zbSGGTdfwqoppD4Re",
+    "artistId": "0MGJyZ3pLZyTuqic1F7EEP",
+    "type": "music",
+    "bpm": 0,
+    "comment": "",
+    "sortName": "total eclipse of the heart (single version)",
+    "mediaType": "song",
+    "musicBrainzId": "",
+    "isrc": [],
+    "genres": [
+      {
+        "name": "Unknown"
+      }
+    ],
+    "replayGain": {},
+    "channelCount": 2,
+    "samplingRate": 44100,
+    "bitDepth": 0,
+    "moods": [],
+    "artists": [
+      {
+        "id": "0MGJyZ3pLZyTuqic1F7EEP",
+        "name": "Bonnie Tyler"
+      }
+    ],
+    "displayArtist": "Bonnie Tyler",
+    "albumArtists": [
+      {
+        "id": "0MGJyZ3pLZyTuqic1F7EEP",
+        "name": "Bonnie Tyler"
+      }
+    ],
+    "displayAlbumArtist": "Bonnie Tyler",
+    "contributors": [],
+    "displayComposer": "",
+    "explicitStatus": "",
+    "groupings": [],
+    "works": [],
+    "movements": [],
+    "localAudioUrl": "./media/songs/04_Bonnie_Tyler_Total_Eclipse_of_the_Heart__Single_.mp3",
+    "localCoverUrl": "./media/covers/cover_04.jpg",
+    "track": 4
+  },
+  {
+    "id": "demo_song_5",
+    "parent": "7cNd9ciTUGlVFdgiBwU2bV",
+    "isDir": false,
+    "title": "Altogether",
+    "album": "Altogether",
+    "artist": "Slowdive",
+    "coverArt": "demo_cover_5",
+    "size": 8905570,
+    "contentType": "audio/mpeg",
+    "suffix": "mp3",
+    "duration": 221,
+    "bitRate": 320,
+    "path": "Music/Slowdive/Altogether/05_Slowdive_Altogether.mp3",
+    "created": "2026-10-26T04:24:39.679544627Z",
+    "albumId": "7cNd9ciTUGlVFdgiBwU2bV",
+    "artistId": "7ISlZy7QNuqbs8NZwEs86g",
+    "type": "music",
+    "bpm": 0,
+    "comment": "",
+    "sortName": "altogether",
+    "mediaType": "song",
+    "musicBrainzId": "",
+    "isrc": [],
+    "genres": [],
+    "replayGain": {},
+    "channelCount": 2,
+    "samplingRate": 48000,
+    "bitDepth": 0,
+    "moods": [],
+    "artists": [
+      {
+        "id": "7ISlZy7QNuqbs8NZwEs86g",
+        "name": "Slowdive"
+      }
+    ],
+    "displayArtist": "Slowdive",
+    "albumArtists": [
+      {
+        "id": "7ISlZy7QNuqbs8NZwEs86g",
+        "name": "Slowdive"
+      }
+    ],
+    "displayAlbumArtist": "Slowdive",
+    "contributors": [],
+    "displayComposer": "",
+    "explicitStatus": "",
+    "groupings": [],
+    "works": [],
+    "movements": [],
+    "localAudioUrl": "./media/songs/05_Slowdive_Altogether.mp3",
+    "localCoverUrl": "./media/covers/cover_05.jpg",
+    "track": 5
+  },
+  {
+    "id": "demo_song_6",
+    "parent": "391u93qRO0V0Lhz2km19Hq",
+    "isDir": false,
+    "title": "Daydreaming",
+    "album": "Activa - Daydreaming",
+    "artist": "Activa",
+    "coverArt": "demo_cover_6",
+    "size": 7950038,
+    "contentType": "audio/mpeg",
+    "suffix": "mp3",
+    "duration": 395,
+    "bitRate": 160,
+    "path": "Music/Activa/Activa - Daydreaming/06_Activa_Daydreaming.mp3",
+    "created": "2026-10-26T04:24:39.682639308Z",
+    "albumId": "391u93qRO0V0Lhz2km19Hq",
+    "artistId": "43DkMyCwVYUcxqfCT1KCRl",
+    "type": "music",
+    "bpm": 0,
+    "comment": "",
+    "sortName": "daydreaming",
+    "mediaType": "song",
+    "musicBrainzId": "",
+    "isrc": [],
+    "genres": [],
+    "replayGain": {},
+    "channelCount": 2,
+    "samplingRate": 48000,
+    "bitDepth": 0,
+    "moods": [],
+    "artists": [
+      {
+        "id": "43DkMyCwVYUcxqfCT1KCRl",
+        "name": "Activa"
+      }
+    ],
+    "displayArtist": "Activa",
+    "albumArtists": [
+      {
+        "id": "43DkMyCwVYUcxqfCT1KCRl",
+        "name": "Activa"
+      }
+    ],
+    "displayAlbumArtist": "Activa",
+    "contributors": [],
+    "displayComposer": "",
+    "explicitStatus": "",
+    "groupings": [],
+    "works": [],
+    "movements": [],
+    "localAudioUrl": "./media/songs/06_Activa_Daydreaming.mp3",
+    "localCoverUrl": "./media/covers/cover_06.jpg",
+    "track": 6
+  },
+  {
+    "id": "demo_song_7",
+    "parent": "69YSRcdWgOXkHzF5rHygkh",
+    "isDir": false,
+    "title": "CÁLICE Chico Buarque y Milton Nascimento",
+    "album": "CÁLICE Chico Buarque y Milton Nascimento",
+    "artist": "parbrigd pg mine",
+    "genre": "Unknown",
+    "coverArt": "demo_cover_7",
+    "size": 3384593,
+    "contentType": "audio/mpeg",
+    "suffix": "mp3",
+    "duration": 209,
+    "bitRate": 128,
+    "path": "Music/parbrigd pg mine/CÁLICE Chico Buarque y Milton Nascimento/07_parbrigd_pg_mine_C_LICE_Chico_Buarque_y_Milton_Nasci.mp3",
+    "created": "2026-10-26T04:24:39.683606188Z",
+    "albumId": "69YSRcdWgOXkHzF5rHygkh",
+    "artistId": "7cOpSuz3zKc8eTrjJ5ntKa",
+    "type": "music",
+    "bpm": 0,
+    "comment": "",
+    "sortName": "calice chico buarque y milton nascimento",
+    "mediaType": "song",
+    "musicBrainzId": "",
+    "isrc": [],
+    "genres": [
+      {
+        "name": "Unknown"
+      }
+    ],
+    "replayGain": {},
+    "channelCount": 2,
+    "samplingRate": 44100,
+    "bitDepth": 0,
+    "moods": [],
+    "artists": [
+      {
+        "id": "7cOpSuz3zKc8eTrjJ5ntKa",
+        "name": "parbrigd pg mine"
+      }
+    ],
+    "displayArtist": "parbrigd pg mine",
+    "albumArtists": [
+      {
+        "id": "7cOpSuz3zKc8eTrjJ5ntKa",
+        "name": "parbrigd pg mine"
+      }
+    ],
+    "displayAlbumArtist": "parbrigd pg mine",
+    "contributors": [],
+    "displayComposer": "",
+    "explicitStatus": "",
+    "groupings": [],
+    "works": [],
+    "movements": [],
+    "localAudioUrl": "./media/songs/07_parbrigd_pg_mine_C_LICE_Chico_Buarque_y_Milton_Nasci.mp3",
+    "localCoverUrl": "./media/covers/cover_07.jpg",
+    "track": 7
+  },
+  {
+    "id": "demo_song_8",
+    "parent": "5rybhCJY7nDuNwEa7AwO4K",
+    "isDir": false,
+    "title": "That Just Isn't Empirically Possible",
+    "album": "That Just Isn't Empirically Possible",
+    "artist": "﻿$uicideboy$",
+    "coverArt": "demo_cover_8",
+    "size": 5069961,
+    "contentType": "audio/mpeg",
+    "suffix": "mp3",
+    "duration": 123,
+    "bitRate": 320,
+    "path": "Music/﻿$uicideboy$/That Just Isn't Empirically Possible/08___uicideboy__That_Just_Isn_t_Empirically_Possibl.mp3",
+    "created": "2026-10-26T04:24:39.684644429Z",
+    "albumId": "5rybhCJY7nDuNwEa7AwO4K",
+    "artistId": "4tL2JbmbdqdTS8FUtzg3TZ",
+    "type": "music",
+    "bpm": 0,
+    "comment": "",
+    "sortName": "that just isn't empirically possible",
+    "mediaType": "song",
+    "musicBrainzId": "",
+    "isrc": [],
+    "genres": [],
+    "replayGain": {},
+    "channelCount": 2,
+    "samplingRate": 48000,
+    "bitDepth": 0,
+    "moods": [],
+    "artists": [
+      {
+        "id": "4tL2JbmbdqdTS8FUtzg3TZ",
+        "name": "﻿$uicideboy$"
+      }
+    ],
+    "displayArtist": "﻿$uicideboy$",
+    "albumArtists": [
+      {
+        "id": "4tL2JbmbdqdTS8FUtzg3TZ",
+        "name": "﻿$uicideboy$"
+      }
+    ],
+    "displayAlbumArtist": "﻿$uicideboy$",
+    "contributors": [],
+    "displayComposer": "",
+    "explicitStatus": "",
+    "groupings": [],
+    "works": [],
+    "movements": [],
+    "localAudioUrl": "./media/songs/08___uicideboy__That_Just_Isn_t_Empirically_Possibl.mp3",
+    "localCoverUrl": "./media/covers/cover_08.jpg",
+    "track": 8
+  },
+  {
+    "id": "demo_song_9",
+    "parent": "0puH0CXrENrlFfRNRdhEJT",
+    "isDir": false,
+    "title": "Moment of Peace",
+    "album": "Gregorian ",
+    "artist": "Gregorian ",
+    "coverArt": "demo_cover_9",
+    "size": 10028848,
+    "contentType": "audio/mpeg",
+    "suffix": "mp3",
+    "duration": 247,
+    "bitRate": 320,
+    "path": "Music/Gregorian /Gregorian /09_Gregorian__Moment_of_Peace.mp3",
+    "created": "2026-10-26T04:24:39.685604309Z",
+    "albumId": "0puH0CXrENrlFfRNRdhEJT",
+    "artistId": "4tr7tVNe6khcf1QxhUzAWo",
+    "type": "music",
+    "bpm": 0,
+    "comment": "",
+    "sortName": "moment of peace",
+    "mediaType": "song",
+    "musicBrainzId": "",
+    "isrc": [],
+    "genres": [],
+    "replayGain": {},
+    "channelCount": 2,
+    "samplingRate": 48000,
+    "bitDepth": 0,
+    "moods": [],
+    "artists": [
+      {
+        "id": "4tr7tVNe6khcf1QxhUzAWo",
+        "name": "Gregorian"
+      }
+    ],
+    "displayArtist": "Gregorian ",
+    "albumArtists": [
+      {
+        "id": "4tr7tVNe6khcf1QxhUzAWo",
+        "name": "Gregorian"
+      }
+    ],
+    "displayAlbumArtist": "Gregorian",
+    "contributors": [],
+    "displayComposer": "",
+    "explicitStatus": "",
+    "groupings": [],
+    "works": [],
+    "movements": [],
+    "localAudioUrl": "./media/songs/09_Gregorian__Moment_of_Peace.mp3",
+    "localCoverUrl": "./media/covers/cover_09.jpg",
+    "track": 9
+  },
+  {
+    "id": "demo_song_10",
+    "parent": "2ngJ6s6cJXPFl2Y5AxwCND",
+    "isDir": false,
+    "title": "After Dark x Sweater Weather - Slowed + Reverb",
+    "album": "After Dark x Sweater Weather (slowed and reverb)",
+    "artist": "Slo, Twilight & Tazzy",
+    "coverArt": "demo_cover_10",
+    "size": 14443326,
+    "contentType": "audio/mpeg",
+    "suffix": "mp3",
+    "duration": 357,
+    "bitRate": 320,
+    "path": "Music/Slo, Twilight & Tazzy/After Dark x Sweater Weather (slowed and reverb)/10_Slo__Twilight___Tazzy_After_Dark_x_Sweater_Weather_-_Slow.mp3",
+    "playCount": 1,
+    "created": "2026-10-26T04:24:39.68942999Z",
+    "albumId": "2ngJ6s6cJXPFl2Y5AxwCND",
+    "artistId": "57foIH48KyF25FIVQBjlTO",
+    "type": "music",
+    "played": "2026-10-28T16:55:36.081718489Z",
+    "bpm": 0,
+    "comment": "",
+    "sortName": "after dark x sweater weather - slowed + reverb",
+    "mediaType": "song",
+    "musicBrainzId": "",
+    "isrc": [],
+    "genres": [],
+    "replayGain": {},
+    "channelCount": 2,
+    "samplingRate": 48000,
+    "bitDepth": 0,
+    "moods": [],
+    "artists": [
+      {
+        "id": "57foIH48KyF25FIVQBjlTO",
+        "name": "Slo, Twilight & Tazzy"
+      }
+    ],
+    "displayArtist": "Slo, Twilight & Tazzy",
+    "albumArtists": [
+      {
+        "id": "57foIH48KyF25FIVQBjlTO",
+        "name": "Slo, Twilight & Tazzy"
+      }
+    ],
+    "displayAlbumArtist": "Slo, Twilight & Tazzy",
+    "contributors": [],
+    "displayComposer": "",
+    "explicitStatus": "",
+    "groupings": [],
+    "works": [],
+    "movements": [],
+    "localAudioUrl": "./media/songs/10_Slo__Twilight___Tazzy_After_Dark_x_Sweater_Weather_-_Slow.mp3",
+    "localCoverUrl": "./media/covers/cover_10.jpg",
+    "track": 10
+  },
+  {
+    "id": "demo_song_11",
+    "parent": "2pbwuhS3NcObzYhezZgRSY",
+    "isDir": false,
+    "title": "Na Pele",
+    "album": "Na Pele",
+    "artist": "Elza Soares & Pitty",
+    "genre": "Unknown",
+    "coverArt": "demo_cover_11",
+    "size": 3762081,
+    "contentType": "audio/mpeg",
+    "suffix": "mp3",
+    "duration": 231,
+    "bitRate": 128,
+    "path": "Music/Elza Soares & Pitty/Na Pele/11_Elza_Soares___Pitty_Na_Pele.mp3",
+    "created": "2026-10-26T04:24:39.69038715Z",
+    "albumId": "2pbwuhS3NcObzYhezZgRSY",
+    "artistId": "1TR9xF346fFGNGZu8z1VsE",
+    "type": "music",
+    "bpm": 0,
+    "comment": "",
+    "sortName": "na pele",
+    "mediaType": "song",
+    "musicBrainzId": "",
+    "isrc": [],
+    "genres": [
+      {
+        "name": "Unknown"
+      }
+    ],
+    "replayGain": {},
+    "channelCount": 2,
+    "samplingRate": 44100,
+    "bitDepth": 0,
+    "moods": [],
+    "artists": [
+      {
+        "id": "1TR9xF346fFGNGZu8z1VsE",
+        "name": "Elza Soares & Pitty"
+      }
+    ],
+    "displayArtist": "Elza Soares & Pitty",
+    "albumArtists": [
+      {
+        "id": "1TR9xF346fFGNGZu8z1VsE",
+        "name": "Elza Soares & Pitty"
+      }
+    ],
+    "displayAlbumArtist": "Elza Soares & Pitty",
+    "contributors": [],
+    "displayComposer": "",
+    "explicitStatus": "",
+    "groupings": [],
+    "works": [],
+    "movements": [],
+    "localAudioUrl": "./media/songs/11_Elza_Soares___Pitty_Na_Pele.mp3",
+    "localCoverUrl": "./media/covers/cover_11.jpg",
+    "track": 11
+  },
+  {
+    "id": "demo_song_12",
+    "parent": "1GuzVPa5NbPcSEZvUrPEHx",
+    "isDir": false,
+    "title": "Língua",
+    "album": "Língua",
+    "artist": "Caetano Veloso",
+    "genre": "Unknown",
+    "coverArt": "demo_cover_12",
+    "size": 4096136,
+    "contentType": "audio/mpeg",
+    "suffix": "mp3",
+    "duration": 252,
+    "bitRate": 128,
+    "path": "Music/Caetano Veloso/Língua/12_Caetano_Veloso_L_ngua.mp3",
+    "created": "2026-10-26T04:24:39.694094831Z",
+    "albumId": "1GuzVPa5NbPcSEZvUrPEHx",
+    "artistId": "0LSSzyCROCLn2hZndL0AmY",
+    "type": "music",
+    "bpm": 0,
+    "comment": "",
+    "sortName": "lingua",
+    "mediaType": "song",
+    "musicBrainzId": "",
+    "isrc": [],
+    "genres": [
+      {
+        "name": "Unknown"
+      }
+    ],
+    "replayGain": {},
+    "channelCount": 2,
+    "samplingRate": 44100,
+    "bitDepth": 0,
+    "moods": [],
+    "artists": [
+      {
+        "id": "0LSSzyCROCLn2hZndL0AmY",
+        "name": "Caetano Veloso"
+      }
+    ],
+    "displayArtist": "Caetano Veloso",
+    "albumArtists": [
+      {
+        "id": "0LSSzyCROCLn2hZndL0AmY",
+        "name": "Caetano Veloso"
+      }
+    ],
+    "displayAlbumArtist": "Caetano Veloso",
+    "contributors": [],
+    "displayComposer": "",
+    "explicitStatus": "",
+    "groupings": [],
+    "works": [],
+    "movements": [],
+    "localAudioUrl": "./media/songs/12_Caetano_Veloso_L_ngua.mp3",
+    "localCoverUrl": "./media/covers/cover_12.jpg",
+    "track": 12
+  },
+  {
+    "id": "demo_song_13",
+    "parent": "2McNU8uQaceCDWo2TqNkPR",
+    "isDir": false,
+    "title": "Flashing Lights",
+    "album": "Graduation Exclusive Edition",
+    "artist": "Kanye West",
+    "track": 13,
+    "year": 2026,
+    "coverArt": "demo_cover_13",
+    "size": 5323954,
+    "contentType": "audio/mpeg",
+    "suffix": "mp3",
+    "duration": 322,
+    "bitRate": 128,
+    "path": "Music/Kanye West/Graduation Exclusive Edition/13_Kanye_West_Flashing_Lights.mp3",
+    "created": "2026-10-26T22:53:23.256081733Z",
+    "albumId": "2McNU8uQaceCDWo2TqNkPR",
+    "artistId": "02DiEqiNBn3idZvY8XP1lr",
+    "type": "music",
+    "bpm": 0,
+    "comment": "",
+    "sortName": "flashing lights",
+    "mediaType": "song",
+    "musicBrainzId": "",
+    "isrc": [],
+    "genres": [],
+    "replayGain": {},
+    "channelCount": 2,
+    "samplingRate": 44100,
+    "bitDepth": 0,
+    "moods": [],
+    "artists": [
+      {
+        "id": "02DiEqiNBn3idZvY8XP1lr",
+        "name": "Kanye West"
+      }
+    ],
+    "displayArtist": "Kanye West",
+    "albumArtists": [
+      {
+        "id": "02DiEqiNBn3idZvY8XP1lr",
+        "name": "Kanye West"
+      }
+    ],
+    "displayAlbumArtist": "Kanye West",
+    "contributors": [],
+    "displayComposer": "",
+    "explicitStatus": "",
+    "groupings": [],
+    "works": [],
+    "movements": [],
+    "localAudioUrl": "./media/songs/13_Kanye_West_Flashing_Lights.mp3",
+    "localCoverUrl": "./media/covers/cover_13.jpg"
+  },
+  {
+    "id": "demo_song_14",
+    "parent": "48Psw8p1FeRKybxO9P8WOH",
+    "isDir": false,
+    "title": "Dias de Luta, Dias de Gloria",
+    "album": "Charlie Brown Jr. - Dias De Luta, Dias De Glória",
+    "artist": "Charlie Brown Jr.",
+    "coverArt": "demo_cover_14",
+    "size": 5904209,
+    "contentType": "audio/mpeg",
+    "suffix": "mp3",
+    "duration": 145,
+    "bitRate": 320,
+    "path": "Music/Charlie Brown Jr./Charlie Brown Jr. - Dias De Luta, Dias De Glória/14_Charlie_Brown_Jr__Dias_de_Luta__Dias_de_Gloria.mp3",
+    "created": "2026-10-26T04:24:39.829614419Z",
+    "albumId": "48Psw8p1FeRKybxO9P8WOH",
+    "artistId": "5EFEsT3Z22VnwNGA1vghN1",
+    "type": "music",
+    "bpm": 0,
+    "comment": "",
+    "sortName": "dias de luta, dias de gloria",
+    "mediaType": "song",
+    "musicBrainzId": "",
+    "isrc": [],
+    "genres": [],
+    "replayGain": {},
+    "channelCount": 2,
+    "samplingRate": 48000,
+    "bitDepth": 0,
+    "moods": [],
+    "artists": [
+      {
+        "id": "5EFEsT3Z22VnwNGA1vghN1",
+        "name": "Charlie Brown Jr."
+      }
+    ],
+    "displayArtist": "Charlie Brown Jr.",
+    "albumArtists": [
+      {
+        "id": "5EFEsT3Z22VnwNGA1vghN1",
+        "name": "Charlie Brown Jr."
+      }
+    ],
+    "displayAlbumArtist": "Charlie Brown Jr.",
+    "contributors": [],
+    "displayComposer": "",
+    "explicitStatus": "",
+    "groupings": [],
+    "works": [],
+    "movements": [],
+    "localAudioUrl": "./media/songs/14_Charlie_Brown_Jr__Dias_de_Luta__Dias_de_Gloria.mp3",
+    "localCoverUrl": "./media/covers/cover_14.jpg",
+    "track": 14
+  },
+  {
+    "id": "demo_song_15",
+    "parent": "4ZO6cjEbTsSE1vne34apY7",
+    "isDir": false,
+    "title": "Born to Die",
+    "album": "Born to Die",
+    "artist": "Lana Del Rey",
+    "genre": "Unknown",
+    "coverArt": "demo_cover_15",
+    "size": 4623513,
+    "contentType": "audio/mpeg",
+    "suffix": "mp3",
+    "duration": 286,
+    "bitRate": 128,
+    "path": "Music/Lana Del Rey/Born to Die/15_Lana_Del_Rey_Born_to_Die.mp3",
+    "created": "2026-10-26T04:58:02.589330996Z",
+    "albumId": "4ZO6cjEbTsSE1vne34apY7",
+    "artistId": "54nm0gZeP3JUSqzeanxiix",
+    "type": "music",
+    "bpm": 0,
+    "comment": "",
+    "sortName": "born to die",
+    "mediaType": "song",
+    "musicBrainzId": "",
+    "isrc": [],
+    "genres": [
+      {
+        "name": "Unknown"
+      }
+    ],
+    "replayGain": {},
+    "channelCount": 2,
+    "samplingRate": 44100,
+    "bitDepth": 0,
+    "moods": [],
+    "artists": [
+      {
+        "id": "54nm0gZeP3JUSqzeanxiix",
+        "name": "Lana Del Rey"
+      }
+    ],
+    "displayArtist": "Lana Del Rey",
+    "albumArtists": [
+      {
+        "id": "54nm0gZeP3JUSqzeanxiix",
+        "name": "Lana Del Rey"
+      }
+    ],
+    "displayAlbumArtist": "Lana Del Rey",
+    "contributors": [],
+    "displayComposer": "",
+    "explicitStatus": "",
+    "groupings": [],
+    "works": [],
+    "movements": [],
+    "localAudioUrl": "./media/songs/15_Lana_Del_Rey_Born_to_Die.mp3",
+    "localCoverUrl": "./media/covers/cover_15.jpg",
+    "track": 15
+  }
+]

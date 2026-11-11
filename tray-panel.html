@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feishin — Mini Player Apple Glass</title>
+  <style>
+    :root {
+      --text-primary: #FFFFFF;
+      --text-secondary: rgba(255, 255, 255, 0.70);
+      --text-tertiary: rgba(255, 255, 255, 0.45);
+      --divider: rgba(255, 255, 255, 0.10);
+      --control-bg: rgba(255, 255, 255, 0.08);
+      --control-bg-hover: rgba(255, 255, 255, 0.16);
+      --control-bg-active: rgba(255, 255, 255, 0.22);
+      --control-border: rgba(255, 255, 255, 0.14);
+      --item-hover: rgba(255, 255, 255, 0.08);
+      --item-active: rgba(255, 255, 255, 0.16);
+      --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    html, body {
+      background: transparent !important;
+      color: var(--text-primary);
+      font-family: var(--font-stack);
+      -webkit-font-smoothing: antialiased;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    /* Apple Native Popover Glass Surface */
+    .widget-container {
+      width: 100%;
+      height: 100%;
+      background: rgba(22, 22, 28, 0.75) !important;
+      border: 1px solid rgba(255, 255, 255, 0.09) !important;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Header */
+    .widget-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px 9px 14px;
+      border-bottom: 1px solid var(--divider);
+    }
+
+    .widget-brand {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .brand-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .brand-dot.paused {
+      background: rgba(255, 255, 255, 0.35);
+      box-shadow: none;
+    }
+
+    .brand-title {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: -0.1px;
+      color: var(--text-primary);
+    }
+
+    .btn-header-app {
+      background: var(--control-bg);
+      border: 1px solid var(--control-border);
+      color: var(--text-secondary);
+      border-radius: 6px;
+      padding: 3px 8px;
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .btn-header-app:hover {
+      background: var(--control-bg-hover);
+      color: var(--text-primary);
+    }
+
+    /* Now Playing Hero — Minimal Apple Glass */
+    .now-playing-box {
+      padding: 12px 14px 10px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+      border-bottom: 1px solid var(--divider);
+    }
+
+    .track-info-row {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .cover-art-container {
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .cover-art-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .cover-art-fallback {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .cover-art-fallback svg {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+    }
+
+    .track-meta {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .track-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      letter-spacing: -0.15px;
+    }
+
+    .track-artist {
+      font-size: 11.5px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .track-album {
+      font-size: 10.5px;
+      font-weight: 400;
+      color: var(--text-tertiary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Apple Progress Bar */
+    .progress-section {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .progress-bar-bg {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 4px;
+      width: 0%;
+      transition: width 0.3s linear;
+    }
+
+    .progress-times {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Monochromatic Apple Media Controls */
+    .controls-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding-top: 2px;
+    }
+
+    .ctrl-btn {
+      background: var(--control-bg);
+      border: 1px solid var(--control-border);
+      color: var(--text-primary);
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+      position: relative;
+    }
+
+    .ctrl-btn:hover {
+      background: var(--control-bg-hover);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .ctrl-btn:active {
+      background: var(--control-bg-active);
+      transform: scale(0.96);
+    }
+
+    .ctrl-btn svg {
+      fill: currentColor;
+    }
+
+    .ctrl-btn-step {
+      width: 38px;
+      height: 32px;
+    }
+
+    .ctrl-btn-skip {
+      width: 44px;
+      height: 32px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      color: var(--text-secondary);
+    }
+
+    .ctrl-btn-skip:hover {
+      color: var(--text-primary);
+    }
+
+    .ctrl-btn-play {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+    }
+
+    .ctrl-btn-play:hover {
+      background: rgba(255, 255, 255, 0.26);
+      border-color: rgba(255, 255, 255, 0.40);
+    }
+
+    /* Queue & Playlist Section */
+    .queue-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .queue-header {
+      padding: 9px 14px 6px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .queue-title {
+      font-size: 10.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--text-tertiary);
+    }
+
+    .queue-badge {
+      font-size: 10px;
+      font-weight: 500;
+      padding: 1px 6px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-secondary);
+    }
+
+    .queue-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 2px 8px 8px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .queue-list::-webkit-scrollbar {
+      width: 4px;
+    }
+    .queue-list::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .queue-list::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.20);
+      border-radius: 4px;
+    }
+
+    .queue-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 8px;
+      border-radius: 6px;
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.12s ease;
+    }
+
+    .queue-item:hover {
+      background: var(--item-hover);
+    }
+
+    .queue-item.active {
+      background: var(--item-active);
+    }
+
+    .queue-item-idx {
+      width: 18px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .queue-item.active .queue-item-idx {
+      color: var(--text-primary);
+    }
+
+    .queue-item-details {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .queue-item-title {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      letter-spacing: -0.1px;
+    }
+
+    .queue-item.active .queue-item-title {
+      font-weight: 600;
+    }
+
+    .queue-item-artist {
+      font-size: 10.5px;
+      font-weight: 400;
+      color: var(--text-tertiary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .queue-item-dur {
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      flex-shrink: 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Sound Wave Equalizer (Apple Monochrome) */
+    .sound-wave {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 11px;
+      width: 13px;
+    }
+
+    .sound-wave span {
+      display: block;
+      width: 2.5px;
+      background: #FFFFFF;
+      border-radius: 1px;
+      animation: wave 1s infinite ease-in-out alternate;
+    }
+
+    .sound-wave span:nth-child(1) { height: 40%; animation-delay: 0.1s; }
+    .sound-wave span:nth-child(2) { height: 100%; animation-delay: 0.3s; }
+    .sound-wave span:nth-child(3) { height: 60%; animation-delay: 0.2s; }
+
+    @keyframes wave {
+      0% { height: 25%; }
+      100% { height: 100%; }
+    }
+
+    .empty-queue {
+      padding: 30px 16px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-tertiary);
+    }
+  </style>
+</head>
+<body>
+  <div class="widget-container">
+    <!-- Header -->
+    <div class="widget-header">
+      <div class="widget-brand">
+        <div class="brand-dot" id="playback-status-dot"></div>
+        <span class="brand-title">Feishin</span>
+      </div>
+      <button class="btn-header-app" id="btn-open-app" title="Abrir Feishin">
+        Abrir ↗
+      </button>
+    </div>
+
+    <!-- Now Playing Box -->
+    <div class="now-playing-box">
+      <div class="track-info-row">
+        <div class="cover-art-container">
+          <img id="track-cover" src="" alt="Capa" style="display: none;" />
+          <div class="cover-art-fallback" id="track-cover-fallback">
+            <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+          </div>
+        </div>
+        <div class="track-meta">
+          <div class="track-title" id="track-title">Carregando...</div>
+          <div class="track-artist" id="track-artist">Aguardando reprodução</div>
+          <div class="track-album" id="track-album">Feishin Music</div>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="progress-section">
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="progress-fill"></div>
+        </div>
+        <div class="progress-times">
+          <span id="time-current">0:00</span>
+          <span id="time-total">0:00</span>
+        </div>
+      </div>
+
+      <!-- Controls: [Retroceder] [-3s] [Play/Pause] [+3s] [Avançar] -->
+      <div class="controls-box">
+        <!-- 1. Retroceder Faixa -->
+        <button class="ctrl-btn ctrl-btn-step" id="btn-prev" title="Retroceder">
+          <svg width="14" height="14" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+        </button>
+
+        <!-- 2. Voltar 3s -->
+        <button class="ctrl-btn ctrl-btn-skip" id="btn-seek-back" title="Voltar 3 segundos">
+          -3s
+        </button>
+
+        <!-- 3. Play / Pause -->
+        <button class="ctrl-btn ctrl-btn-play" id="btn-play-pause" title="Play / Pausar">
+          <svg id="play-icon-svg" width="16" height="16" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+
+        <!-- 4. Avançar 3s -->
+        <button class="ctrl-btn ctrl-btn-skip" id="btn-seek-fwd" title="Avançar 3 segundos">
+          +3s
+        </button>
+
+        <!-- 5. Avançar Faixa -->
+        <button class="ctrl-btn ctrl-btn-step" id="btn-next" title="Avançar">
+          <svg width="14" height="14" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Queue & Playlist List -->
+    <div class="queue-section">
+      <div class="queue-header">
+        <span class="queue-title">Fila de Reprodução</span>
+        <span class="queue-badge" id="queue-count">0</span>
+      </div>
+      <div class="queue-list" id="queue-items-container">
+        <div class="empty-queue">Nenhuma música na fila.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const electron = window.require ? window.require('electron') : (typeof require !== 'undefined' ? require('electron') : null);
+    const ipcRenderer = electron ? electron.ipcRenderer : (window.api && window.api.ipc ? window.api.ipc : null);
+
+    let currentState = null;
+
+    function formatTime(seconds) {
+      if (!seconds || isNaN(seconds)) return "0:00";
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+
+    function sendAction(action, payload = null) {
+      if (ipcRenderer) {
+        ipcRenderer.send('tray-panel-action', action, payload);
+      }
+    }
+
+    // Controls setup
+    document.getElementById('btn-prev').onclick = () => sendAction('previous');
+    document.getElementById('btn-seek-back').onclick = () => sendAction('skip-backward', 3);
+    document.getElementById('btn-play-pause').onclick = () => sendAction('play-pause');
+    document.getElementById('btn-seek-fwd').onclick = () => sendAction('skip-forward', 3);
+    document.getElementById('btn-next').onclick = () => sendAction('next');
+    document.getElementById('btn-open-app').onclick = () => sendAction('open-main-window');
+
+    function updateUI(state) {
+      if (!state) return;
+      currentState = state;
+
+      // Meta
+      document.getElementById('track-title').textContent = state.title || 'Sem faixa';
+      document.getElementById('track-artist').textContent = state.artist || 'Artista desconhecido';
+      document.getElementById('track-album').textContent = state.album || '';
+
+      // Cover Art
+      const coverImg = document.getElementById('track-cover');
+      const coverFallback = document.getElementById('track-cover-fallback');
+      if (state.coverUrl) {
+        coverImg.src = state.coverUrl;
+        coverImg.style.display = 'block';
+        coverFallback.style.display = 'none';
+      } else {
+        coverImg.style.display = 'none';
+        coverFallback.style.display = 'flex';
+      }
+
+      // Status indicator & Play/Pause icon
+      const dot = document.getElementById('playback-status-dot');
+      const btnPlay = document.getElementById('btn-play-pause');
+      if (state.isPlaying) {
+        dot.classList.remove('paused');
+        btnPlay.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
+        btnPlay.title = 'Pausar';
+      } else {
+        dot.classList.add('paused');
+        btnPlay.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+        btnPlay.title = 'Reproduzir';
+      }
+
+      // Progress
+      const curTime = state.timestamp || 0;
+      const totalTime = state.duration || 0;
+      document.getElementById('time-current').textContent = formatTime(curTime);
+      document.getElementById('time-total').textContent = formatTime(totalTime);
+
+      const pct = totalTime > 0 ? Math.min(100, Math.max(0, (curTime / totalTime) * 100)) : 0;
+      document.getElementById('progress-fill').style.width = `${pct}%`;
+
+      // Queue list
+      const container = document.getElementById('queue-items-container');
+      const badge = document.getElementById('queue-count');
+      const queue = state.queue || [];
+
+      badge.textContent = `${queue.length}`;
+
+      if (queue.length === 0) {
+        container.innerHTML = '<div class="empty-queue">Nenhuma música na fila.</div>';
+        return;
+      }
+
+      container.innerHTML = '';
+      queue.forEach((track, i) => {
+        const itemEl = document.createElement('div');
+        itemEl.className = `queue-item ${track.isCurrent ? 'active' : ''}`;
+        
+        let indicatorHtml = `<span class="queue-item-idx">${i + 1}</span>`;
+        if (track.isCurrent && state.isPlaying) {
+          indicatorHtml = `
+            <div class="sound-wave">
+              <span></span><span></span><span></span>
+            </div>
+          `;
+        }
+
+        itemEl.innerHTML = `
+          ${indicatorHtml}
+          <div class="queue-item-details">
+            <div class="queue-item-title">${escapeHtml(track.name)}</div>
+            <div class="queue-item-artist">${escapeHtml(track.artist || '')}</div>
+          </div>
+          <div class="queue-item-dur">${formatTime(track.duration)}</div>
+        `;
+
+        itemEl.onclick = () => {
+          sendAction('play-index', { index: i });
+        };
+
+        container.appendChild(itemEl);
+      });
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    // Listen for state from main process
+    if (ipcRenderer) {
+      ipcRenderer.on('tray-panel-update-state', (_e, state) => {
+        updateUI(state);
+      });
+      // Initial request
+      ipcRenderer.send('tray-panel-action', 'request-sync');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,4931 @@
+/* ==========================================================================
+   FEISHIN MOBILE PRO — NATIVE ANDROID LIQUID GLASS SYSTEM
+   Portabilidade Perfeita da Interface Desktop para Mobile Android
+   Hardware Alvo: Samsung Galaxy S22 Ultra (Edge-to-Edge & Safe-Areas)
+   ========================================================================== */
+
+:root {
+    --sat: env(safe-area-inset-top, 0px);
+    --sab: env(safe-area-inset-bottom, 0px);
+    --sal: env(safe-area-inset-left, 0px);
+    --sar: env(safe-area-inset-right, 0px);
+    --feishin-accent: #2563EB;
+    --feishin-purple-glow: rgba(139, 92, 246, 0.45);
+    --personal-os-glass-blur: 28px;
+}
+
+/* 1. Reset Global & Transparência Edge-to-Edge */
+html, body, #root {
+    width: 100vw !important;
+    height: 100dvh !important;
+    overflow: hidden !important;
+    -webkit-tap-highlight-color: transparent !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    touch-action: pan-y !important;
+    background: transparent !important;
+}
+
+/* Ocultar barra de janela desktop (fechar/minimizar macOS) */
+#window-bar, [class*="window-bar"], .fs-window-bar, [class*="windowBar"] {
+    display: none !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Universal Hidden Class for Feishin Track Page and Components */
+.feishin-tp-hidden,
+svg.feishin-tp-hidden,
+button.feishin-tp-hidden,
+div.feishin-tp-hidden {
+    display: none !important;
+}
+
+/* Quando o Player Fullscreen estiver aberto, oculta #root para permitir visão cristalina do WebGL Shader */
+body.feishin-tp-open #root {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Supressão estrita da Android Navbar principal do app na tela de reprodução de músicas */
+body.feishin-tp-open #feishin-mobile-bottom-nav,
+body.feishin-tp-open #feishin-more-glass-backdrop,
+body.feishin-tp-open #feishin-more-glass-box {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: translateY(180%) !important;
+}
+
+body.feishin-landscape.feishin-tp-open #feishin-mobile-bottom-nav,
+body.feishin-landscape.feishin-tp-open #feishin-more-glass-backdrop,
+body.feishin-landscape.feishin-tp-open #feishin-more-glass-box {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: translateX(-180%) !important;
+}
+
+/* 2. Shaders WebGL no Fundo em Fullscreen */
+#bg-webgl-container {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    z-index: -2 !important;
+    pointer-events: none !important;
+    background: transparent !important;
+    overflow: hidden !important;
+    contain: strict !important;
+    transform: translate3d(0, 0, 0) !important;
+    will-change: transform !important;
+}
+
+#bg-webgl-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    transform: translate3d(0, 0, 0) !important;
+    backface-visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+#bg-webgl-dim {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    background-color: rgba(0, 0, 0, var(--personal-os-shader-dim, 0.12)) !important;
+    background-image: radial-gradient(circle at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, calc(var(--personal-os-shader-dim, 0.12) * 0.85)) 100%) !important;
+    z-index: -1 !important;
+    pointer-events: none !important;
+    transition: background-color 0.12s ease !important;
+}
+
+#bg-webgl-vignette {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.35) !important;
+    z-index: -1 !important;
+    pointer-events: none !important;
+}
+
+/* 3. Estrutura do Layout Mobile */
+#mobile-layout,
+#default-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100dvh !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+    background: transparent !important;
+    position: relative !important;
+    left: 0 !important;
+    top: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Conteúdo principal com rolagem suave e espaço para o Player + TabBar */
+#mobile-layout > main.fs-mobile-layout-module-main-content {
+    flex: 1 1 0% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    padding-top: max(var(--sat), 4px) !important;
+    padding-bottom: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    background: transparent !important;
+}
+
+/* Supressão estrita da rota nativa inválida na aba Recentes (mobile) */
+body.feishin-route-recently-added #mobile-layout .fs-animated-page-module-animated-page,
+body.feishin-route-recently-added #mobile-layout main.fs-mobile-layout-module-main-content > main,
+body.feishin-route-recently-added .fs-mobile-layout-module-main-content > main,
+body.feishin-route-recently-added .fs-animated-page-module-animated-page,
+body.feishin-route-recently-added [class*="animated-page"] {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+    pointer-events: none !important;
+    opacity: 0 !important;
+}
+
+#mobile-layout .fs-animated-page-module-animated-page {
+    flex: 1 1 0% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    background: transparent !important;
+}
+
+#mobile-layout .fs-list-with-sidebar-container-module-container,
+#mobile-layout .fs-list-with-sidebar-container-module-content-container,
+#mobile-layout .fs-item-table-list-module-item-table-list-container,
+#mobile-layout .fs-item-table-list-module-item-table-container,
+#mobile-layout .fs-item-table-list-module-item-table-pinned-rows-container,
+#mobile-layout .fs-item-table-list-module-item-table-grid-container {
+    flex: 1 1 0% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    background: transparent !important;
+}
+
+#mobile-layout .fs-item-table-list-module-height-100 {
+    flex: 1 1 0% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    padding-bottom: calc(72px + 56px + var(--sab, 0px) + 20px) !important;
+    box-sizing: border-box !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior-y: contain !important;
+}
+
+.fs-mobile-layout-module-main-content::-webkit-scrollbar,
+#mobile-layout main::-webkit-scrollbar,
+.fs-item-table-list-module-height-100::-webkit-scrollbar {
+    display: none !important;
+}
+
+/* 4. CABEÇALHO COMPACTO & REMOÇÃO DEFINITIVA DE REDUNDÂNCIA (NOMES DE PÁGINAS) */
+/* Ocultar completamente títulos h1/nomes de páginas em todos os painéis superiores */
+.fs-library-header-bar-module-header-container h1,
+.fs-library-header-bar-module-header-container [class*="title"],
+.fs-library-header-module-title,
+.fs-page-header-module-container h1,
+.fs-page-header-module-header h1,
+.fs-page-header-module-title-wrapper h1,
+.fs-text-title-module-root,
+[class*="page-header"] h1,
+[class*="library-header"] h1,
+[class*="pageHeader"] h1,
+[class*="libraryHeader"] h1,
+[class*="page-header-module-title"] {
+    display: none !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Ocultar botão menu redundante no topo (navegação 100% no Bottom Nav) */
+#feishin-header-menu-btn {
+    display: none !important;
+}
+
+/* Otimização cirúrgica do container de cabeçalho superior para maximizar espaço útil */
+.fs-library-header-bar-module-container,
+.fs-page-header-module-container {
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 2px 14px 2px 14px !important;
+    background: transparent !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+.fs-page-header-module-header {
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.fs-page-header-module-title-wrapper {
+    position: relative !important;
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.fs-library-header-bar-module-header-container {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   TOOLBAR DE LISTA — BARRA ÚNICA ARREDONDADA (SEM BOTÃO PLAY AZUL)
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Ocultar o botão azul circular de Play */
+.fs-library-header-bar-module-play-button-container,
+.fs-library-header-bar-module-play-button-container button,
+.fs-play-button-module-text-button {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    pointer-events: none !important;
+}
+
+/* Ocultar títulos h1 redundantes na barra compacta */
+.fs-page-header-module-title-wrapper h1,
+.fs-library-header-bar-module-header-container h1 {
+    display: none !important;
+}
+
+/* Barra Única Arredondada Simples - Vidro Super Claro */
+.fs-filter-bar-module-filter-bar {
+    display: flex !important;
+    align-items: center !important;
+    height: 44px !important;
+    min-height: 44px !important;
+    max-height: 44px !important;
+    padding: 0 8px !important;
+    margin: 2px 8px 6px 8px !important;
+    width: calc(100% - 16px) !important;
+    border-radius: 22px !important;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.08) 100%) !important;
+    backdrop-filter: blur(28px) saturate(210%) brightness(1.22) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(210%) brightness(1.22) !important;
+    border: 1px solid rgba(255, 255, 255, 0.40) !important;
+    box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.65), 0 8px 28px rgba(0, 0, 0, 0.25) !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+}
+
+.fs-filter-bar-module-filter-bar > .mantine-Flex-root {
+    display: flex !important;
+    width: 100% !important;
+    align-items: center !important;
+    justify-content: space-evenly !important;
+    gap: 0 !important;
+    box-sizing: border-box !important;
+    padding: 0 !important;
+}
+
+.fs-filter-bar-module-filter-bar .mantine-Group-root {
+    display: contents !important;
+}
+
+.fs-filter-bar-module-filter-bar .mantine-Divider-root {
+    display: none !important;
+}
+
+/* Ocultar completamente o número de músicas da toolbar */
+.fs-filter-bar-module-filter-bar .fs-badge-module-root,
+.fs-page-header-module-container .fs-badge-module-root,
+[class*="headerBadge"], [class*="HeaderBadge"],
+.fs-badge-module-root {
+    display: none !important;
+}
+
+/* Ocultar bubbles residuais de contador sobre botões de navegação */
+.feishin-nav-bubble,
+#feishin-more-bubble {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Mantine Stack container: sem margens ou fundos que conflitem */
+#mobile-layout .fs-animated-page-module-animated-page > .mantine-Stack-root {
+    gap: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    margin-bottom: 2px !important;
+}
+
+/* 5. TABELA DE MÚSICAS (ItemTableList) — ELIMINAÇÃO DOS ERROS GROTESCOS */
+/* Container virtual da tabela */
+.fs-item-table-list-module-item-table-container,
+.fs-item-table-list-module-item-table-grid-container,
+[role="grid"] {
+    background: transparent !important;
+    padding-right: 26px !important; /* Espaço para o Alphabet Scrubber à direita */
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Células da linha de música: Altura fixa 66px sincronizada com o virtualizador react-window */
+.fs-item-table-list-column-module-container.fs-item-table-list-column-module-data-row {
+    height: var(--row-height, 66px) !important;
+    margin: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+    background: transparent !important;
+    display: flex !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
+    transition: background-color 0.12s ease !important;
+}
+
+/* Efeito ao tocar na linha da música (0ms active feedback) */
+.fs-item-table-list-column-module-container.fs-item-table-list-column-module-data-row:active,
+.ra-tracklist-row:active,
+[data-row-index]:active {
+    background: rgba(139, 92, 246, 0.22) !important;
+    transition: background 0.02s ease !important;
+}
+
+/* Desativar captura de cliques em links internos para garantir reprodução imediata ao tocar em qualquer área */
+.fs-title-combined-column-module-artists a,
+.fs-title-combined-column-module-title a,
+.fs-item-table-list-column-module-data-row a {
+    pointer-events: none !important;
+    text-decoration: none !important;
+}
+
+/* Permitir eventos interativos estritamente nos botões de ações, favoritos e controles */
+.fs-actions-column-module-actions,
+.fs-actions-column-module-actions *,
+.fs-favorite-column-module-favorite,
+.fs-favorite-column-module-favorite *,
+.ra-row-more-btn,
+.ra-row-more-btn * {
+    pointer-events: auto !important;
+}
+
+/* Linha da música selecionada ou em reprodução */
+.fs-item-table-list-column-module-container.fs-item-table-list-column-module-row-selected,
+.fs-item-table-list-column-module-container.fs-item-table-list-column-module-data-row[data-active="true"] {
+    background: rgba(139, 92, 246, 0.18) !important;
+}
+
+/* Número da faixa (1, 2, 3...) */
+.fs-row-index-column-module-content,
+[data-column-id="rowIndex"] .fs-item-table-list-column-module-content {
+    font-size: 12.5px !important;
+    color: #64748B !important;
+    font-weight: 500 !important;
+    text-align: center !important;
+    width: 100% !important;
+}
+
+/* Linha de Título Combinado (Capa à Esquerda + Título/Artista à Direita) */
+.fs-title-combined-column-module-title-combined {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    width: 100% !important;
+    height: 100% !important;
+    gap: 12px !important;
+}
+
+/* Capa / Vinil do Álbum na linha */
+.fs-title-combined-column-module-image-container,
+.fs-image-module-image-container {
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    flex-shrink: 0 !important;
+    margin: 0 !important;
+}
+
+.fs-image-module-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+}
+
+/* Container de Texto (Título e Artistas em Coluna) */
+.fs-title-combined-column-module-text-container {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Título da Música */
+.fs-title-combined-column-module-title {
+    font-size: 14.5px !important;
+    font-weight: 600 !important;
+    color: #F8FAFC !important;
+    line-height: 1.25 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+/* Subtítulo Artista */
+.fs-title-combined-column-module-artists,
+.fs-title-combined-column-module-artists a {
+    font-size: 12.5px !important;
+    color: #94A3B8 !important;
+    font-weight: 400 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    margin-top: 2px !important;
+}
+
+/* Duração (ex: 3:50) */
+.fs-duration-column-module-content,
+[data-column-id="duration"] .fs-item-table-list-column-module-content {
+    font-size: 12.5px !important;
+    color: #94A3B8 !important;
+    font-variant-numeric: tabular-nums !important;
+    text-align: right !important;
+    width: 100% !important;
+    padding-right: 6px !important;
+}
+
+/* Ocultar cabeçalhos de coluna de desktop */
+.fs-item-table-list-module-item-table-pinned-rows-grid-container,
+.fs-item-table-list-column-module-header-container,
+thead {
+    display: none !important;
+    height: 0 !important;
+    opacity: 0 !important;
+}
+
+/* Ocultar paginação desktop por botões */
+.fs-item-list-pagination-module-container,
+.fs-pagination-module-container,
+.fs-pagination-module-root,
+.mantine-Pagination-root,
+[class*="paginationContainer"],
+[class*="Pagination-root"] {
+    display: none !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Ocultar botão flutuante antigo do menu (agora está no Bottom Nav e no Top Bar) */
+.fs-mobile-layout-module-drawer-button {
+    display: none !important;
+    pointer-events: none !important;
+}
+
+/* 6. PLAYER BAR FLUTUANTE NATIVO LIQUID GLASS (#player-bar) */
+#player-bar {
+    position: fixed !important;
+    bottom: calc(56px + var(--sab) + 8px) !important;
+    left: 10px !important;
+    right: 10px !important;
+    height: 64px !important;
+    background: rgba(14, 10, 26, 0.48) !important;
+    backdrop-filter: blur(var(--personal-os-glass-blur, 28px)) saturate(190%) contrast(105%) !important;
+    -webkit-backdrop-filter: blur(var(--personal-os-glass-blur, 28px)) saturate(190%) contrast(105%) !important;
+    border-radius: 18px !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.42) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.3), 0 0 18px rgba(139, 92, 246, 0.22) !important;
+    z-index: 180 !important;
+    overflow: hidden !important;
+    display: flex !important;
+    align-items: center !important;
+    cursor: pointer !important;
+    -webkit-tap-highlight-color: transparent !important;
+    transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.2s ease !important;
+}
+
+#player-bar:active {
+    transform: scale(0.985) !important;
+}
+
+#player-bar.feishin-player-hidden {
+    display: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: translateY(120%) !important;
+}
+
+#feishin-mobile-close-btn,
+.feishin-mobile-close-btn {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    border-radius: 50% !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.16) !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    margin-left: 3px !important;
+    cursor: pointer !important;
+    flex-shrink: 0 !important;
+    padding: 0 !important;
+    transition: transform 0.12s ease, background 0.15s ease, color 0.15s ease !important;
+}
+
+#feishin-mobile-close-btn:active,
+.feishin-mobile-close-btn:active {
+    transform: scale(0.9) !important;
+    background: rgba(239, 68, 68, 0.28) !important;
+    border-color: rgba(239, 68, 68, 0.5) !important;
+    color: #EF4444 !important;
+}
+
+/* Evitar navegação acidental por links dentro da barra flutuante */
+#player-bar a,
+.fs-mobile-playerbar-module-container a,
+.fs-mobile-playerbar-module-line-item a {
+    pointer-events: none !important;
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+/* Preservar interatividade plena apenas nos controles de playback */
+#player-bar button,
+#player-bar [role="button"],
+#player-bar input,
+.fs-mobile-playerbar-module-controls-wrapper button,
+.fs-mobile-playerbar-module-controls-wrapper [role="button"],
+.feishin-kill-btn {
+    pointer-events: auto !important;
+}
+
+/* Conteúdo interno do MobilePlayerbar nativo */
+.fs-mobile-playerbar-module-container {
+    width: 100% !important;
+    height: 100% !important;
+    display: grid !important;
+    grid-template-columns: 1fr auto !important;
+    gap: 10px !important;
+    align-items: center !important;
+    padding: 0 12px !important;
+    background: transparent !important;
+}
+
+.fs-mobile-playerbar-module-content-wrapper {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+}
+
+.fs-mobile-playerbar-module-image-wrapper {
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
+    border-radius: 10px !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+}
+
+.fs-mobile-playerbar-module-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+}
+
+.fs-mobile-playerbar-module-metadata-stack {
+    display: flex !important;
+    flex-direction: column !important;
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+}
+
+.fs-mobile-playerbar-module-line-item {
+    font-size: 13.5px !important;
+    font-weight: 700 !important;
+    color: #F8FAFC !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    line-height: 1.2 !important;
+}
+
+.fs-mobile-playerbar-module-line-item.fs-mobile-playerbar-module-secondary {
+    font-size: 12px !important;
+    color: #94A3B8 !important;
+    font-weight: 400 !important;
+    margin-top: 2px !important;
+}
+
+.fs-mobile-playerbar-module-controls-wrapper {
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+}
+
+/* Botão Play/Pause circular do player */
+.fs-mobile-playerbar-module-controls-wrapper button[class*="play"],
+.fs-mobile-playerbar-module-controls-wrapper button:has(svg) {
+    border-radius: 50% !important;
+    transition: transform 0.1s ease !important;
+}
+
+/* 7. BARRA DE NAVEGAÇÃO INFERIOR NATIVA (Bottom Navigation Bar - 6 Abas) */
+#feishin-mobile-bottom-nav {
+    position: fixed !important;
+    top: calc(100% - (56px + var(--sab, 0px))) !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: calc(56px + var(--sab, 0px)) !important;
+    padding-bottom: var(--sab, 0px) !important;
+    background: rgba(10, 7, 20, 0.50) !important;
+    backdrop-filter: blur(var(--personal-os-glass-blur, 32px)) saturate(200%) contrast(105%) !important;
+    -webkit-backdrop-filter: blur(var(--personal-os-glass-blur, 32px)) saturate(200%) contrast(105%) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.22) !important;
+    border-right: none !important;
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+    z-index: 190 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-around !important;
+    box-sizing: border-box !important;
+    user-select: none !important;
+}
+
+.feishin-nav-tab {
+    flex: 1 !important;
+    min-width: 0 !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 3px !important;
+    padding: 3px 1px !important;
+    color: #94A3B8 !important;
+    text-decoration: none !important;
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer !important;
+    touch-action: manipulation !important;
+    transition: color 0.15s ease, transform 0.1s ease !important;
+}
+
+.feishin-nav-tab.active, .feishin-nav-tab:active {
+    color: #A855F7 !important;
+}
+
+.feishin-nav-tab svg {
+    width: 20px !important;
+    height: 20px !important;
+    flex-shrink: 0 !important;
+}
+
+.feishin-nav-label {
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.1px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 100% !important;
+    line-height: 1.1 !important;
+}
+
+/* 7.1. POPUP BOX ELEGANTE DE VIDRO (MENU "MAIS") */
+#feishin-more-glass-backdrop {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: rgba(0, 0, 0, 0.52) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    z-index: 205 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transition: opacity 0.22s ease, visibility 0.22s !important;
+}
+
+#feishin-more-glass-backdrop.open {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+}
+
+#feishin-more-glass-box {
+    position: fixed !important;
+    bottom: calc(62px + var(--sab)) !important;
+    left: 12px !important;
+    right: 12px !important;
+    max-width: 440px !important;
+    margin: 0 auto !important;
+    background: linear-gradient(145deg, rgba(20, 15, 34, 0.94), rgba(10, 8, 20, 0.97)) !important;
+    backdrop-filter: blur(calc(var(--personal-os-glass-blur, 28px) * 1.25)) saturate(210%) !important;
+    -webkit-backdrop-filter: blur(calc(var(--personal-os-glass-blur, 28px) * 1.25)) saturate(210%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    border-radius: 24px !important;
+    padding: 14px 14px 16px 14px !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.82),
+                0 0 0 1px rgba(255, 255, 255, 0.05),
+                inset 0 1px 1px rgba(255, 255, 255, 0.25) !important;
+    z-index: 210 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: translateY(20px) scale(0.96) !important;
+    pointer-events: none !important;
+    transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                visibility 0.22s !important;
+}
+
+#feishin-more-glass-box.open {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) scale(1) !important;
+    pointer-events: auto !important;
+}
+
+.feishin-more-header {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+.feishin-more-pill-handle {
+    width: 38px !important;
+    height: 4px !important;
+    background: rgba(255, 255, 255, 0.25) !important;
+    border-radius: 999px !important;
+}
+
+.feishin-more-title-row {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 0 4px !important;
+}
+
+.feishin-more-title-group {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+.feishin-more-title-icon {
+    width: 26px !important;
+    height: 26px !important;
+    border-radius: 8px !important;
+    background: rgba(168, 85, 247, 0.16) !important;
+    border: 1px solid rgba(168, 85, 247, 0.28) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #C084FC !important;
+    flex-shrink: 0 !important;
+}
+
+.feishin-more-title-icon svg {
+    width: 15px !important;
+    height: 15px !important;
+}
+
+.feishin-more-title-texts {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1px !important;
+}
+
+.feishin-more-title {
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+    color: #C4B5FD !important;
+    line-height: 1.2 !important;
+}
+
+.feishin-more-subtitle {
+    font-size: 10px !important;
+    font-weight: 500 !important;
+    color: #A78BFA !important;
+    opacity: 0.82 !important;
+    letter-spacing: 0.2px !important;
+    line-height: 1.1 !important;
+}
+
+.feishin-more-close-btn {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: none !important;
+    color: #94A3B8 !important;
+    width: 26px !important;
+    height: 26px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 13px !important;
+    cursor: pointer !important;
+    transition: background 0.15s, color 0.15s !important;
+}
+
+.feishin-more-close-btn:active {
+    background: rgba(255, 255, 255, 0.2) !important;
+    color: #FFFFFF !important;
+}
+
+.feishin-more-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+}
+
+.feishin-more-item {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 10px 12px !important;
+    border-radius: 14px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.07) !important;
+    color: #E2E8F0 !important;
+    text-decoration: none !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    user-select: none !important;
+    touch-action: manipulation !important;
+    transition: background 0.15s ease, transform 0.1s ease, border-color 0.15s ease !important;
+}
+
+.feishin-more-item:active {
+    background: rgba(168, 85, 247, 0.22) !important;
+    transform: scale(0.97) !important;
+    border-color: rgba(168, 85, 247, 0.45) !important;
+}
+
+.feishin-more-item.active {
+    background: rgba(168, 85, 247, 0.2) !important;
+    border-color: rgba(168, 85, 247, 0.6) !important;
+    color: #F3E8FF !important;
+}
+
+.feishin-more-icon-wrap {
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: 8px !important;
+    background: rgba(168, 85, 247, 0.16) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    color: #C084FC !important;
+}
+
+.feishin-more-item.active .feishin-more-icon-wrap {
+    background: #A855F7 !important;
+    color: #FFFFFF !important;
+}
+
+.feishin-more-icon-wrap svg {
+    width: 16px !important;
+    height: 16px !important;
+}
+
+.feishin-more-item-label {
+    flex: 1 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    text-align: left !important;
+}
+
+.feishin-more-badge-pro {
+    font-size: 9px !important;
+    font-weight: 800 !important;
+    padding: 2px 5px !important;
+    border-radius: 6px !important;
+    background: linear-gradient(135deg, #06B6D4, #8B5CF6) !important;
+    color: #FFFFFF !important;
+    letter-spacing: 0.5px !important;
+    box-shadow: 0 0 8px rgba(6, 182, 212, 0.4) !important;
+}
+
+/* 8. BARRA ALFABÉTICA LATERAL RÁPIDA (# A B C ... Z) MOBILE */
+#feishin-alphabet-scrubber.fs-az-scrubber,
+.fs-az-scrubber {
+    position: fixed !important;
+    right: 2px !important;
+    top: calc(118px + var(--sat, 0px)) !important;
+    bottom: calc(64px + 56px + var(--sab, 0px) + 14px) !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    transform: none !important;
+    width: 22px !important;
+    padding: 6px 1px !important;
+    background: rgba(14, 10, 26, 0.72) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.55), 0 0 14px rgba(168, 85, 247, 0.18) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    z-index: 170 !important;
+    touch-action: none !important;
+    user-select: none !important;
+    box-sizing: border-box !important;
+}
+
+#feishin-alphabet-scrubber.fs-az-scrubber::before,
+.fs-az-scrubber::before {
+    content: '' !important;
+    position: absolute !important;
+    top: -12px !important;
+    bottom: -12px !important;
+    left: -24px !important;
+    right: -10px !important;
+    z-index: 1 !important;
+    pointer-events: auto !important;
+}
+
+#feishin-alphabet-scrubber.fs-az-scrubber:hover,
+#feishin-alphabet-scrubber.fs-az-scrubber.dragging,
+.fs-az-scrubber:hover,
+.fs-az-scrubber.dragging {
+    width: 26px !important;
+    background: rgba(22, 14, 42, 0.88) !important;
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.7), 0 0 20px rgba(168, 85, 247, 0.35) !important;
+    border-color: rgba(255, 255, 255, 0.22) !important;
+}
+
+#feishin-alphabet-scrubber .fs-az-item,
+.fs-az-item {
+    flex: 1 1 0% !important;
+    width: 18px !important;
+    height: auto !important;
+    min-height: 12px !important;
+    max-height: 22px !important;
+    font-size: 9.5px !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: rgba(255, 255, 255, 0.65) !important;
+    border-radius: 6px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    transition: transform 0.12s ease, color 0.12s, background 0.12s !important;
+}
+
+#feishin-alphabet-scrubber .fs-az-item.active,
+.fs-az-item.active {
+    background: linear-gradient(135deg, #a855f7, #6366f1) !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.85) !important;
+    transform: scale(1.2) !important;
+}
+
+#feishin-alphabet-scrubber .fs-az-item.empty,
+.fs-az-item.empty {
+    opacity: 0.25 !important;
+}
+
+/* Floating Magnifier HUD Bubble no Mobile */
+.fs-az-hud {
+    position: fixed !important;
+    right: 36px !important;
+    transform: translateY(-50%) scale(0.92) !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    z-index: 10000 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 10px 14px !important;
+    min-width: 180px !important;
+    max-width: 250px !important;
+    background: rgba(18, 14, 32, 0.88) !important;
+    backdrop-filter: blur(28px) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 18px !important;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7), 0 0 24px rgba(168, 85, 247, 0.35) !important;
+    transition: opacity 0.16s ease, transform 0.16s ease !important;
+}
+
+.fs-az-hud.visible {
+    opacity: 1 !important;
+    transform: translateY(-50%) scale(1) !important;
+}
+
+/* 9. DRAWER / SIDEBAR LATERAL LIQUID GLASS */
+.mantine-Drawer-content {
+    background: rgba(10, 8, 20, 0.94) !important;
+    backdrop-filter: blur(36px) saturate(190%) !important;
+    -webkit-backdrop-filter: blur(36px) saturate(190%) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding-top: var(--sat) !important;
+    padding-bottom: var(--sab) !important;
+}
+
+.mantine-Drawer-overlay {
+    background: rgba(0, 0, 0, 0.65) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+}
+
+/* Itens da Biblioteca no Drawer */
+#mobile-sidebar [class*="sidebarItem"],
+#mobile-sidebar [class*="SidebarItem"] {
+    min-height: 48px !important;
+    padding: 10px 16px !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    border-radius: 14px !important;
+    margin: 4px 10px !important;
+    color: #E2E8F0 !important;
+    transition: background 0.15s ease !important;
+}
+
+#mobile-sidebar [class*="sidebarItem"]:active,
+#mobile-sidebar [class*="sidebarItem"][data-active="true"] {
+    background: rgba(139, 92, 246, 0.22) !important;
+    border: 1px solid rgba(139, 92, 246, 0.4) !important;
+    color: #FFFFFF !important;
+}
+
+/* 10. SAMSUNG MUSIC LIQUID GLASS TRACK PAGE (PÁGINA DE FAIXA NATIVA)
+   Réplica de alta fidelidade do Samsung Music com Liquid Glass e Thumb-Zone
+   ========================================================================== */
+
+/* Suprimir reprodutor desktop antigo e overlays indesejados */
+.fs-mobile-layout-module-full-screen-player-overlay,
+.fs-mobile-fullscreen-player-module-container,
+.fs-full-screen-player-module-container {
+    display: none !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+}
+
+/* =========================================================================
+   8. PÁGINA DA MÚSICA SAMSUNG MUSIC LIQUID GLASS (FeishinTrackPage)
+   ========================================================================= */
+#feishin-track-page {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    z-index: 99999 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    background: rgba(10, 6, 20, 0.28) !important;
+    backdrop-filter: blur(var(--personal-os-glass-blur, 28px)) saturate(190%) contrast(105%) !important;
+    -webkit-backdrop-filter: blur(var(--personal-os-glass-blur, 28px)) saturate(190%) contrast(105%) !important;
+    transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.28s ease !important;
+    will-change: transform, opacity !important;
+    box-sizing: border-box !important;
+    touch-action: pan-y !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+}
+
+#feishin-track-page.feishin-tp-hidden {
+    transform: translateY(100%) !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Aura fluida de luz dinâmica refletindo a capa do álbum com controle de intensidade e blur */
+.feishin-tp-ambient-aura {
+    position: absolute !important;
+    top: 8% !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: min(92vw, 420px) !important;
+    height: min(92vw, 420px) !important;
+    border-radius: 50% !important;
+    background: radial-gradient(circle, var(--tp-glow-color, rgba(168, 85, 247, 0.55)) 0%, rgba(99, 102, 241, 0.25) 50%, transparent 80%) !important;
+    background-size: cover !important;
+    background-position: center !important;
+    filter: blur(calc(var(--personal-os-glass-blur, 28px) * 2.5)) !important;
+    opacity: var(--personal-os-aura-opacity, 0.65) !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+    transition: background 0.8s ease, transform 0.6s ease, opacity 0.4s ease, filter 0.3s ease !important;
+}
+
+.feishin-tp-ambient-aura.paused {
+    opacity: calc(var(--personal-os-aura-opacity, 0.65) * 0.55) !important;
+    filter: blur(calc(var(--personal-os-glass-blur, 28px) * 2.8)) !important;
+}
+
+.feishin-tp-glass-backdrop {
+    position: absolute !important;
+    inset: 0 !important;
+    background: radial-gradient(circle at 50% 25%, rgba(255, 255, 255, 0.05) 0%, rgba(10, 6, 22, 0.32) 100%) !important;
+    pointer-events: none !important;
+    z-index: 2 !important;
+}
+
+/* Container de conteúdo que respeita safe-areas */
+.feishin-tp-safe-area {
+    position: relative !important;
+    z-index: 3 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+    width: 100% !important;
+    padding-top: max(var(--sat, 0px), 8px) !important;
+    padding-bottom: max(var(--sab, 0px), 18px) !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    box-sizing: border-box !important;
+    justify-content: space-between !important;
+}
+
+/* Header Topo Samsung Music (Chevron down à esq + Título centro + Timer, Info, 3-dots à dir) */
+.feishin-tp-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    height: 46px !important;
+    flex-shrink: 0 !important;
+}
+
+.feishin-tp-header-center {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    pointer-events: none !important;
+}
+
+.feishin-tp-header-subtitle {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    letter-spacing: 2px !important;
+    text-transform: uppercase !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.feishin-tp-header-right {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+.feishin-tp-icon-btn {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    border-radius: 50% !important;
+    width: 38px !important;
+    height: 38px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #F8FAFC !important;
+    cursor: pointer !important;
+    transition: transform 0.12s ease, background 0.15s ease, border-color 0.15s ease !important;
+    padding: 0 !important;
+    outline: none !important;
+    position: relative !important;
+}
+
+.feishin-tp-icon-btn:active {
+    transform: scale(0.92) !important;
+    background: rgba(255, 255, 255, 0.18) !important;
+}
+
+.feishin-tp-icon-btn.active {
+    background: rgba(255, 255, 255, 0.22) !important;
+    border-color: rgba(255, 255, 255, 0.45) !important;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.2) !important;
+}
+
+.feishin-tp-icon-btn svg {
+    width: 20px !important;
+    height: 20px !important;
+    pointer-events: none !important;
+}
+
+.feishin-tp-dot-badge {
+    position: absolute !important;
+    top: 5px !important;
+    right: 5px !important;
+    width: 7px !important;
+    height: 7px !important;
+    border-radius: 50% !important;
+    background: #A855F7 !important;
+    box-shadow: 0 0 8px #A855F7 !important;
+}
+
+/* Capa do Álbum com formato quadrado, cantos arredondados e Pill "Letras" */
+.feishin-tp-art-section {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    padding: 4px 0 !important;
+}
+
+.feishin-tp-art-card {
+    position: relative !important;
+    width: min(78vw, 320px, 38vh) !important;
+    height: min(78vw, 320px, 38vh) !important;
+    border-radius: 26px !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(255, 255, 255, 0.22) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.55) !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), inset 0 1px 1px rgba(255, 255, 255, 0.35), 0 0 32px var(--tp-glow-color, rgba(168, 85, 247, 0.35)) !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+}
+
+.feishin-tp-cover-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: none;
+}
+
+.feishin-tp-cover-fallback {
+    width: 100% !important;
+    height: 100% !important;
+    display: flex;
+    align-items: center !important;
+    justify-content: center !important;
+    background: radial-gradient(circle, rgba(36, 20, 66, 0.5) 0%, rgba(14, 9, 27, 0.6) 100%) !important;
+    backdrop-filter: blur(calc(var(--personal-os-glass-blur, 28px) * 0.7)) !important;
+    -webkit-backdrop-filter: blur(calc(var(--personal-os-glass-blur, 28px) * 0.7)) !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.feishin-tp-cover-fallback.feishin-hidden {
+    display: none !important;
+}
+
+.feishin-tp-vinyl-icon {
+    width: 80px !important;
+    height: 80px !important;
+    color: rgba(255, 255, 255, 0.35) !important;
+    animation: feishinVinylSpin 16s linear infinite !important;
+}
+
+@keyframes feishinVinylSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Pill "Letras" flutuante dentro da capa */
+.feishin-tp-lyrics-pill {
+    position: absolute !important;
+    bottom: 12px !important;
+    left: 12px !important;
+    padding: 6px 14px !important;
+    border-radius: 9999px !important;
+    background: rgba(15, 11, 26, 0.45) !important;
+    backdrop-filter: blur(calc(var(--personal-os-glass-blur, 28px) * 0.7)) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(calc(var(--personal-os-glass-blur, 28px) * 0.7)) saturate(200%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.28) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.55) !important;
+    color: #FFFFFF !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5) !important;
+    cursor: pointer !important;
+    outline: none !important;
+    transition: transform 0.12s ease, background 0.15s ease !important;
+    z-index: 5 !important;
+}
+
+.feishin-tp-lyrics-pill:active {
+    transform: scale(0.93) !important;
+    background: rgba(168, 85, 247, 0.5) !important;
+}
+
+/* Pill "Fila" flutuante dentro da capa (canto inferior direito) */
+.feishin-tp-queue-pill {
+    position: absolute !important;
+    bottom: 12px !important;
+    right: 12px !important;
+    padding: 6px 14px !important;
+    border-radius: 9999px !important;
+    background: rgba(168, 85, 247, 0.35) !important;
+    backdrop-filter: blur(calc(var(--personal-os-glass-blur, 28px) * 0.7)) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(calc(var(--personal-os-glass-blur, 28px) * 0.7)) saturate(200%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.28) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.55) !important;
+    color: #FFFFFF !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5) !important;
+    cursor: pointer !important;
+    outline: none !important;
+    transition: transform 0.12s ease, background 0.15s ease !important;
+    z-index: 5 !important;
+}
+
+.feishin-tp-queue-pill:active {
+    transform: scale(0.93) !important;
+    background: rgba(168, 85, 247, 0.6) !important;
+}
+
+/* Seção de Informações da Faixa */
+.feishin-tp-info-section {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    padding: 4px 12px 0 12px !important;
+    flex-shrink: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.feishin-tp-title {
+    font-size: 18.5px !important;
+    font-weight: 700 !important;
+    color: #FFFFFF !important;
+    line-height: 1.3 !important;
+    width: 100% !important;
+    max-height: 48px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    letter-spacing: -0.2px !important;
+}
+
+.feishin-tp-artist {
+    font-size: 13.5px !important;
+    font-weight: 500 !important;
+    color: rgba(255, 255, 255, 0.65) !important;
+    margin-top: 3px !important;
+    width: 100% !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.feishin-tp-badge-wrapper {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-top: 5px !important;
+}
+
+.feishin-tp-quality-badge {
+    font-size: 10.5px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.6px !important;
+    color: rgba(255, 255, 255, 0.82) !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.16) !important;
+    border-radius: 9999px !important;
+    padding: 2px 10px !important;
+    text-transform: uppercase !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Linha de Ações Rápidas (Fila, Favorito, Playlist +, Letras, Info) */
+.feishin-tp-quick-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-around !important;
+    padding: 6px 12px 2px 12px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    flex-shrink: 0 !important;
+}
+
+.feishin-tp-action-btn {
+    background: transparent !important;
+    border: none !important;
+    width: 42px !important;
+    height: 42px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: rgba(255, 255, 255, 0.82) !important;
+    cursor: pointer !important;
+    outline: none !important;
+    transition: transform 0.12s ease, color 0.15s ease !important;
+    padding: 0 !important;
+}
+
+.feishin-tp-action-btn:active {
+    transform: scale(0.9) !important;
+}
+
+.feishin-tp-action-btn svg {
+    width: 22px !important;
+    height: 22px !important;
+    pointer-events: none !important;
+}
+
+.feishin-tp-action-btn.feishin-tp-fav-active {
+    color: #EC4899 !important;
+    filter: drop-shadow(0 0 10px rgba(236, 72, 153, 0.7)) !important;
+    animation: feishinHeartPulse 0.35s ease !important;
+}
+
+.feishin-tp-action-btn.feishin-tp-fav-active svg {
+    fill: #EC4899 !important;
+}
+
+@keyframes feishinHeartPulse {
+    0% { transform: scale(0.85); }
+    50% { transform: scale(1.22); }
+    100% { transform: scale(1); }
+}
+
+/* Barra de Progresso / Seekbar */
+.feishin-tp-progress-section {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    padding: 4px 8px 0 8px !important;
+    box-sizing: border-box !important;
+    flex-shrink: 0 !important;
+}
+
+.feishin-tp-slider-container {
+    position: relative !important;
+    width: 100% !important;
+    height: 22px !important;
+    display: flex !important;
+    align-items: center !important;
+    cursor: pointer !important;
+    touch-action: none !important;
+}
+
+.feishin-tp-slider-rail {
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 4px !important;
+    background: rgba(255, 255, 255, 0.20) !important;
+    border-radius: 9999px !important;
+    pointer-events: none !important;
+}
+
+.feishin-tp-slider-fill {
+    position: absolute !important;
+    left: 0 !important;
+    height: 4px !important;
+    width: 0%;
+    background: linear-gradient(90deg, #A855F7, #6366F1, #FFFFFF) !important;
+    border-radius: 9999px !important;
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.6) !important;
+    pointer-events: none !important;
+}
+
+.feishin-tp-slider-thumb {
+    position: absolute !important;
+    left: 0%;
+    width: 13px !important;
+    height: 13px !important;
+    border-radius: 50% !important;
+    background: #FFFFFF !important;
+    transform: translate(-50%, 0) !important;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.9), 0 2px 6px rgba(0, 0, 0, 0.5) !important;
+    border: 2px solid #8B5CF6 !important;
+    pointer-events: none !important;
+    transition: transform 0.08s ease !important;
+}
+
+.feishin-tp-slider-container:active .feishin-tp-slider-thumb {
+    transform: translate(-50%, 0) scale(1.3) !important;
+}
+
+.feishin-tp-time-row {
+    display: flex !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    margin-top: 3px !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    color: rgba(255, 255, 255, 0.65) !important;
+    font-variant-numeric: tabular-nums !important;
+}
+
+/* Controles Principais de Reprodução: Shuffle, Prev, -10s, Play/Pause, +10s, Next, Repeat */
+.feishin-tp-controls-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    padding: 4px 4px 6px 4px !important;
+    box-sizing: border-box !important;
+    flex-shrink: 0 !important;
+}
+
+.feishin-tp-ctrl-btn {
+    background: transparent !important;
+    border: none !important;
+    width: 42px !important;
+    height: 42px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: rgba(255, 255, 255, 0.88) !important;
+    cursor: pointer !important;
+    outline: none !important;
+    transition: transform 0.12s ease, color 0.15s ease !important;
+    position: relative !important;
+    padding: 0 !important;
+}
+
+.feishin-tp-ctrl-btn:active {
+    transform: scale(0.9) !important;
+}
+
+.feishin-tp-ctrl-btn svg {
+    width: 25px !important;
+    height: 25px !important;
+    pointer-events: none !important;
+}
+
+.feishin-tp-skip-btn svg {
+    width: 24px !important;
+    height: 24px !important;
+}
+
+/* Botão Play/Pause circular com destaque vítreo */
+.feishin-tp-play-btn {
+    width: 68px !important;
+    height: 68px !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35), 0 0 24px rgba(168, 85, 247, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.8) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #0F0A1C !important;
+    cursor: pointer !important;
+    outline: none !important;
+    transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.2s ease !important;
+    padding: 0 !important;
+    flex-shrink: 0 !important;
+    position: relative !important;
+}
+
+.feishin-tp-play-btn:active {
+    transform: scale(0.92) !important;
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4) !important;
+}
+
+.feishin-tp-play-btn svg {
+    width: 32px !important;
+    height: 32px !important;
+    pointer-events: none !important;
+}
+
+.feishin-tp-play-btn svg.feishin-tp-hidden {
+    display: none !important;
+}
+
+#feishin-tp-play-icon {
+    margin-left: 3px !important;
+}
+
+/* Estados ativos de Aleatório e Repetição */
+.feishin-tp-active-dot {
+    position: absolute !important;
+    bottom: 4px !important;
+    width: 4px !important;
+    height: 4px !important;
+    border-radius: 50% !important;
+    background: #A855F7 !important;
+    box-shadow: 0 0 6px #A855F7 !important;
+    display: none !important;
+}
+
+.feishin-tp-ctrl-btn.active {
+    color: #A855F7 !important;
+    filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.6)) !important;
+}
+
+.feishin-tp-ctrl-btn.active .feishin-tp-active-dot {
+    display: block !important;
+}
+
+.feishin-tp-repeat-badge {
+    position: absolute !important;
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    color: #A855F7 !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    pointer-events: none !important;
+    display: none !important;
+}
+
+.feishin-tp-repeat-btn.repeat-one .feishin-tp-repeat-badge {
+    display: block !important;
+}
+
+.feishin-tp-repeat-btn.repeat-one svg {
+    opacity: 0.25 !important;
+}
+
+/* Barra de Volume Vítrea */
+.feishin-tp-volume-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    width: 100% !important;
+    padding: 2px 8px 4px 8px !important;
+    box-sizing: border-box !important;
+    flex-shrink: 0 !important;
+}
+
+.feishin-tp-vol-btn {
+    background: transparent !important;
+    border: none !important;
+    width: 34px !important;
+    height: 34px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: rgba(255, 255, 255, 0.75) !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    outline: none !important;
+    transition: transform 0.12s ease, color 0.15s ease !important;
+}
+
+.feishin-tp-vol-btn:active {
+    transform: scale(0.9) !important;
+}
+
+.feishin-tp-vol-btn svg {
+    width: 20px !important;
+    height: 20px !important;
+    pointer-events: none !important;
+}
+
+.feishin-tp-vol-slider-box {
+    position: relative !important;
+    flex: 1 1 auto !important;
+    height: 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    cursor: pointer !important;
+    touch-action: none !important;
+}
+
+.feishin-tp-vol-rail {
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 4px !important;
+    background: rgba(255, 255, 255, 0.18) !important;
+    border-radius: 9999px !important;
+    pointer-events: none !important;
+}
+
+.feishin-tp-vol-fill {
+    position: absolute !important;
+    left: 0 !important;
+    height: 4px !important;
+    width: 30% !important;
+    background: linear-gradient(90deg, #A855F7, #6366F1) !important;
+    border-radius: 9999px !important;
+    pointer-events: none !important;
+}
+
+.feishin-tp-vol-thumb {
+    position: absolute !important;
+    left: 30% !important;
+    width: 12px !important;
+    height: 12px !important;
+    border-radius: 50% !important;
+    background: #FFFFFF !important;
+    transform: translate(-50%, 0) !important;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8) !important;
+    pointer-events: none !important;
+    transition: transform 0.08s ease !important;
+}
+
+.feishin-tp-vol-slider-box:active .feishin-tp-vol-thumb {
+    transform: translate(-50%, 0) scale(1.3) !important;
+}
+
+.feishin-tp-vol-pct {
+    font-size: 11.5px !important;
+    font-weight: 600 !important;
+    color: rgba(255, 255, 255, 0.65) !important;
+    min-width: 32px !important;
+    text-align: right !important;
+    font-variant-numeric: tabular-nums !important;
+}
+
+/* Sheets e Modais — Liquid Glass com Shaders Visíveis */
+.feishin-tp-sheet {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: rgba(10, 6, 20, 0.45) !important;
+    backdrop-filter: blur(var(--personal-os-glass-blur, 28px)) saturate(190%) contrast(105%) !important;
+    -webkit-backdrop-filter: blur(var(--personal-os-glass-blur, 28px)) saturate(190%) contrast(105%) !important;
+    z-index: 20 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    transform: translateY(100%) !important;
+    transition: transform 0.34s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    box-sizing: border-box !important;
+    padding-top: max(var(--sat, 0px), 14px) !important;
+    padding-bottom: max(var(--sab, 0px), 24px) !important;
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+}
+
+.feishin-tp-sheet.open {
+    transform: translateY(0%) !important;
+}
+
+.feishin-tp-sheet-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    height: 52px !important;
+    flex-shrink: 0 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+    padding-bottom: 8px !important;
+    position: relative !important;
+    z-index: 25 !important;
+    background: rgba(14, 10, 28, 0.55) !important;
+    backdrop-filter: blur(calc(var(--personal-os-glass-blur, 28px) * 0.75)) !important;
+    -webkit-backdrop-filter: blur(calc(var(--personal-os-glass-blur, 28px) * 0.75)) !important;
+    margin-left: -18px !important;
+    margin-right: -18px !important;
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+}
+
+/* Estado de Fila Aberta na Track Page: oculta capa e metadados centrais no MODO PORTRAIT */
+@media (orientation: portrait), (max-aspect-ratio: 1.199) {
+    #feishin-track-page.tp-queue-open .feishin-tp-art-section,
+    #feishin-track-page.tp-queue-open .feishin-tp-cover-wrapper,
+    #feishin-track-page.tp-queue-open .feishin-tp-info-section,
+    #feishin-track-page.tp-queue-open .feishin-tp-quick-row,
+    #feishin-track-page.tp-queue-open .feishin-tp-header {
+        opacity: 0 !important;
+        pointer-events: none !important;
+        transition: opacity 0.22s ease !important;
+    }
+
+    /* Controles de Playback elevados para z-index superior, 100% visíveis e interativos na Fila */
+    #feishin-track-page.tp-queue-open .feishin-tp-progress-section,
+    #feishin-track-page.tp-queue-open .feishin-tp-controls-row {
+        position: relative !important;
+        z-index: 35 !important;
+        pointer-events: auto !important;
+    }
+
+    #feishin-track-page.tp-queue-open .feishin-tp-landscape-right {
+        z-index: 35 !important;
+        justify-content: flex-end !important;
+    }
+
+    /* Espaço na lista da fila para os controles inferiores */
+    #feishin-tp-queue-sheet .feishin-tp-sheet-content {
+        padding-bottom: calc(150px + var(--sab, 0px)) !important;
+    }
+}
+
+.feishin-tp-sheet-title {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: #FFFFFF !important;
+}
+
+.feishin-tp-sheet-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+.feishin-tp-sheet-btn-clear {
+    background: rgba(239, 68, 68, 0.15) !important;
+    border: 1px solid rgba(239, 68, 68, 0.3) !important;
+    border-radius: 9999px !important;
+    color: #EF4444 !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    padding: 4px 10px !important;
+    cursor: pointer !important;
+}
+
+.feishin-tp-sheet-content {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding: 16px 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.feishin-tp-lyrics-line {
+    font-size: 17px !important;
+    line-height: 1.6 !important;
+    padding: 8px 14px !important;
+    border-radius: 12px !important;
+    color: rgba(255, 255, 255, 0.55) !important;
+    transition: all 0.25s ease !important;
+    cursor: pointer !important;
+}
+
+.feishin-tp-lyrics-line.active {
+    font-size: 21px !important;
+    font-weight: 700 !important;
+    color: #FFFFFF !important;
+    background: rgba(168, 85, 247, 0.25) !important;
+    border-left: 3px solid #A855F7 !important;
+    text-shadow: 0 0 14px rgba(168, 85, 247, 0.6) !important;
+}
+
+.feishin-tp-lyrics-empty {
+    margin: auto !important;
+    font-size: 15px !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+    text-align: center !important;
+}
+
+/* Itens da fila no sheet */
+.feishin-tp-q-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 10px 12px !important;
+    border-radius: 14px !important;
+    margin-bottom: 6px !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    cursor: pointer !important;
+    transition: background 0.15s ease !important;
+}
+
+.feishin-tp-q-item:active {
+    background: rgba(255, 255, 255, 0.12) !important;
+}
+
+.feishin-tp-q-item.active {
+    background: rgba(168, 85, 247, 0.22) !important;
+    border-color: rgba(168, 85, 247, 0.45) !important;
+}
+
+.feishin-tp-q-idx {
+    font-size: 13px !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+    min-width: 20px !important;
+}
+
+.feishin-tp-q-meta {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+}
+
+.feishin-tp-q-title {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: #FFFFFF !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.feishin-tp-q-artist {
+    font-size: 12px !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+    margin-top: 2px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.feishin-tp-q-duration {
+    font-size: 12px !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Modal Detalhes Técnicos */
+.feishin-tp-details-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+    padding: 10px 0 !important;
+}
+
+.feishin-tp-detail-box {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 14px !important;
+    padding: 10px 12px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 3px !important;
+}
+
+.feishin-tp-detail-box.full {
+    grid-column: 1 / -1 !important;
+}
+
+.feishin-tp-detail-label {
+    font-size: 10.5px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.6px !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.feishin-tp-detail-val {
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: #FFFFFF !important;
+    word-break: break-all !important;
+}
+
+.feishin-tp-nav-actions {
+    display: flex !important;
+    gap: 10px !important;
+    margin-top: 12px !important;
+}
+
+.feishin-tp-nav-btn {
+    flex: 1 !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    border-radius: 12px !important;
+    padding: 10px !important;
+    color: #FFFFFF !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    text-align: center !important;
+}
+
+.feishin-tp-nav-btn:active {
+    background: rgba(168, 85, 247, 0.3) !important;
+}
+
+/* Menu Mais Opções Sheet */
+.feishin-tp-more-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+}
+
+.feishin-tp-more-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 14px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 14px !important;
+    padding: 14px 16px !important;
+    color: #FFFFFF !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: background 0.15s ease !important;
+}
+
+.feishin-tp-more-item:active {
+    background: rgba(168, 85, 247, 0.25) !important;
+}
+
+.feishin-tp-more-item svg {
+    width: 22px !important;
+    height: 22px !important;
+    color: #A855F7 !important;
+}
+
+/* Modal do Temporizador */
+.feishin-tp-modal-backdrop {
+    position: fixed !important;
+    inset: 0 !important;
+    background: rgba(0, 0, 0, 0.65) !important;
+    backdrop-filter: blur(calc(var(--personal-os-glass-blur, 28px) * 0.5)) !important;
+    -webkit-backdrop-filter: blur(calc(var(--personal-os-glass-blur, 28px) * 0.5)) !important;
+    z-index: 20 !important;
+    display: none !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 24px !important;
+    box-sizing: border-box !important;
+}
+
+.feishin-tp-modal-backdrop.open {
+    display: flex !important;
+}
+
+.feishin-tp-modal {
+    background: rgba(20, 16, 32, 0.94) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    border-radius: 24px !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7) !important;
+    padding: 24px !important;
+    width: 100% !important;
+    max-width: 340px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+}
+
+.feishin-tp-modal-title {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: #FFFFFF !important;
+    text-align: center !important;
+    margin-bottom: 6px !important;
+}
+
+.feishin-tp-timer-options {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+}
+
+.feishin-tp-timer-opt {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+    padding: 12px !important;
+    font-size: 14.5px !important;
+    font-weight: 600 !important;
+    color: #FFFFFF !important;
+    cursor: pointer !important;
+    transition: background 0.15s ease !important;
+}
+
+.feishin-tp-timer-opt:active {
+    background: rgba(168, 85, 247, 0.3) !important;
+}
+
+.feishin-tp-timer-opt.feishin-tp-timer-cancel {
+    color: #EF4444 !important;
+    border-color: rgba(239, 68, 68, 0.3) !important;
+}
+
+.feishin-tp-modal-close {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: none !important;
+    border-radius: 12px !important;
+    padding: 12px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    cursor: pointer !important;
+    margin-top: 6px !important;
+}
+
+/* 11. ADAPTAÇÃO RESPONSIVA PARA DISPOSITIVOS EM PAISAGEM (LANDSCAPE) */
+@media (orientation: landscape), (min-aspect-ratio: 1.2) {
+    .feishin-tp-safe-area {
+        display: grid !important;
+        grid-template-columns: min(40vw, 320px) 1fr !important;
+        grid-template-rows: 42px 1fr !important;
+        grid-template-areas:
+            "header header"
+            "cover right" !important;
+        align-items: center !important;
+        gap: 6px 28px !important;
+        padding-top: max(var(--sat, 0px), 8px) !important;
+        padding-bottom: max(var(--sab, 0px), 12px) !important;
+        padding-left: max(var(--sal, 0px), 24px) !important;
+        padding-right: max(var(--sar, 0px), 24px) !important;
+    }
+
+    .feishin-tp-header {
+        grid-area: header !important;
+        height: 42px !important;
+    }
+
+    .feishin-tp-art-section {
+        grid-area: cover !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        padding: 0 !important;
+        height: 100% !important;
+    }
+
+    .feishin-tp-art-card {
+        width: min(36vw, 54vh, 280px) !important;
+        height: min(36vw, 54vh, 280px) !important;
+    }
+
+    .feishin-tp-landscape-right {
+        grid-area: right !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-evenly !important;
+        height: 100% !important;
+        width: 100% !important;
+        max-width: 600px !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+    }
+
+    .feishin-tp-info-section {
+        align-items: flex-start !important;
+        text-align: left !important;
+        padding: 0 4px !important;
+    }
+
+    .feishin-tp-badge-wrapper {
+        justify-content: flex-start !important;
+    }
+
+    .feishin-tp-quick-row {
+        justify-content: flex-start !important;
+        gap: 20px !important;
+        padding: 2px 4px !important;
+    }
+
+    .feishin-tp-progress-section {
+        padding: 2px 4px !important;
+    }
+
+    .feishin-tp-controls-row {
+        padding: 2px 4px !important;
+        justify-content: space-between !important;
+    }
+
+    .feishin-tp-volume-row {
+        padding: 2px 4px !important;
+    }
+
+    /* -------------------------------------------------------------------------
+       PROBLEMA 7: MODO LANDSCAPE COM CAPA DA FAIXA E FILA DO OUTRO LADO
+       Lado Esquerdo: Capa do álbum, Metadados e Controles Completos
+       Lado Direito: Fila de Reprodução Interativa (Liquid Glass)
+       ------------------------------------------------------------------------- */
+    #feishin-track-page.tp-queue-open .feishin-tp-safe-area {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        width: min(44vw, 360px) !important;
+        max-width: min(44vw, 360px) !important;
+        height: 100% !important;
+        padding-top: max(var(--sat, 0px), 8px) !important;
+        padding-bottom: max(var(--sab, 0px), 8px) !important;
+        padding-left: max(var(--sal, 0px), 16px) !important;
+        padding-right: 12px !important;
+        box-sizing: border-box !important;
+        gap: 0 !important;
+    }
+
+    #feishin-track-page.tp-queue-open .feishin-tp-header {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        height: 32px !important;
+        width: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        margin-bottom: 2px !important;
+    }
+
+    #feishin-track-page.tp-queue-open .feishin-tp-header-subtitle {
+        font-size: 11px !important;
+        letter-spacing: 1.2px !important;
+    }
+
+    #feishin-track-page.tp-queue-open .feishin-tp-art-section {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        flex: 0 0 auto !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    #feishin-track-page.tp-queue-open .feishin-tp-art-card {
+        width: min(28vw, 38vh, 145px) !important;
+        height: min(28vw, 38vh, 145px) !important;
+        border-radius: 14px !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), 0 0 16px var(--tp-glow-color, rgba(168, 85, 247, 0.25)) !important;
+    }
+
+    #feishin-track-page.tp-queue-open .feishin-tp-lyrics-pill,
+    #feishin-track-page.tp-queue-open .feishin-tp-queue-pill {
+        display: none !important;
+    }
+
+    #feishin-track-page.tp-queue-open .feishin-tp-landscape-right {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        flex: 1 1 auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-evenly !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        z-index: 10 !important;
+    }
+
+    #feishin-track-page.tp-queue-open .feishin-tp-info-section {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        padding: 0 !important;
+        margin-bottom: 2px !important;
+    }
+
+    #feishin-track-page.tp-queue-open .feishin-tp-title {
+        font-size: 13.5px !important;
+        font-weight: 700 !important;
+        max-width: 280px !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        color: #FFFFFF !important;
+    }
+
+    #feishin-track-page.tp-queue-open .feishin-tp-artist {
+        font-size: 11.5px !important;
+        opacity: 0.75 !important;
+        max-width: 260px !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        color: rgba(255, 255, 255, 0.75) !important;
+    }
+
+    #feishin-track-page.tp-queue-open .feishin-tp-quick-row {
+        display: none !important;
+    }
+
+    #feishin-track-page.tp-queue-open .feishin-tp-progress-section {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        padding: 0 4px !important;
+        width: 100% !important;
+    }
+
+    #feishin-track-page.tp-queue-open .feishin-tp-slider-container {
+        height: 4px !important;
+        margin-bottom: 2px !important;
+    }
+
+    #feishin-track-page.tp-queue-open .feishin-tp-time-row {
+        font-size: 10.5px !important;
+        opacity: 0.7 !important;
+    }
+
+    #feishin-track-page.tp-queue-open .feishin-tp-controls-row {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        padding: 0 4px !important;
+        width: 100% !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+    }
+
+    #feishin-track-page.tp-queue-open .feishin-tp-play-btn {
+        width: 42px !important;
+        height: 42px !important;
+    }
+
+    #feishin-track-page.tp-queue-open .feishin-tp-ctrl-btn {
+        width: 32px !important;
+        height: 32px !important;
+    }
+
+    /* O Sheet de Fila no Landscape fica perfeitamente posicionado à direita */
+    #feishin-tp-queue-sheet {
+        top: 0 !important;
+        bottom: 0 !important;
+        left: min(44vw, 360px) !important;
+        right: 0 !important;
+        width: calc(100% - min(44vw, 360px)) !important;
+        height: 100% !important;
+        border-left: 1px solid rgba(255, 255, 255, 0.12) !important;
+        border-radius: 20px 0 0 20px !important;
+        background: rgba(14, 10, 26, 0.72) !important;
+        backdrop-filter: blur(var(--personal-os-glass-blur, 32px)) saturate(190%) contrast(105%) !important;
+        -webkit-backdrop-filter: blur(var(--personal-os-glass-blur, 32px)) saturate(190%) contrast(105%) !important;
+        padding: max(var(--sat, 0px), 8px) max(var(--sar, 0px), 16px) max(var(--sab, 0px), 10px) 16px !important;
+        box-shadow: -10px 0 35px rgba(0, 0, 0, 0.5) !important;
+        transform: translateX(100%) !important;
+        transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        z-index: 50 !important;
+    }
+
+    #feishin-tp-queue-sheet.open {
+        transform: translateX(0%) !important;
+    }
+
+    #feishin-tp-queue-sheet .feishin-tp-sheet-header {
+        height: 44px !important;
+        margin-left: -16px !important;
+        margin-right: -16px !important;
+        padding-left: 18px !important;
+        padding-right: 18px !important;
+        background: transparent !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    }
+
+    #feishin-tp-queue-sheet .feishin-tp-sheet-title {
+        font-size: 15px !important;
+        font-weight: 700 !important;
+        display: flex !important;
+        align-items: center !important;
+    }
+
+    #feishin-tp-queue-sheet .feishin-tp-sheet-content {
+        padding: 10px 0 12px 0 !important;
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+    #feishin-tp-queue-sheet .feishin-tp-q-item {
+        display: flex !important;
+        align-items: center !important;
+        padding: 9px 12px !important;
+        margin-bottom: 6px !important;
+        border-radius: 12px !important;
+        background: rgba(255, 255, 255, 0.04) !important;
+        border: 1px solid rgba(255, 255, 255, 0.04) !important;
+        cursor: pointer !important;
+        transition: all 0.18s ease !important;
+    }
+
+    #feishin-tp-queue-sheet .feishin-tp-q-item:active {
+        background: rgba(255, 255, 255, 0.1) !important;
+        transform: scale(0.99) !important;
+    }
+
+    #feishin-tp-queue-sheet .feishin-tp-q-item.active {
+        background: rgba(168, 85, 247, 0.22) !important;
+        border-color: rgba(168, 85, 247, 0.5) !important;
+        box-shadow: 0 0 16px rgba(168, 85, 247, 0.25) !important;
+    }
+
+    #feishin-tp-queue-sheet .feishin-tp-q-idx {
+        font-size: 12px !important;
+        font-weight: 700 !important;
+        color: rgba(255, 255, 255, 0.55) !important;
+        min-width: 24px !important;
+    }
+
+    #feishin-tp-queue-sheet .feishin-tp-q-item.active .feishin-tp-q-idx {
+        color: #C084FC !important;
+    }
+
+    #feishin-tp-queue-sheet .feishin-tp-q-meta {
+        flex: 1 1 auto !important;
+        min-width: 0 !important;
+        margin-right: 12px !important;
+    }
+
+    #feishin-tp-queue-sheet .feishin-tp-q-title {
+        font-size: 13.5px !important;
+        font-weight: 600 !important;
+        color: #FFFFFF !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+
+    #feishin-tp-queue-sheet .feishin-tp-q-item.active .feishin-tp-q-title {
+        color: #E9D5FF !important;
+        font-weight: 700 !important;
+    }
+
+    #feishin-tp-queue-sheet .feishin-tp-q-artist {
+        font-size: 11.5px !important;
+        color: rgba(255, 255, 255, 0.6) !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+
+    #feishin-tp-queue-sheet .feishin-tp-q-duration {
+        font-size: 11.5px !important;
+        color: rgba(255, 255, 255, 0.5) !important;
+        font-variant-numeric: tabular-nums !important;
+    }
+
+    /* Letras da Música no Landscape também no Lado Direito */
+    #feishin-tp-lyrics-sheet {
+        top: 0 !important;
+        bottom: 0 !important;
+        left: min(44vw, 360px) !important;
+        right: 0 !important;
+        width: calc(100% - min(44vw, 360px)) !important;
+        height: 100% !important;
+        border-left: 1px solid rgba(255, 255, 255, 0.12) !important;
+        border-radius: 20px 0 0 20px !important;
+        background: rgba(14, 10, 26, 0.72) !important;
+        backdrop-filter: blur(var(--personal-os-glass-blur, 32px)) saturate(190%) contrast(105%) !important;
+        -webkit-backdrop-filter: blur(var(--personal-os-glass-blur, 32px)) saturate(190%) contrast(105%) !important;
+        padding: max(var(--sat, 0px), 8px) max(var(--sar, 0px), 16px) max(var(--sab, 0px), 10px) 16px !important;
+        box-shadow: -10px 0 35px rgba(0, 0, 0, 0.5) !important;
+        transform: translateX(100%) !important;
+        transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        z-index: 50 !important;
+    }
+
+    #feishin-tp-lyrics-sheet.open {
+        transform: translateX(0%) !important;
+    }
+}
+
+/* ==========================================================================
+   FEISHIN MOBILE — BACKGROUNDS, BLUR & SHADOW CONTROL (LIQUID GLASS SHEET)
+   Substituição do modal quadrado de desktop por Bottom-Sheet responsiva nativa
+   ========================================================================== */
+
+/* Suprimir drag handle de macOS no mobile/Android */
+#personal-os-drag-handle {
+    display: none !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+}
+
+#personal-os-shader-backdrop {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    background: rgba(0, 0, 0, 0.08) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    z-index: 100000 !important;
+    transition: opacity 0.25s ease !important;
+}
+
+#personal-os-shader-modal {
+    position: fixed !important;
+    bottom: 0 !important;
+    top: auto !important;
+    left: 0 !important;
+    right: 0 !important;
+    transform: translateY(0) !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: 84dvh !important;
+    max-height: 88dvh !important;
+    aspect-ratio: unset !important;
+    border-radius: 26px 26px 0 0 !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.35) !important;
+    border-bottom: none !important;
+    background: linear-gradient(180deg, rgba(16, 12, 28, 0.38) 0%, rgba(8, 6, 18, 0.52) 100%) !important;
+    backdrop-filter: blur(16px) saturate(190%) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(190%) !important;
+    box-shadow: 0 -16px 45px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+    padding: 8px 14px max(20px, env(safe-area-inset-bottom, 20px)) 14px !important;
+    display: none;
+    flex-direction: column !important;
+    gap: 8px !important;
+    z-index: 100001 !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+    animation: shaderSheetSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+@keyframes shaderSheetSlideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0.5;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.shader-modal-sheet-handle {
+    display: block !important;
+    width: 36px !important;
+    height: 4px !important;
+    background: rgba(255, 255, 255, 0.35) !important;
+    border-radius: 9999px !important;
+    margin: 2px auto 4px auto !important;
+    flex-shrink: 0 !important;
+    cursor: grab !important;
+    touch-action: none !important;
+}
+
+/* TOP BAR: TÍTULO COMPACTO (1 LINHA) + FECHAR */
+.shader-modal-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 10px !important;
+    padding: 0 2px !important;
+    flex-shrink: 0 !important;
+}
+
+.shader-modal-title-group {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+}
+
+.shader-modal-icon-badge {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 10px !important;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.3) 0%, rgba(168, 85, 247, 0.3) 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 16px !important;
+    flex-shrink: 0 !important;
+}
+
+.shader-modal-title-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+}
+
+.shader-modal-title {
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    color: #FFFFFF !important;
+    margin: 0 !important;
+    letter-spacing: -0.3px !important;
+    line-height: 1.2 !important;
+}
+
+.shader-modal-count-tag {
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    background: rgba(255, 255, 255, 0.14) !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    padding: 1px 7px !important;
+    border-radius: 9999px !important;
+    font-family: ui-monospace, SFMono-Regular, monospace !important;
+}
+
+.shader-modal-close {
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.16) !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 12px !important;
+    cursor: pointer !important;
+    transition: all 0.15s ease !important;
+    flex-shrink: 0 !important;
+}
+
+.shader-modal-close:active {
+    background: rgba(255, 255, 255, 0.22) !important;
+    transform: scale(0.92) !important;
+}
+
+/* LINHA SUPERIOR DE CONTROLES: AÇÕES + SLIDERS */
+.shader-top-controls-row {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    flex-shrink: 0 !important;
+}
+
+/* BARRA DE AÇÕES RÁPIDAS (NOMES CURTOS) */
+.shader-header-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    flex-shrink: 0 !important;
+}
+
+.shader-ctrl-btn {
+    flex: 1 1 0 !important;
+    height: 34px !important;
+    padding: 0 6px !important;
+    border-radius: 10px !important;
+    background: rgba(255, 255, 255, 0.07) !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    color: rgba(255, 255, 255, 0.88) !important;
+    font-size: 11.5px !important;
+    font-weight: 600 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 5px !important;
+    cursor: pointer !important;
+    white-space: nowrap !important;
+    transition: all 0.15s ease !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) !important;
+}
+
+.shader-ctrl-btn:active {
+    transform: scale(0.96) !important;
+}
+
+.shader-ctrl-btn.active {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.35) 0%, rgba(99, 102, 241, 0.35) 100%) !important;
+    border-color: rgba(147, 197, 253, 0.6) !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 0 12px rgba(96, 165, 250, 0.35) !important;
+}
+
+/* PAINEL DE CONTROLES: BLUR & ESCURECIMENTO EM 2 COLUNAS COMPACTAS */
+.shader-controls-panel {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.10) !important;
+    border-radius: 14px !important;
+    padding: 6px 10px !important;
+    flex-shrink: 0 !important;
+}
+
+.shader-slider-box {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 3px !important;
+}
+
+.shader-slider-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    color: rgba(255, 255, 255, 0.88) !important;
+}
+
+.slider-name {
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    color: rgba(255, 255, 255, 0.88) !important;
+}
+
+.shader-slider-badge {
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    font-family: ui-monospace, SFMono-Regular, monospace !important;
+    color: #93C5FD !important;
+    background: rgba(59, 130, 246, 0.18) !important;
+    border: 1px solid rgba(96, 165, 250, 0.35) !important;
+    padding: 1px 6px !important;
+    border-radius: 5px !important;
+}
+
+.shader-slider-wrapper {
+    height: 18px !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.shader-range-slider {
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    width: 100% !important;
+    height: 5px !important;
+    border-radius: 9999px !important;
+    background: rgba(255, 255, 255, 0.16) !important;
+    outline: none !important;
+    cursor: pointer !important;
+}
+
+.shader-range-slider::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    width: 16px !important;
+    height: 16px !important;
+    border-radius: 50% !important;
+    background: #FFFFFF !important;
+    border: 2px solid #60A5FA !important;
+    box-shadow: 0 0 8px rgba(96, 165, 250, 0.7) !important;
+    cursor: pointer !important;
+}
+
+/* NÍVEL 1: NAVEGAÇÃO POR TIPO (FOTOS, SHADERS, TODOS) */
+.shader-type-nav {
+    display: flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 12px !important;
+    padding: 3px !important;
+    flex-shrink: 0 !important;
+}
+
+.shader-type-btn {
+    flex: 1 1 0 !important;
+    height: 32px !important;
+    border-radius: 9px !important;
+    border: 1px solid transparent !important;
+    background: transparent !important;
+    color: rgba(255, 255, 255, 0.75) !important;
+    font-size: 11.5px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 5px !important;
+    transition: all 0.15s ease !important;
+}
+
+.shader-type-btn:active {
+    transform: scale(0.97) !important;
+}
+
+.shader-type-btn.active {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.40) 0%, rgba(168, 85, 247, 0.40) 100%) !important;
+    border-color: rgba(147, 197, 253, 0.5) !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3) !important;
+}
+
+.type-icon {
+    font-size: 12.5px !important;
+}
+
+.type-count {
+    font-size: 9px !important;
+    padding: 1px 5px !important;
+    border-radius: 9999px !important;
+    background: rgba(255, 255, 255, 0.14) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 700 !important;
+}
+
+/* NÍVEL 2: SUB-CHIPS CONTEXTUAIS COM SCROLL SUAVE */
+.shader-category-pills {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    overflow-x: auto !important;
+    padding: 2px 1px 4px 1px !important;
+    flex-shrink: 0 !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+}
+
+.shader-category-pills::-webkit-scrollbar {
+    display: none !important;
+}
+
+.shader-pill-btn {
+    padding: 4px 11px !important;
+    border-radius: 9999px !important;
+    background: rgba(255, 255, 255, 0.055) !important;
+    border: 1px solid rgba(255, 255, 255, 0.10) !important;
+    color: rgba(255, 255, 255, 0.75) !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    white-space: nowrap !important;
+    transition: all 0.15s ease !important;
+    flex-shrink: 0 !important;
+}
+
+.shader-pill-btn:active {
+    transform: scale(0.96) !important;
+}
+
+.shader-pill-btn.active {
+    background: rgba(96, 165, 250, 0.26) !important;
+    border-color: rgba(147, 197, 253, 0.55) !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 0 10px rgba(96, 165, 250, 0.28) !important;
+}
+
+/* GRID RESPONSIVO DE CARDS VÍTREOS (2 COLUNAS PORTRAIT / 4 COLUNAS LANDSCAPE) */
+.shader-grid-wrapper {
+    flex: 1 1 0 !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-right: 2px !important;
+    padding-bottom: max(24px, env(safe-area-inset-bottom, 24px)) !important;
+    min-height: 0 !important;
+}
+
+.shader-grid-wrapper::-webkit-scrollbar {
+    width: 3px !important;
+}
+
+.shader-grid-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-radius: 9999px !important;
+}
+
+.shader-grid-4col {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+}
+
+.shader-item-card {
+    position: relative !important;
+    height: 94px !important;
+    min-height: 94px !important;
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.24) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    color: rgba(255, 255, 255, 0.92) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-end !important;
+    padding: 8px 10px !important;
+    cursor: pointer !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
+    transition: all 0.18s ease !important;
+    user-select: none !important;
+    box-sizing: border-box !important;
+}
+
+.shader-item-card:active {
+    transform: scale(0.96) !important;
+}
+
+.shader-item-card.active {
+    border: 2px solid #60A5FA !important;
+    box-shadow: 0 0 18px rgba(96, 165, 250, 0.45), 0 4px 16px rgba(0, 0, 0, 0.4) !important;
+}
+
+.shader-item-card.active .shader-card-title {
+    color: #93C5FD !important;
+}
+
+.shader-card-art {
+    position: absolute !important;
+    inset: 0 !important;
+    opacity: 0.65 !important;
+    background-size: cover !important;
+    background-position: center !important;
+    z-index: 1 !important;
+}
+
+.shader-card-art-overlay {
+    position: absolute !important;
+    inset: 0 !important;
+    background: linear-gradient(180deg, rgba(8, 6, 16, 0.10) 0%, rgba(8, 6, 16, 0.65) 55%, rgba(6, 4, 12, 0.92) 100%) !important;
+    z-index: 2 !important;
+}
+
+.shader-card-top-row {
+    position: absolute !important;
+    top: 6px !important;
+    left: 6px !important;
+    right: 6px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    z-index: 3 !important;
+}
+
+.shader-card-icon-pill {
+    width: 24px !important;
+    height: 24px !important;
+    border-radius: 7px !important;
+    background: rgba(10, 10, 18, 0.65) !important;
+    border: 1px solid rgba(255, 255, 255, 0.16) !important;
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 13px !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) !important;
+}
+
+.shader-card-active-indicator {
+    padding: 2px 7px !important;
+    border-radius: 9999px !important;
+    font-size: 8.5px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.3px !important;
+    background: linear-gradient(135deg, #3B82F6, #8B5CF6) !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 0 10px rgba(96, 165, 250, 0.7) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+.shader-card-info {
+    position: relative !important;
+    z-index: 3 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1px !important;
+}
+
+.shader-card-title {
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    color: #FFFFFF !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    line-height: 1.2 !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9) !important;
+}
+
+.shader-card-badge {
+    font-size: 9px !important;
+    color: rgba(255, 255, 255, 0.65) !important;
+    font-family: ui-monospace, SFMono-Regular, monospace !important;
+    letter-spacing: 0.1px !important;
+}
+
+/* SUPORTE A ORIENTAÇÃO LANDSCAPE NO MOBILE (MODAL DE SHADERS) */
+@media (orientation: landscape), (min-aspect-ratio: 1.2) {
+    #personal-os-shader-backdrop {
+        left: calc(var(--feishin-rail-width, 76px) + env(safe-area-inset-left, 0px)) !important;
+        width: calc(100vw - (var(--feishin-rail-width, 76px) + env(safe-area-inset-left, 0px))) !important;
+        height: 100dvh !important;
+        top: 0 !important;
+        z-index: 100000 !important;
+        pointer-events: auto !important;
+    }
+
+    #personal-os-shader-modal {
+        top: 8px !important;
+        bottom: 8px !important;
+        left: calc(var(--feishin-rail-width, 76px) + env(safe-area-inset-left, 0px) + (100vw - var(--feishin-rail-width, 76px) - env(safe-area-inset-left, 0px))/2) !important;
+        transform: translateX(-50%) !important;
+        width: min(90vw, 860px) !important;
+        max-width: calc(100vw - var(--feishin-rail-width, 76px) - 24px) !important;
+        height: calc(100dvh - 16px) !important;
+        max-height: calc(100dvh - 16px) !important;
+        border-radius: 20px !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.18) !important;
+        padding: 8px 14px max(8px, env(safe-area-inset-bottom, 8px)) 14px !important;
+        gap: 6px !important;
+        z-index: 100001 !important;
+        animation: none !important;
+    }
+
+    .shader-top-controls-row {
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 10px !important;
+    }
+
+    .shader-header-actions {
+        flex: 1 1 45% !important;
+    }
+
+    .shader-controls-panel {
+        flex: 1 1 55% !important;
+        padding: 4px 8px !important;
+    }
+
+    .shader-grid-4col {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 8px !important;
+    }
+
+    .shader-item-card {
+        height: 74px !important;
+        min-height: 74px !important;
+        padding: 6px 8px !important;
+    }
+}
+
+
+/* ==========================================================================
+   v2 — VIDRO TOTAL · SHADER SEMPRE VISÍVEL · MÁXIMO APROVEITAMENTO DE ESPAÇO
+   (bloco final: vence as regras anteriores por ordem de cascata)
+   ========================================================================== */
+:root { --fs-pad: 8px; --fs-glass-bg: rgba(14, 10, 26, 0.34); --fs-glass-border: rgba(255, 255, 255, 0.14); }
+
+/* A. Fundo/shader: cor instantânea (CSS) antes do WebGL + vinheta leve, nunca preto */
+#bg-webgl-container {
+    background: radial-gradient(120% 70% at 15% 0%, rgba(124, 58, 237, 0.55) 0%, transparent 60%),
+                radial-gradient(100% 60% at 95% 100%, rgba(6, 182, 212, 0.40) 0%, transparent 60%),
+                #06040D !important;
+}
+#bg-webgl-dim { background-image: none !important; }
+#bg-webgl-vignette { box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.12) !important; }
+
+/* B. Área útil: sem margens laterais desperdiçadas, topo colado na status bar */
+#mobile-layout > main.fs-mobile-layout-module-main-content {
+    margin: 0 !important;
+    padding: calc(var(--sat) + 2px) var(--fs-pad) 0 var(--fs-pad) !important;
+}
+#mobile-layout .fs-item-table-list-module-height-100 {
+    padding-bottom: calc(64px + 56px + var(--sab, 0px) + 12px) !important;
+}
+
+/* C. Cabeçalho das listas: BARRA ÚNICA ARREDONDADA — header + filtros em uma só linha */
+#mobile-layout .fs-animated-page-module-animated-page > .mantine-Stack-root {
+    gap: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    margin-bottom: 2px !important;
+}
+
+/* D. Tags: sem padding lateral de 32px, rolagem nativa e visibilidade total da última tag */
+.fs-tags-page-root {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding: 4px var(--fs-pad) 0 var(--fs-pad) !important;
+    box-sizing: border-box !important;
+}
+
+.fs-tags-page-root[style*="display: none"],
+.fs-tags-page-root[style*="display:none"],
+#fs-tags-page-mount[style*="display: none"],
+#fs-tags-page-mount[style*="display:none"],
+#feishin-recently-added-view[style*="display: none"],
+#feishin-recently-added-view[style*="display:none"],
+#feishin-analytics-dashboard[style*="display: none"],
+#feishin-analytics-dashboard[style*="display:none"] {
+    display: none !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    max-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+}
+.fs-tags-container {
+    max-width: 100% !important;
+    gap: 10px !important;
+    box-sizing: border-box !important;
+    padding-bottom: calc(72px + 56px + var(--sab, 0px) + 36px) !important;
+}
+.fs-tags-container > *, .fs-tags-view-content, .fs-tabs-view-container, .fs-tag-playlist-view { min-width: 0 !important; max-width: 100% !important; }
+.fs-tags-view-content { box-sizing: border-box !important; }
+.fs-tags-top-bar { padding-bottom: 8px !important; gap: 8px !important; }
+.fs-tags-title { font-size: 22px !important; line-height: 1.3 !important; padding-bottom: 2px !important; }
+.fs-tags-minimal-bar { margin-bottom: 8px !important; padding: 8px 10px !important; }
+.fs-hero-boxes-grid { gap: 10px !important; }
+.fs-hero-box { min-height: 0 !important; height: 168px !important; border-radius: 18px !important; }
+.fs-tag-hero-banner { height: 150px !important; padding: 14px 16px !important; border-radius: 18px !important; }
+.fs-tabs-buttons-bar { display: flex !important; flex-wrap: nowrap !important; overflow-x: auto !important; max-width: 100% !important; gap: 8px !important; scrollbar-width: none !important; }
+.fs-tabs-buttons-bar::-webkit-scrollbar { display: none !important; }
+.fs-tag-pill-btn { flex: 0 0 auto !important; }
+
+/* E. Recentes e Analytics: largura total */
+#feishin-recently-added-view { padding: 4px var(--fs-pad) calc(64px + 56px + var(--sab, 0px) + 12px) var(--fs-pad) !important; }
+#feishin-analytics-dashboard { padding: 6px var(--fs-pad) calc(64px + 56px + var(--sab, 0px) + 12px) var(--fs-pad) !important; gap: 14px !important; }
+
+/* F. Vidro em tudo: modais, menus, dropdowns, drawers, notificações */
+.mantine-Menu-dropdown, .mantine-Popover-dropdown, .mantine-Select-dropdown, .mantine-Combobox-dropdown,
+.mantine-Modal-content, .mantine-Drawer-content, .mantine-Notification-root, .mantine-Tooltip-tooltip {
+    background: rgba(14, 10, 26, 0.52) !important;
+    backdrop-filter: blur(var(--personal-os-glass-blur, 28px)) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(var(--personal-os-glass-blur, 28px)) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.16) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.20), 0 18px 48px rgba(0, 0, 0, 0.45) !important;
+}
+.mantine-Modal-header, .mantine-Drawer-header { background: transparent !important; min-height: 0 !important; padding: 8px 12px !important; }
+.mantine-Modal-overlay, .mantine-Drawer-overlay { background: rgba(0, 0, 0, 0.16) !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+/* Modais ocupam toda a largura útil (sem moldura em branco) */
+.mantine-Modal-inner { padding: calc(var(--sat) + 4px) 6px 6px 6px !important; }
+.mantine-Modal-content { flex: 0 0 100% !important; width: 100% !important; max-width: none !important; max-height: calc(100dvh - var(--sat) - 12px) !important; border-radius: 22px !important; }
+.mantine-Modal-body { padding: 0 8px 10px 8px !important; }
+
+/* ==========================================================================
+   BLOCO v3 — UNIVERSAL LIQUID GLASS & FULL-SCREEN OPTIMIZATION
+   Eliminação Definitiva da Sidebar/Titlebar Desktop + Otimização Máxima do Topo
+   Hardware Alvo: Samsung Galaxy S22 Ultra (Portrait & Landscape Edge-to-Edge)
+   ========================================================================== */
+
+/* 1. ELIMINAÇÃO TOTAL DA SIDEBAR DESKTOP, TITLEBAR ELEVADA E FILTROS FIXOS */
+aside#sidebar,
+.fs-left-sidebar-module-container,
+#sidebar,
+#left-sidebar,
+.fs-sidebar-module-container,
+.fs-main-content-module-sidebar-expanded > aside,
+.fs-list-with-sidebar-container-module-sidebar-container,
+.fs-titlebar-outlet-module-container,
+.fs-titlebar-module-titlebar-container,
+header.fs-titlebar-outlet-module-container,
+#window-bar,
+[class*="window-bar"],
+.fs-window-bar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    max-width: 0 !important;
+    max-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+    overflow: hidden !important;
+}
+
+/* 2. REAPROVEITAMENTO MÁXIMO DO ESPAÇO: 100% DA LARGURA E ALTURA ÚTIL */
+#default-layout,
+#mobile-layout,
+#main-content,
+.fs-default-layout-module-layout,
+.fs-mobile-layout-module-layout,
+.fs-main-content-module-main-content-container,
+.fs-main-content-module-main-content-body,
+.fs-main-content-module-main-content-body-scroll,
+.fs-animated-page-module-animated-page,
+.fs-list-with-sidebar-container-module-container,
+.fs-list-with-sidebar-container-module-content-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+    margin: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    flex: 1 1 100% !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-sizing: border-box !important;
+}
+
+/* 3. OTIMIZAÇÃO CRÍTICA DO TOPO DAS TELAS (ZERO ESPAÇO MORTO DESPERDIÇADO) */
+/* Elimina margens superiores vazias e alinha o início do conteúdo com a safe-area */
+#default-layout > .fs-main-content-module-main-content-container,
+#mobile-layout > main.fs-mobile-layout-module-main-content,
+.fs-main-content-module-main-content-body,
+.fs-animated-page-module-animated-page {
+    padding-top: max(var(--sat, 0px), 6px) !important;
+    margin-top: 0 !important;
+}
+
+/* Top bar unificada, compacta e elegante das listas */
+.m_6d731127.mantine-Stack-root {
+    display: block !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    min-height: 0 !important;
+    height: auto !important;
+    max-height: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    overflow: visible !important;
+}
+
+/* Garante que os filhos da top bar não tenham margens ou paddings desnecessários */
+.m_6d731127.mantine-Stack-root > * {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Pílula do contador de músicas / título */
+.fs-library-header-bar-module-header-container,
+.fs-page-header-module-title-wrapper {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    color: #F8FAFC !important;
+}
+
+/* Botões de filtro, ordenação e busca no topo com espaçamento perfeitamente uniforme e vidro claro */
+.fs-filter-bar-module-filter-bar .mantine-Group-root,
+.fs-page-header-module-container .mantine-Group-root {
+    display: contents !important;
+}
+
+.fs-filter-bar-module-filter-bar button,
+.fs-page-header-module-container button {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+    border-radius: 10px !important;
+    background: rgba(255, 255, 255, 0.16) !important;
+    border: 1px solid rgba(255, 255, 255, 0.32) !important;
+    color: #FFFFFF !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 2px 6px rgba(0, 0, 0, 0.15) !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    transition: background 0.15s ease, transform 0.1s ease !important;
+}
+
+/* Botão de Sort ("Nome") */
+.fs-filter-bar-module-filter-bar button:has(.mantine-Button-label),
+.fs-filter-bar-module-filter-bar .mantine-Button-root {
+    width: auto !important;
+    min-width: 44px !important;
+    padding: 0 10px !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    color: #FFFFFF !important;
+}
+
+.fs-filter-bar-module-filter-bar svg,
+.fs-page-header-module-container svg {
+    color: #FFFFFF !important;
+}
+
+.fs-filter-bar-module-filter-bar button:active,
+.fs-page-header-module-container button:active {
+    background: rgba(255, 255, 255, 0.30) !important;
+    transform: scale(0.92) !important;
+}
+
+/* 4. VISIBILIDADE COMPLETA E TOTAL DO SHADER EM TODAS AS TELAS */
+/* Nenhuma página ou elemento pai pode ter fundo opaco que esconda o WebGL canvas */
+body,
+html,
+#root,
+#default-layout,
+#mobile-layout,
+.mantine-AppShell-root,
+.mantine-AppShell-main,
+.fs-animated-page-module-animated-page,
+.fs-item-table-list-module-item-table-list-container,
+.fs-item-table-list-module-item-table-container,
+.fs-item-table-list-module-item-table-pinned-rows-container,
+.fs-item-table-list-module-item-table-grid-container,
+.fs-item-table-list-module-height-100 {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* Linhas das tabelas com transparência refinada e toque suave */
+table,
+.mantine-Table-root,
+[class*="virtual-list"] {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+.mantine-Table-tr,
+[class*="table-row"],
+[class*="song-row"],
+[class*="SongRow"] {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    transition: background 0.12s ease !important;
+}
+
+.mantine-Table-tr:active,
+[class*="table-row"]:active,
+[class*="song-row"]:active {
+    background: rgba(255, 255, 255, 0.12) !important;
+}
+
+/* 5. AJUSTE DE ESPAÇO PARA O MINI-PLAYER E BOTTOM NAV COM 7 ABAS */
+.feishin-nav-tab {
+    flex: 1 1 0% !important;
+    min-width: 0 !important;
+    padding: 3px 0 !important;
+    gap: 2px !important;
+}
+
+.feishin-nav-tab svg {
+    width: 19px !important;
+    height: 19px !important;
+}
+
+.feishin-nav-label {
+    font-size: 9.5px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0px !important;
+}
+
+/* Padding de rolagem para que a última música e tag nunca fiquem escondidas atrás do player */
+.fs-item-table-list-module-height-100,
+.fs-main-content-module-main-content-body-scroll,
+#feishin-recently-added-view {
+    padding-bottom: calc(72px + 56px + var(--sab, 0px) + 24px) !important;
+}
+
+.fs-tags-container,
+.fs-tags-view-content {
+    padding-bottom: calc(72px + 56px + var(--sab, 0px) + 36px) !important;
+}
+
+/* ==========================================================================
+   ULTRA-FAST ZERO-LATENCY NAVIGATION & GPU COMPOSITING (GALAXY S22 ULTRA 120HZ)
+   ========================================================================== */
+.fs-animated-page-module-animated-page,
+#feishin-recently-added-view,
+#fs-tags-page-mount {
+    transform: translateZ(0) !important;
+    backface-visibility: hidden !important;
+    contain: layout style !important;
+    transition: none !important;
+    animation-duration: 0.001s !important;
+}
+
+/* Otimização de renderização virtualizada para seções da lista cronológica */
+.ra-hierarchy-section {
+    content-visibility: auto !important;
+    contain-intrinsic-size: 0 350px !important;
+}
+
+.ra-tracklist-row {
+    contain: layout style paint !important;
+    will-change: auto !important;
+}
+
+/* ==========================================================================
+   BLOCO v4 — MASTER LANDSCAPE EXPERIENCE & SIDEBAR NAVIGATION RAIL
+   - Portrait: 100% Preservado (Dock inferior 56px, Bottom Sheets, layout vertical)
+   - Landscape: Menu Principal Completo à Esquerda (Navigation Rail Liquid Glass)
+   - Page Content: Ocupando 100% do Lado Direito com Safe Areas e Visão Ampla
+   - Mini Player Bar: Flutuando na base da Área Direita (sem invadir a sidebar)
+   - Menu "Mais": Flyout Drawer Lateral à Esquerda com Grid Otimizado
+   - Alphabet Scrubber: Lateral Direita com Altura Otimizada
+   - Shaders & Modais: Centralizados e Adaptados à Viewport Horizontal
+   ========================================================================== */
+
+:root {
+    --feishin-rail-width: 72px;
+}
+
+@media (orientation: landscape), (min-aspect-ratio: 1.2) {
+    /* 1. MENU PRINCIPAL: SIDEBAR / NAVIGATION RAIL À ESQUERDA */
+    #feishin-mobile-bottom-nav,
+    body.feishin-landscape #feishin-mobile-bottom-nav {
+        position: fixed !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: auto !important;
+        width: calc(var(--feishin-rail-width, 72px) + env(safe-area-inset-left, 0px)) !important;
+        height: 100dvh !important;
+        min-height: 100dvh !important;
+        max-height: 100dvh !important;
+        flex-direction: column !important;
+        justify-content: space-evenly !important;
+        align-items: center !important;
+        padding-top: max(28px, env(safe-area-inset-top, 28px)) !important;
+        padding-bottom: max(6px, env(safe-area-inset-bottom, 6px)) !important;
+        padding-left: max(4px, env(safe-area-inset-left, 4px)) !important;
+        padding-right: 4px !important;
+        border-top: none !important;
+        border-right: 1px solid rgba(255, 255, 255, 0.16) !important;
+        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.45), inset -1px 0 0 rgba(255, 255, 255, 0.12) !important;
+        z-index: 220 !important;
+        gap: 2px !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        scrollbar-width: none !important;
+        background: rgba(10, 7, 20, 0.70) !important;
+        backdrop-filter: blur(var(--personal-os-glass-blur, 32px)) saturate(200%) contrast(105%) !important;
+        -webkit-backdrop-filter: blur(var(--personal-os-glass-blur, 32px)) saturate(200%) contrast(105%) !important;
+        box-sizing: border-box !important;
+    }
+
+    #feishin-mobile-bottom-nav::-webkit-scrollbar {
+        display: none !important;
+    }
+
+    /* Itens da Navigation Rail no Landscape */
+    .feishin-nav-tab,
+    body.feishin-landscape .feishin-nav-tab {
+        width: calc(var(--feishin-rail-width, 72px) - 12px) !important;
+        height: 44px !important;
+        min-height: 44px !important;
+        max-height: 46px !important;
+        flex: 0 0 auto !important;
+        padding: 4px 2px !important;
+        border-radius: 12px !important;
+        margin: 1px 0 !important;
+        gap: 2px !important;
+        box-sizing: border-box !important;
+        transition: background 0.15s ease, transform 0.1s ease, color 0.15s ease !important;
+    }
+
+    .feishin-nav-tab svg,
+    body.feishin-landscape .feishin-nav-tab svg {
+        width: 19px !important;
+        height: 19px !important;
+        flex-shrink: 0 !important;
+    }
+
+    .feishin-nav-label,
+    body.feishin-landscape .feishin-nav-label {
+        font-size: 9px !important;
+        font-weight: 600 !important;
+        line-height: 1.1 !important;
+    }
+
+    .feishin-nav-tab.active,
+    body.feishin-landscape .feishin-nav-tab.active {
+        background: rgba(168, 85, 247, 0.28) !important;
+        color: #FFFFFF !important;
+        border: 1px solid rgba(168, 85, 247, 0.5) !important;
+        box-shadow: 0 0 14px rgba(168, 85, 247, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+    }
+
+    .feishin-nav-tab:active,
+    body.feishin-landscape .feishin-nav-tab:active {
+        transform: scale(0.93) !important;
+    }
+
+    /* Garantir ocultação total de badges/bubbles no menu lateral */
+    .feishin-nav-bubble,
+    #feishin-more-bubble,
+    body.feishin-landscape .feishin-nav-bubble,
+    body.feishin-landscape #feishin-more-bubble {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+    }
+
+    /* 2. ÁREA DA PÁGINA EM SI: LADO DIREITO TOTAL (ZERO DESPERDÍCIO DE ESPAÇO) */
+    #default-layout,
+    #mobile-layout,
+    body.feishin-landscape #default-layout,
+    body.feishin-landscape #mobile-layout {
+        position: fixed !important;
+        top: 0 !important;
+        left: calc(var(--feishin-rail-width, 72px) + env(safe-area-inset-left, 0px)) !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        width: calc(100vw - (var(--feishin-rail-width, 72px) + env(safe-area-inset-left, 0px))) !important;
+        max-width: calc(100vw - (var(--feishin-rail-width, 72px) + env(safe-area-inset-left, 0px))) !important;
+        min-width: calc(100vw - (var(--feishin-rail-width, 72px) + env(safe-area-inset-left, 0px))) !important;
+        height: 100dvh !important;
+        max-height: 100dvh !important;
+        margin: 0 !important;
+        padding-top: max(28px, env(safe-area-inset-top, 28px)) !important;
+        padding-bottom: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Eliminação cirúrgica de todos os paddings parasitas de desktop/mobile em landscape */
+    #main-content,
+    .fs-main-content-module-main-content-container,
+    .fs-main-content-module-main-content-body,
+    .fs-main-content-module-main-content-body-scroll,
+    .fs-animated-page-module-animated-page,
+    #default-layout #main-content,
+    #default-layout .fs-main-content-module-main-content-body,
+    #default-layout .fs-main-content-module-main-content-body-scroll,
+    body.feishin-landscape #main-content,
+    body.feishin-landscape .fs-main-content-module-main-content-container,
+    body.feishin-landscape .fs-main-content-module-main-content-body,
+    body.feishin-landscape .fs-main-content-module-main-content-body-scroll,
+    body.feishin-landscape .fs-animated-page-module-animated-page {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 100% !important;
+        height: 100% !important;
+        max-height: 100% !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+        flex: 1 1 0% !important;
+        box-sizing: border-box !important;
+    }
+
+    #mobile-layout > main.fs-mobile-layout-module-main-content,
+    body.feishin-landscape #mobile-layout > main.fs-mobile-layout-module-main-content {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 100% !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+        flex: 1 1 0% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Barra de filtros / header integrado: Compacto, Liquid Glass ultra-clean, alinhado e sem cortes */
+    .m_6d731127.mantine-Stack-root,
+    body.feishin-landscape .m_6d731127.mantine-Stack-root {
+        display: block !important;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        flex: 0 0 auto !important;
+        min-height: 0 !important;
+        height: auto !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+        overflow: visible !important;
+    }
+
+    .fs-filter-bar-module-filter-bar,
+    body.feishin-landscape .fs-filter-bar-module-filter-bar {
+        display: flex !important;
+        align-items: center !important;
+        height: 38px !important;
+        min-height: 38px !important;
+        max-height: 38px !important;
+        padding: 0 10px !important;
+        margin: 2px 28px 6px 12px !important;
+        width: calc(100% - 40px) !important;
+        border-radius: 19px !important;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.07) 100%) !important;
+        backdrop-filter: blur(28px) saturate(200%) brightness(1.18) !important;
+        -webkit-backdrop-filter: blur(28px) saturate(200%) brightness(1.18) !important;
+        border: 1px solid rgba(255, 255, 255, 0.32) !important;
+        box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.5), 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+
+    .fs-filter-bar-module-filter-bar > .mantine-Flex-root,
+    body.feishin-landscape .fs-filter-bar-module-filter-bar > .mantine-Flex-root {
+        display: flex !important;
+        width: 100% !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 6px !important;
+        box-sizing: border-box !important;
+        padding: 0 !important;
+    }
+
+    .fs-filter-bar-module-filter-bar button,
+    body.feishin-landscape .fs-filter-bar-module-filter-bar button {
+        width: 30px !important;
+        height: 30px !important;
+        min-width: 30px !important;
+        min-height: 30px !important;
+        border-radius: 15px !important;
+        background: rgba(255, 255, 255, 0.08) !important;
+        border: 1px solid rgba(255, 255, 255, 0.18) !important;
+        box-shadow: none !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 0 !important;
+        flex-shrink: 0 !important;
+        transition: background 0.15s ease, transform 0.1s ease !important;
+    }
+
+    .fs-filter-bar-module-filter-bar button:active,
+    body.feishin-landscape .fs-filter-bar-module-filter-bar button:active {
+        background: rgba(255, 255, 255, 0.28) !important;
+        transform: scale(0.92) !important;
+    }
+
+    .fs-filter-bar-module-filter-bar button:has(.mantine-Button-label),
+    .fs-filter-bar-module-filter-bar .mantine-Button-root,
+    body.feishin-landscape .fs-filter-bar-module-filter-bar button:has(.mantine-Button-label),
+    body.feishin-landscape .fs-filter-bar-module-filter-bar .mantine-Button-root {
+        width: auto !important;
+        min-width: 54px !important;
+        padding: 0 12px !important;
+        font-size: 12px !important;
+        font-weight: 700 !important;
+        color: #FFFFFF !important;
+        background: rgba(255, 255, 255, 0.14) !important;
+        border: 1px solid rgba(255, 255, 255, 0.24) !important;
+        border-radius: 15px !important;
+    }
+
+    .fs-filter-bar-module-filter-bar svg,
+    body.feishin-landscape .fs-filter-bar-module-filter-bar svg {
+        width: 16px !important;
+        height: 16px !important;
+        color: #FFFFFF !important;
+    }
+
+    /* Container de listas com altura total */
+    .fs-list-with-sidebar-container-module-container,
+    .fs-list-with-sidebar-container-module-content-container,
+    .fs-item-table-list-module-item-table-list-container,
+    .fs-item-table-list-module-item-table-container,
+    body.feishin-landscape .fs-list-with-sidebar-container-module-container,
+    body.feishin-landscape .fs-list-with-sidebar-container-module-content-container,
+    body.feishin-landscape .fs-item-table-list-module-item-table-list-container,
+    body.feishin-landscape .fs-item-table-list-module-item-table-container {
+        height: 100% !important;
+        max-height: 100% !important;
+        flex: 1 1 0% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow: hidden !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Grid de rolagem virtual com altura 100% e scroll fluido */
+    .fs-item-table-list-module-item-table-grid-container,
+    .fs-item-table-list-module-height-100,
+    body.feishin-landscape .fs-item-table-list-module-item-table-grid-container,
+    body.feishin-landscape .fs-item-table-list-module-height-100 {
+        height: 100% !important;
+        max-height: 100% !important;
+        flex: 1 1 auto !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        padding-top: 0 !important;
+        padding-bottom: 8px !important;
+        padding-right: 22px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 3. MINI-PLAYER BAR NO LANDSCAPE: DOCK FLUTUANTE ERGONÔMICO ALINHADO E PROPORCIONAL */
+    .fs-mobile-playerbar-module-container,
+    #player-bar,
+    .fs-player-bar-module-container,
+    body.feishin-landscape .fs-mobile-playerbar-module-container,
+    body.feishin-landscape #player-bar,
+    body.feishin-landscape .fs-player-bar-module-container {
+        left: calc(var(--feishin-rail-width, 72px) + env(safe-area-inset-left, 0px) + 12px) !important;
+        right: calc(26px + env(safe-area-inset-right, 0px)) !important;
+        bottom: max(6px, env(safe-area-inset-bottom, 6px)) !important;
+        width: auto !important;
+        max-width: calc(100vw - (var(--feishin-rail-width, 72px) + env(safe-area-inset-left, 0px) + 38px)) !important;
+        height: 64px !important;
+        min-height: 64px !important;
+        max-height: 64px !important;
+        border-radius: 16px !important;
+        z-index: 190 !important;
+        background: rgba(14, 10, 26, 0.76) !important;
+        backdrop-filter: blur(30px) saturate(190%) !important;
+        -webkit-backdrop-filter: blur(30px) saturate(190%) !important;
+        border: 1px solid rgba(255, 255, 255, 0.18) !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.38) !important;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.52), inset 0 1px 0 rgba(255, 255, 255, 0.22) !important;
+        padding: 0 14px 0 10px !important;
+        box-sizing: border-box !important;
+        display: flex !important;
+        align-items: center !important;
+        overflow: hidden !important;
+    }
+
+    body.feishin-landscape #player-bar.feishin-player-hidden {
+        display: none !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+    }
+
+    /* Container interno do playerbar em landscape */
+    .fs-playerbar-module-container,
+    body.feishin-landscape .fs-playerbar-module-container {
+        width: 100% !important;
+        height: 100% !important;
+        max-height: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+        background: transparent !important;
+        overflow: visible !important;
+        box-sizing: border-box !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* Grid de 3 colunas em landscape: Esquerda (Metadados), Centro (Playback + Scrubber), Direita (Ações em Linha) */
+    .fs-playerbar-module-controls-grid,
+    body.feishin-landscape .fs-playerbar-module-controls-grid {
+        display: grid !important;
+        grid-template-columns: minmax(170px, 230px) 1fr auto !important;
+        grid-template-rows: 100% !important;
+        gap: 12px !important;
+        align-items: center !important;
+        width: 100% !important;
+        height: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* === COLUNA ESQUERDA: Capa + Título + Artista === */
+    .fs-playerbar-module-left-grid-item,
+    body.feishin-landscape .fs-playerbar-module-left-grid-item {
+        height: 100% !important;
+        max-height: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+        min-width: 0 !important;
+        overflow: hidden !important;
+    }
+
+    .fs-left-controls-module-left-controls-container,
+    body.feishin-landscape .fs-left-controls-module-left-controls-container {
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        height: 100% !important;
+        min-width: 0 !important;
+        overflow: hidden !important;
+    }
+
+    .fs-left-controls-module-image-wrapper,
+    body.feishin-landscape .fs-left-controls-module-image-wrapper {
+        width: 48px !important;
+        height: 48px !important;
+        min-width: 48px !important;
+        min-height: 48px !important;
+        flex-shrink: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .fs-left-controls-module-image,
+    body.feishin-landscape .fs-left-controls-module-image {
+        width: 48px !important;
+        height: 48px !important;
+        min-width: 48px !important;
+        min-height: 48px !important;
+        border-radius: 10px !important;
+        overflow: hidden !important;
+        border: 1px solid rgba(255, 255, 255, 0.16) !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45) !important;
+    }
+
+    .fs-left-controls-module-image-wrapper img,
+    .fs-left-controls-module-playerbar-image,
+    body.feishin-landscape .fs-left-controls-module-image-wrapper img,
+    body.feishin-landscape .fs-left-controls-module-playerbar-image {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        border-radius: 9px !important;
+    }
+
+    .fs-left-controls-module-metadata-stack,
+    body.feishin-landscape .fs-left-controls-module-metadata-stack {
+        max-width: 165px !important;
+        min-width: 0 !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        gap: 1px !important;
+    }
+
+    .fs-left-controls-module-line-item,
+    body.feishin-landscape .fs-left-controls-module-line-item {
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        line-height: 1.25 !important;
+    }
+
+    body.feishin-landscape .fs-left-controls-module-metadata-stack .song-title,
+    body.feishin-landscape .fs-left-controls-module-metadata-stack a {
+        font-size: 13px !important;
+        font-weight: 700 !important;
+        color: #FFFFFF !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        letter-spacing: -0.2px !important;
+    }
+
+    body.feishin-landscape .fs-left-controls-module-metadata-stack .song-artist,
+    body.feishin-landscape .fs-left-controls-module-metadata-stack .fs-left-controls-module-joined-artists {
+        font-size: 11px !important;
+        font-weight: 500 !important;
+        color: rgba(255, 255, 255, 0.70) !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+
+    body.feishin-landscape .fs-left-controls-module-metadata-stack button {
+        width: 24px !important;
+        height: 24px !important;
+        min-width: 24px !important;
+        min-height: 24px !important;
+        padding: 0 !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* === COLUNA CENTRAL: Controles de Playback + Barra de Progresso Alinhados Sem Colisão === */
+    .fs-playerbar-module-center-grid-item,
+    body.feishin-landscape .fs-playerbar-module-center-grid-item {
+        height: 100% !important;
+        max-height: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 2px !important;
+        min-width: 0 !important;
+        overflow: visible !important;
+        padding: 0 !important;
+    }
+
+    .fs-center-controls-module-controls-container,
+    body.feishin-landscape .fs-center-controls-module-controls-container {
+        height: auto !important;
+        min-height: 38px !important;
+        max-height: 38px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .fs-center-controls-module-buttons-container,
+    body.feishin-landscape .fs-center-controls-module-buttons-container {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 6px !important;
+        height: 38px !important;
+    }
+
+    /* Botão Play/Pause central: Círculo Branco Apple com Glow */
+    #player-bar .fs-player-button-module-main,
+    .fs-center-controls-module-buttons-container .fs-player-button-module-main,
+    body.feishin-landscape #player-bar .fs-player-button-module-main,
+    body.feishin-landscape .fs-center-controls-module-buttons-container .fs-player-button-module-main {
+        width: 38px !important;
+        height: 38px !important;
+        min-width: 38px !important;
+        min-height: 38px !important;
+        border-radius: 50% !important;
+        background: #FFFFFF !important;
+        background-color: #FFFFFF !important;
+        color: #0A0A0E !important;
+        border: 1px solid rgba(255, 255, 255, 0.95) !important;
+        box-shadow: 0 3px 14px rgba(255, 255, 255, 0.45) !important;
+        margin: 0 4px !important;
+        padding: 0 !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-shrink: 0 !important;
+    }
+
+    #player-bar .fs-player-button-module-main svg,
+    body.feishin-landscape #player-bar .fs-player-button-module-main svg {
+        width: 18px !important;
+        height: 18px !important;
+        color: #0A0A0E !important;
+        fill: #0A0A0E !important;
+        stroke: #0A0A0E !important;
+    }
+
+    body.feishin-landscape .fs-center-controls-module-buttons-container button:not(.fs-player-button-module-main) {
+        width: 30px !important;
+        height: 30px !important;
+        min-width: 30px !important;
+        min-height: 30px !important;
+        padding: 0 !important;
+        border-radius: 8px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-shrink: 0 !important;
+    }
+
+    body.feishin-landscape .fs-center-controls-module-buttons-container button:not(.fs-player-button-module-main) svg {
+        width: 17px !important;
+        height: 17px !important;
+    }
+
+    /* Linha do Scrubber / Progress Bar e Timestamps */
+    .fs-playerbar-slider-module-slider-container,
+    body.feishin-landscape .fs-playerbar-slider-module-slider-container {
+        display: grid !important;
+        grid-template-columns: 36px 1fr 36px !important;
+        gap: 8px !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        max-width: 330px !important;
+        height: 15px !important;
+        min-height: 15px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .fs-playerbar-slider-module-slider-value-wrapper,
+    body.feishin-landscape .fs-playerbar-slider-module-slider-value-wrapper {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        min-width: 36px !important;
+        width: 36px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    body.feishin-landscape #player-bar .current-duration,
+    body.feishin-landscape #player-bar .total-duration,
+    body.feishin-landscape #player-bar .elapsed-time,
+    body.feishin-landscape .fs-playerbar-slider-module-slider-value-wrapper .mantine-Text-root {
+        font-size: 10px !important;
+        font-weight: 600 !important;
+        line-height: 12px !important;
+        color: rgba(255, 255, 255, 0.85) !important;
+        white-space: nowrap !important;
+        text-align: center !important;
+    }
+
+    .fs-playerbar-slider-module-slider-wrapper,
+    body.feishin-landscape .fs-playerbar-slider-module-slider-wrapper {
+        width: 100% !important;
+        height: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+    }
+
+    body.feishin-landscape .fs-playerbar-slider-module-slider-wrapper .mantine-Slider-root {
+        width: 100% !important;
+        height: 12px !important;
+        display: flex !important;
+        align-items: center !important;
+    }
+
+    body.feishin-landscape .fs-playerbar-slider-module-slider-wrapper .mantine-Slider-track {
+        height: 3.5px !important;
+        background: rgba(255, 255, 255, 0.20) !important;
+        border-radius: 2px !important;
+    }
+
+    body.feishin-landscape .fs-playerbar-slider-module-slider-wrapper .mantine-Slider-bar {
+        background: #FFFFFF !important;
+        border-radius: 2px !important;
+    }
+
+    body.feishin-landscape .fs-playerbar-slider-module-slider-wrapper .mantine-Slider-thumb {
+        width: 10px !important;
+        height: 10px !important;
+        background: #FFFFFF !important;
+        border: 1px solid rgba(0, 0, 0, 0.3) !important;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) !important;
+    }
+
+    /* === COLUNA DIREITA: Ações Limpas em Linha Única Sem Wrap Nem Corte === */
+    .fs-playerbar-module-right-grid-item,
+    body.feishin-landscape .fs-playerbar-module-right-grid-item {
+        height: 100% !important;
+        max-height: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
+        flex-wrap: nowrap !important;
+        overflow: visible !important;
+        gap: 6px !important;
+    }
+
+    body.feishin-landscape .fs-playerbar-module-right-grid-item > div,
+    body.feishin-landscape .fs-playerbar-module-right-grid-item .mantine-Group-root,
+    body.feishin-landscape .fs-playerbar-module-right-grid-item .mantine-Flex-root {
+        display: flex !important;
+        align-items: center !important;
+        flex-wrap: nowrap !important;
+        overflow: visible !important;
+        height: 100% !important;
+        gap: 6px !important;
+    }
+
+    /* Ocultar elementos desnecessários do desktop que quebram a interface móvel */
+    body.feishin-landscape #player-bar .fs-button-module-root,
+    body.feishin-landscape #player-bar .fs-rating-module-root,
+    body.feishin-landscape #player-bar [class*="rating-module"],
+    body.feishin-landscape #player-bar .fs-playerbar-module-right-grid-item .fs-playerbar-slider-module-root,
+    body.feishin-landscape #player-bar .fs-playerbar-module-right-grid-item .m_4081bf90:has(.fs-rating-module-root),
+    body.feishin-landscape #player-bar .fs-playerbar-module-right-grid-item .m_4081bf90:has([class*="rating-module"]),
+    body.feishin-landscape #player-bar .fs-playerbar-module-right-grid-item .m_4081bf90:has(.fs-button-module-root) {
+        display: none !important;
+    }
+
+    body.feishin-landscape .fs-playerbar-module-right-grid-item button,
+    body.feishin-landscape .fs-playerbar-module-right-grid-item .mantine-ActionIcon-root {
+        width: 32px !important;
+        height: 32px !important;
+        min-width: 32px !important;
+        min-height: 32px !important;
+        flex-shrink: 0 !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-radius: 8px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    body.feishin-landscape .fs-playerbar-module-right-grid-item button svg,
+    body.feishin-landscape .fs-playerbar-module-right-grid-item .mantine-ActionIcon-root svg {
+        width: 18px !important;
+        height: 18px !important;
+    }
+
+    /* 4. POPUP BOX "MAIS": MODAL CENTRALIZADO LIQUID GLASS EM MODO LANDSCAPE */
+    #feishin-more-glass-backdrop,
+    body.feishin-landscape #feishin-more-glass-backdrop {
+        position: fixed !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        background: rgba(4, 2, 10, 0.65) !important;
+        backdrop-filter: blur(14px) saturate(180%) !important;
+        -webkit-backdrop-filter: blur(14px) saturate(180%) !important;
+        z-index: 235 !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+        transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.22s !important;
+    }
+
+    #feishin-more-glass-backdrop.open,
+    body.feishin-landscape #feishin-more-glass-backdrop.open {
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+    }
+
+    #feishin-more-glass-box,
+    body.feishin-landscape #feishin-more-glass-box {
+        position: fixed !important;
+        top: 50% !important;
+        bottom: auto !important;
+        left: calc(var(--feishin-rail-width, 72px) + env(safe-area-inset-left, 0px) + (100vw - var(--feishin-rail-width, 72px) - env(safe-area-inset-left, 0px)) / 2) !important;
+        right: auto !important;
+        width: min(650px, calc(100vw - var(--feishin-rail-width, 72px) - env(safe-area-inset-left, 0px) - 32px)) !important;
+        max-width: 660px !important;
+        height: auto !important;
+        max-height: calc(100dvh - 24px) !important;
+        border-radius: 22px !important;
+        background: linear-gradient(135deg, rgba(20, 14, 36, 0.92) 0%, rgba(10, 7, 20, 0.96) 100%) !important;
+        backdrop-filter: blur(36px) saturate(210%) contrast(105%) !important;
+        -webkit-backdrop-filter: blur(36px) saturate(210%) contrast(105%) !important;
+        border: 1px solid rgba(255, 255, 255, 0.18) !important;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(168, 85, 247, 0.16), inset 0 1px 1px rgba(255, 255, 255, 0.25) !important;
+        transform: translate(-50%, -46%) scale(0.96) !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 12px !important;
+        padding: 14px 18px 18px 18px !important;
+        z-index: 250 !important;
+        transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                    transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                    visibility 0.22s !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+
+    #feishin-more-glass-box.open,
+    body.feishin-landscape #feishin-more-glass-box.open {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: translate(-50%, -50%) scale(1) !important;
+        pointer-events: auto !important;
+    }
+
+    .feishin-more-pill-handle,
+    body.feishin-landscape .feishin-more-pill-handle {
+        display: none !important;
+    }
+
+    .feishin-more-header,
+    body.feishin-landscape .feishin-more-header {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: 0 !important;
+    }
+
+    .feishin-more-title-row,
+    body.feishin-landscape .feishin-more-title-row {
+        width: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 0 2px !important;
+    }
+
+    .feishin-more-title-group,
+    body.feishin-landscape .feishin-more-title-group {
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+    }
+
+    .feishin-more-title-icon,
+    body.feishin-landscape .feishin-more-title-icon {
+        width: 28px !important;
+        height: 28px !important;
+        border-radius: 8px !important;
+        background: rgba(168, 85, 247, 0.18) !important;
+        border: 1px solid rgba(168, 85, 247, 0.30) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        color: #C084FC !important;
+        box-shadow: 0 0 10px rgba(168, 85, 247, 0.25) !important;
+        flex-shrink: 0 !important;
+    }
+
+    .feishin-more-title-icon svg,
+    body.feishin-landscape .feishin-more-title-icon svg {
+        width: 15px !important;
+        height: 15px !important;
+    }
+
+    .feishin-more-title-texts,
+    body.feishin-landscape .feishin-more-title-texts {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1px !important;
+    }
+
+    .feishin-more-title,
+    body.feishin-landscape .feishin-more-title {
+        font-size: 13px !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.6px !important;
+        text-transform: uppercase !important;
+        color: #F3E8FF !important;
+        text-shadow: 0 0 10px rgba(168, 85, 247, 0.35) !important;
+        line-height: 1.2 !important;
+    }
+
+    .feishin-more-subtitle,
+    body.feishin-landscape .feishin-more-subtitle {
+        font-size: 10px !important;
+        font-weight: 500 !important;
+        letter-spacing: 0.3px !important;
+        color: #A78BFA !important;
+        opacity: 0.85 !important;
+        line-height: 1.1 !important;
+    }
+
+    .feishin-more-close-btn,
+    body.feishin-landscape .feishin-more-close-btn {
+        background: rgba(255, 255, 255, 0.08) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        color: #94A3B8 !important;
+        width: 28px !important;
+        height: 28px !important;
+        border-radius: 50% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 13px !important;
+        cursor: pointer !important;
+        transition: background 0.15s, color 0.15s, transform 0.1s !important;
+    }
+
+    .feishin-more-close-btn:active,
+    body.feishin-landscape .feishin-more-close-btn:active {
+        background: rgba(255, 255, 255, 0.22) !important;
+        color: #FFFFFF !important;
+        transform: scale(0.92) !important;
+    }
+
+    /* GRID EM 4 COLUNAS x 2 LINHAS NO LANDSCAPE */
+    .feishin-more-grid,
+    body.feishin-landscape .feishin-more-grid {
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 10px !important;
+        padding: 2px 0 0 0 !important;
+        margin: 0 !important;
+        overflow: hidden !important;
+        scrollbar-width: none !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .feishin-more-grid::-webkit-scrollbar,
+    body.feishin-landscape .feishin-more-grid::-webkit-scrollbar {
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+    }
+
+    /* CARDS DE ITENS: TILES VERTICAIS DE AÇÃO RÁPIDA */
+    .feishin-more-item,
+    body.feishin-landscape .feishin-more-item {
+        position: relative !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        padding: 12px 6px 10px 6px !important;
+        min-height: 80px !important;
+        gap: 8px !important;
+        border-radius: 16px !important;
+        background: rgba(255, 255, 255, 0.05) !important;
+        border: 1px solid rgba(255, 255, 255, 0.09) !important;
+        color: #E2E8F0 !important;
+        font-size: 11px !important;
+        font-weight: 600 !important;
+        cursor: pointer !important;
+        user-select: none !important;
+        touch-action: manipulation !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.10) !important;
+        transition: background 0.15s ease, transform 0.12s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.15s ease, box-shadow 0.15s ease !important;
+        box-sizing: border-box !important;
+    }
+
+    .feishin-more-item:active,
+    body.feishin-landscape .feishin-more-item:active {
+        background: linear-gradient(135deg, rgba(168, 85, 247, 0.28), rgba(126, 34, 206, 0.24)) !important;
+        border-color: rgba(192, 132, 252, 0.55) !important;
+        box-shadow: 0 6px 20px rgba(168, 85, 247, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+        transform: scale(0.96) !important;
+    }
+
+    .feishin-more-item.active,
+    body.feishin-landscape .feishin-more-item.active {
+        background: linear-gradient(135deg, rgba(168, 85, 247, 0.22), rgba(126, 34, 206, 0.18)) !important;
+        border-color: rgba(168, 85, 247, 0.6) !important;
+        box-shadow: 0 0 16px rgba(168, 85, 247, 0.3) !important;
+        color: #F3E8FF !important;
+    }
+
+    .feishin-more-icon-wrap,
+    body.feishin-landscape .feishin-more-icon-wrap {
+        width: 38px !important;
+        height: 38px !important;
+        border-radius: 12px !important;
+        background: linear-gradient(135deg, rgba(168, 85, 247, 0.20), rgba(126, 34, 206, 0.10)) !important;
+        border: 1px solid rgba(168, 85, 247, 0.32) !important;
+        box-shadow: 0 3px 10px rgba(168, 85, 247, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-shrink: 0 !important;
+        color: #D8B4FE !important;
+        margin: 0 !important;
+    }
+
+    .feishin-more-icon-wrap svg,
+    body.feishin-landscape .feishin-more-icon-wrap svg {
+        width: 19px !important;
+        height: 19px !important;
+    }
+
+    .feishin-more-item.active .feishin-more-icon-wrap,
+    body.feishin-landscape .feishin-more-item.active .feishin-more-icon-wrap {
+        background: linear-gradient(135deg, #A855F7, #7E22CE) !important;
+        border-color: rgba(255, 255, 255, 0.35) !important;
+        color: #FFFFFF !important;
+        box-shadow: 0 4px 14px rgba(168, 85, 247, 0.5) !important;
+    }
+
+    .feishin-more-item-label,
+    body.feishin-landscape .feishin-more-item-label {
+        flex: none !important;
+        font-size: 11px !important;
+        font-weight: 600 !important;
+        color: #E2E8F0 !important;
+        text-align: center !important;
+        line-height: 1.25 !important;
+        white-space: normal !important;
+        word-break: normal !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+        letter-spacing: 0.15px !important;
+        width: 100% !important;
+    }
+
+    .feishin-more-badge-pro,
+    body.feishin-landscape .feishin-more-badge-pro {
+        position: absolute !important;
+        top: 6px !important;
+        right: 6px !important;
+        font-size: 8px !important;
+        font-weight: 800 !important;
+        padding: 1.5px 5px !important;
+        border-radius: 5px !important;
+        background: linear-gradient(135deg, #06B6D4, #8B5CF6) !important;
+        color: #FFFFFF !important;
+        letter-spacing: 0.4px !important;
+        box-shadow: 0 0 10px rgba(6, 182, 212, 0.5) !important;
+    }
+
+    /* 5. ALPHABET SCRUBBER: OTIMIZADO NA LATERAL DIREITA */
+    #feishin-alphabet-scrubber.fs-az-scrubber,
+    .fs-az-scrubber,
+    body.feishin-landscape #feishin-alphabet-scrubber.fs-az-scrubber,
+    body.feishin-landscape .fs-az-scrubber {
+        top: max(32px, env(safe-area-inset-top, 32px)) !important;
+        bottom: max(64px, env(safe-area-inset-bottom, 64px)) !important;
+        right: max(2px, env(safe-area-inset-right, 2px)) !important;
+        width: 20px !important;
+        padding: 3px 0 !important;
+        z-index: 170 !important;
+    }
+
+    #feishin-alphabet-scrubber.fs-az-scrubber::before,
+    .fs-az-scrubber::before,
+    body.feishin-landscape #feishin-alphabet-scrubber.fs-az-scrubber::before,
+    body.feishin-landscape .fs-az-scrubber::before {
+        content: '' !important;
+        position: absolute !important;
+        top: -12px !important;
+        bottom: -12px !important;
+        left: -24px !important;
+        right: -10px !important;
+        z-index: 1 !important;
+        pointer-events: auto !important;
+    }
+
+    #feishin-alphabet-scrubber .fs-az-item,
+    .fs-az-item,
+    body.feishin-landscape #feishin-alphabet-scrubber .fs-az-item,
+    body.feishin-landscape .fs-az-item {
+        min-height: 8px !important;
+        font-size: 8px !important;
+        line-height: 8px !important;
+        width: 16px !important;
+    }
+
+    /* 6. MODAL DE BACKGROUNDS / SHADERS: CENTRALIZADO COM PERFEIÇÃO */
+    #personal-os-shader-backdrop,
+    body.feishin-landscape #personal-os-shader-backdrop {
+        left: calc(var(--feishin-rail-width, 72px) + env(safe-area-inset-left, 0px)) !important;
+        width: calc(100vw - (var(--feishin-rail-width, 72px) + env(safe-area-inset-left, 0px))) !important;
+        height: 100dvh !important;
+        top: 0 !important;
+        z-index: 100000 !important;
+        pointer-events: auto !important;
+    }
+
+    #personal-os-shader-modal,
+    body.feishin-landscape #personal-os-shader-modal {
+        top: 8px !important;
+        bottom: 8px !important;
+        left: calc(var(--feishin-rail-width, 72px) + env(safe-area-inset-left, 0px) + (100vw - var(--feishin-rail-width, 72px) - env(safe-area-inset-left, 0px))/2) !important;
+        transform: translateX(-50%) !important;
+        width: min(90vw, 860px) !important;
+        max-width: calc(100vw - var(--feishin-rail-width, 72px) - 24px) !important;
+        height: calc(100dvh - 16px) !important;
+        max-height: calc(100dvh - 16px) !important;
+        border-radius: 20px !important;
+        padding: 8px 14px max(8px, env(safe-area-inset-bottom, 8px)) 14px !important;
+        gap: 6px !important;
+        z-index: 100001 !important;
+        animation: none !important;
+    }
+
+    /* 7. RECENTES, TAGS & ANALYTICS EM LANDSCAPE */
+    #feishin-recently-added-view,
+    body.feishin-landscape #feishin-recently-added-view {
+        padding: 4px 10px calc(64px + max(8px, env(safe-area-inset-bottom, 8px)) + 16px) 10px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .fs-tags-page-root,
+    .fs-tags-container,
+    body.feishin-landscape .fs-tags-page-root,
+    body.feishin-landscape .fs-tags-container {
+        padding-left: 10px !important;
+        padding-right: max(16px, env(safe-area-inset-right, 16px)) !important;
+        padding-bottom: calc(64px + max(8px, env(safe-area-inset-bottom, 8px)) + 20px) !important;
+        box-sizing: border-box !important;
+    }
+
+    .fs-hero-boxes-grid,
+    body.feishin-landscape .fs-hero-boxes-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 8px !important;
+    }
+
+    .fs-hero-box,
+    body.feishin-landscape .fs-hero-box {
+        min-height: 0 !important;
+        height: 120px !important;
+        border-radius: 14px !important;
+    }
+
+    #feishin-analytics-dashboard,
+    body.feishin-landscape #feishin-analytics-dashboard {
+        padding: 4px 10px calc(64px + max(8px, env(safe-area-inset-bottom, 8px)) + 16px) 10px !important;
+        gap: 10px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* ==========================================================================
+       8. PAINEL DE CONFIGURAÇÕES (CONF) INTEGRADO EM LANDSCAPE — LIQUID GLASS
+       Elimina a janela flutuante desktop centralizada e integra 100% à direita do rail
+       ========================================================================== */
+    body.feishin-landscape .mantine-Modal-inner:has(.mantine-Tabs-list),
+    body.feishin-landscape .mantine-Modal-inner:has([class*="settings"]),
+    body.feishin-landscape.feishin-settings-open .mantine-Modal-inner {
+        padding: 0 !important;
+        margin: 0 !important;
+        position: fixed !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100vw !important;
+        height: 100dvh !important;
+        display: block !important;
+        pointer-events: none !important;
+        z-index: 210 !important;
+    }
+
+    body.feishin-landscape .mantine-Modal-overlay:has(~ * .mantine-Tabs-list),
+    body.feishin-landscape .mantine-Modal-overlay:has(~ * [class*="settings"]),
+    body.feishin-landscape.feishin-settings-open .mantine-Modal-overlay {
+        background: transparent !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        pointer-events: none !important;
+    }
+
+    body.feishin-landscape .mantine-Modal-content:has(.mantine-Tabs-list),
+    body.feishin-landscape .mantine-Modal-content:has([class*="settings"]),
+    body.feishin-landscape.feishin-settings-open .mantine-Modal-content {
+        position: fixed !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        left: calc(var(--feishin-rail-width, 72px) + env(safe-area-inset-left, 0px)) !important;
+        right: 0 !important;
+        width: calc(100vw - var(--feishin-rail-width, 72px) - env(safe-area-inset-left, 0px)) !important;
+        max-width: none !important;
+        height: 100dvh !important;
+        max-height: 100dvh !important;
+        border-radius: 0 !important;
+        border: none !important;
+        border-left: 1px solid rgba(255, 255, 255, 0.16) !important;
+        background: rgba(14, 15, 23, 0.88) !important;
+        backdrop-filter: blur(36px) saturate(190%) !important;
+        -webkit-backdrop-filter: blur(36px) saturate(190%) !important;
+        box-shadow: -8px 0 32px rgba(0, 0, 0, 0.5) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        pointer-events: auto !important;
+        z-index: 210 !important;
+        overflow: hidden !important;
+        margin: 0 !important;
+    }
+
+    /* Modais secundários mantêm centralização limpa */
+    body.feishin-landscape .mantine-Modal-inner:not(:has(.mantine-Tabs-list)):not(:has([class*="settings"])) {
+        padding: 10px 14px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    body.feishin-landscape .mantine-Modal-content:not(:has(.mantine-Tabs-list)):not(:has([class*="settings"])) {
+        width: min(82vw, 680px) !important;
+        max-width: 680px !important;
+        max-height: calc(100dvh - 20px) !important;
+        border-radius: 20px !important;
+        margin: auto !important;
+    }
+
+    /* Header das Configurações no Landscape */
+    body.feishin-landscape .mantine-Modal-header {
+        padding: max(12px, env(safe-area-inset-top, 12px)) max(22px, env(safe-area-inset-right, 22px)) 12px 24px !important;
+        background: rgba(255, 255, 255, 0.04) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.10) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        min-height: 54px !important;
+        box-sizing: border-box !important;
+    }
+
+    body.feishin-landscape .mantine-Modal-title {
+        font-size: 19px !important;
+        font-weight: 700 !important;
+        color: #FFFFFF !important;
+        letter-spacing: -0.3px !important;
+    }
+
+    body.feishin-landscape .mantine-Modal-close {
+        width: 36px !important;
+        height: 36px !important;
+        min-width: 36px !important;
+        min-height: 36px !important;
+        border-radius: 50% !important;
+        background: rgba(255, 255, 255, 0.08) !important;
+        border: 1px solid rgba(255, 255, 255, 0.16) !important;
+        color: #FFFFFF !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        cursor: pointer !important;
+        transition: transform 0.15s ease, background 0.15s ease !important;
+    }
+
+    body.feishin-landscape .mantine-Modal-close:active {
+        transform: scale(0.92) !important;
+        background: rgba(255, 255, 255, 0.16) !important;
+    }
+
+    /* Corpo com Rolagem Touch Suave */
+    body.feishin-landscape .mantine-Modal-body {
+        flex: 1 1 auto !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        padding: 14px 24px max(24px, env(safe-area-inset-bottom, 24px)) 24px !important;
+        box-sizing: border-box !important;
+        overscroll-behavior: contain !important;
+    }
+
+    /* Abas como Pílulas Liquid Glass no Landscape */
+    body.feishin-landscape .mantine-Tabs-list,
+    body.feishin-landscape .fs-tabs-module-list {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 8px !important;
+        padding: 6px 0 14px 0 !important;
+        background: transparent !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+        margin-bottom: 16px !important;
+        overflow-x: auto !important;
+        scrollbar-width: none !important;
+    }
+
+    body.feishin-landscape .mantine-Tabs-list::-webkit-scrollbar,
+    body.feishin-landscape .fs-tabs-module-list::-webkit-scrollbar {
+        display: none !important;
+    }
+
+    body.feishin-landscape .mantine-Tabs-tab,
+    body.feishin-landscape .fs-tabs-module-tab {
+        height: 36px !important;
+        border-radius: 18px !important;
+        padding: 0 20px !important;
+        font-size: 13.5px !important;
+        font-weight: 600 !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        background: rgba(255, 255, 255, 0.06) !important;
+        color: rgba(255, 255, 255, 0.75) !important;
+        cursor: pointer !important;
+        transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        white-space: nowrap !important;
+    }
+
+    body.feishin-landscape .mantine-Tabs-tab[data-active="true"],
+    body.feishin-landscape .mantine-Tabs-tab.active,
+    body.feishin-landscape .fs-tabs-module-tab[data-active="true"] {
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.45) 0%, rgba(59, 130, 246, 0.35) 100%) !important;
+        border: 1px solid rgba(255, 255, 255, 0.32) !important;
+        color: #FFFFFF !important;
+        box-shadow: 0 4px 14px rgba(139, 92, 246, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+    }
+
+    /* Cards de Opções em Liquid Glass */
+    body.feishin-landscape .fs-settings-option-module-row {
+        background: rgba(255, 255, 255, 0.04) !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        border-radius: 14px !important;
+        padding: 12px 18px !important;
+        margin-bottom: 8px !important;
+        min-height: 52px !important;
+        box-sizing: border-box !important;
+        transition: background 0.15s ease !important;
+    }
+
+    body.feishin-landscape .fs-settings-option-module-row:hover {
+        background: rgba(255, 255, 255, 0.07) !important;
+        border-color: rgba(255, 255, 255, 0.14) !important;
+    }
+}
+
+/* ==========================================================================
+   SANITIZAÇÃO GLOBAL MOBILE DAS CONFIGURAÇÕES (EXPURGO DE ITENS DESKTOP CLOUD)
+   ========================================================================== */
+/* 1. Ocultar aba de teclas de atalho de teclado no Android */
+button[id*="-tab-hotkeys"],
+[aria-controls*="-panel-hotkeys"],
+[data-value="hotkeys"],
+.mantine-Tabs-tab[data-value="hotkeys"] {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    pointer-events: none !important;
+}
+
+/* 2. Suprimir Scrubber Alfabético em qualquer estado com configurações abertas */
+body.feishin-settings-open #feishin-alphabet-scrubber,
+body.feishin-settings-open #feishin-alphabet-hud,
+body:has(.mantine-Modal-content) #feishin-alphabet-scrubber,
+body:has(.mantine-Modal-content) #feishin-alphabet-hud {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+/* 3. Sincronização Universal do Blur do Vidro com Reprodutor Nativo e Fullscreen */
+:root {
+    --personal-os-aura-opacity: 0.65;
+}
+.fs-full-screen-player-module-container,
+.fs-mobile-fullscreen-player-module-container,
+.fs-full-screen-player-background-image-module-image,
+[class*="fullscreen-player"],
+[class*="fullScreenPlayer"] {
+    --image-blur: var(--personal-os-glass-blur, 28px) !important;
+}
+
+/* ==========================================================================
+   LOCAL MODE — BOTÃO NO MENU MAIS COM ESTÉTICA NEON PULSANTE / VIDRO APAGADO
+   ========================================================================== */
+
+/* Keyframe de pulso neon vibrante em tom esmeralda/cyber-green */
+@keyframes feishin-local-neon-pulse {
+    0% {
+        box-shadow: 0 0 10px rgba(16, 185, 129, 0.65), 0 0 22px rgba(16, 185, 129, 0.38), inset 0 0 10px rgba(16, 185, 129, 0.25) !important;
+        border-color: rgba(52, 211, 153, 0.8) !important;
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 24px rgba(16, 185, 129, 0.95), 0 0 48px rgba(16, 185, 129, 0.6), inset 0 0 16px rgba(16, 185, 129, 0.45) !important;
+        border-color: #34d399 !important;
+        transform: scale(1.02);
+    }
+    100% {
+        box-shadow: 0 0 10px rgba(16, 185, 129, 0.65), 0 0 22px rgba(16, 185, 129, 0.38), inset 0 0 10px rgba(16, 185, 129, 0.25) !important;
+        border-color: rgba(52, 211, 153, 0.8) !important;
+        transform: scale(1);
+    }
+}
+
+@keyframes feishin-local-icon-glow {
+    0% {
+        box-shadow: 0 0 10px #10b981, 0 0 20px rgba(16, 185, 129, 0.6) !important;
+    }
+    50% {
+        box-shadow: 0 0 18px #34d399, 0 0 35px rgba(52, 211, 153, 0.9) !important;
+    }
+    100% {
+        box-shadow: 0 0 10px #10b981, 0 0 20px rgba(16, 185, 129, 0.6) !important;
+    }
+}
+
+/* 1. ESTADO DESATIVADO (OFF): FOSCO, FEIO, VIDRO APAGADO, TOTALMENTE SEM VIDA */
+#feishin-more-local-btn,
+body.feishin-landscape #feishin-more-local-btn {
+    background: rgba(14, 16, 22, 0.65) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    color: #475569 !important;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6) !important;
+    opacity: 0.45 !important;
+    filter: grayscale(100%) contrast(75%) brightness(0.65) !important;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+#feishin-more-local-btn:active,
+body.feishin-landscape #feishin-more-local-btn:active {
+    background: rgba(10, 11, 15, 0.8) !important;
+    transform: scale(0.96) !important;
+    opacity: 0.6 !important;
+}
+
+#feishin-more-local-btn .feishin-more-icon-wrap,
+body.feishin-landscape #feishin-more-local-btn .feishin-more-icon-wrap {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.04) !important;
+    color: #475569 !important;
+    box-shadow: none !important;
+    animation: none !important;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+#feishin-more-local-btn .feishin-more-item-label,
+body.feishin-landscape #feishin-more-local-btn .feishin-more-item-label {
+    color: #475569 !important;
+    text-shadow: none !important;
+    font-weight: 500 !important;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+#feishin-more-local-btn #feishin-more-local-badge,
+body.feishin-landscape #feishin-more-local-btn #feishin-more-local-badge {
+    background: rgba(255, 255, 255, 0.04) !important;
+    color: #475569 !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    font-weight: 700 !important;
+    opacity: 0.6 !important;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* 2. ESTADO ATIVADO (ON): BRILHO EM TOM NEON PULSANTE VIBRANTE */
+#feishin-more-local-btn.active,
+body.feishin-landscape #feishin-more-local-btn.active {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.36), rgba(5, 150, 105, 0.22)) !important;
+    border: 1.5px solid #10B981 !important;
+    color: #FFFFFF !important;
+    opacity: 1 !important;
+    filter: none !important;
+    animation: feishin-local-neon-pulse 2s cubic-bezier(0.4, 0, 0.2, 1) infinite !important;
+    z-index: 2 !important;
+}
+
+#feishin-more-local-btn.active:active,
+body.feishin-landscape #feishin-more-local-btn.active:active {
+    transform: scale(0.97) !important;
+}
+
+#feishin-more-local-btn.active .feishin-more-icon-wrap,
+body.feishin-landscape #feishin-more-local-btn.active .feishin-more-icon-wrap {
+    background: #10B981 !important;
+    border: 1px solid #6EE7B7 !important;
+    color: #FFFFFF !important;
+    animation: feishin-local-icon-glow 2s cubic-bezier(0.4, 0, 0.2, 1) infinite !important;
+}
+
+#feishin-more-local-btn.active .feishin-more-item-label,
+body.feishin-landscape #feishin-more-local-btn.active .feishin-more-item-label {
+    color: #F0FDF4 !important;
+    font-weight: 800 !important;
+    text-shadow: 0 0 10px rgba(16, 185, 129, 0.95), 0 0 20px rgba(16, 185, 129, 0.6) !important;
+}
+
+#feishin-more-local-btn.active #feishin-more-local-badge,
+body.feishin-landscape #feishin-more-local-btn.active #feishin-more-local-badge {
+    background: #10B981 !important;
+    color: #022C22 !important;
+    font-weight: 900 !important;
+    border: 1px solid #A7F3D0 !important;
+    box-shadow: 0 0 14px rgba(16, 185, 129, 0.95) !important;
+    text-shadow: none !important;
+    opacity: 1 !important;
+}
+
+.ra-local-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    margin-left: 5px;
+    opacity: 0.85;
+    vertical-align: middle;
+}
+
+.feishin-local-pill {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 3px !important;
+    font-size: 9px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.5px !important;
+    color: #10B981 !important;
+    background: rgba(16, 185, 129, 0.16) !important;
+    border: 1px solid rgba(16, 185, 129, 0.4) !important;
+    padding: 1px 6px !important;
+    border-radius: 6px !important;
+    margin-left: 8px !important;
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.3) !important;
+    vertical-align: middle !important;
+}
+
+
+

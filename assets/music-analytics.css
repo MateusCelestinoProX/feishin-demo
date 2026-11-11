@@ -1,0 +1,1248 @@
+/* ==========================================================================
+   FEISHIN ULTRA-PREMIUM APPLE GLASS — MUSIC ANALYTICS DASHBOARD
+   Design System: Frosted Acrylic Glassmorphism, Neon Aura & Tabular Stats
+   ========================================================================== */
+
+/* 1. Início Top Segmented Tab Switcher */
+.feishin-home-tabs-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding: 8px 14px;
+  background: rgba(18, 22, 36, 0.65);
+  backdrop-filter: blur(36px) saturate(190%);
+  -webkit-backdrop-filter: blur(36px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  position: relative;
+  z-index: 20;
+}
+
+.feishin-home-tabs-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.feishin-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 22px;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.65);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.feishin-tab-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.feishin-tab-btn.active {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.08));
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.feishin-tab-btn .tab-badge-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid rgba(16, 185, 129, 0.45);
+  color: #34d399;
+  font-size: 10px;
+  font-weight: 800;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.feishin-tab-btn .tab-badge-live .pulse-dot {
+  width: 6px;
+  height: 6px;
+  background: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #10b981;
+  animation: tabPulse 2s infinite ease-in-out;
+}
+
+@keyframes tabPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.75); }
+}
+
+.feishin-home-tabs-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-right: 6px;
+}
+
+.feishin-live-sync-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.feishin-refresh-btn {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  border-radius: 10px;
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.feishin-refresh-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+.feishin-refresh-btn.rotating svg {
+  animation: spinIcon 0.8s linear infinite;
+}
+
+@keyframes spinIcon {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* 2. Left Sidebar Navigation Item */
+#personal-os-sidebar-analytics-item.active {
+  background: linear-gradient(135deg, rgba(0, 242, 254, 0.22), rgba(79, 172, 254, 0.16)) !important;
+  border-color: rgba(0, 242, 254, 0.45) !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 18px rgba(0, 242, 254, 0.3) !important;
+}
+
+.fs-analytics-sidebar-pill {
+  margin-left: auto;
+  padding: 2px 7px;
+  font-size: 9.5px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #00f2fe, #4facfe);
+  color: #080d18;
+  border-radius: 5px;
+  letter-spacing: 0.6px;
+}
+
+/* 3. Main Dashboard Wrapper — Fully Scrollable Self-Contained Apple Glass Panel */
+#feishin-analytics-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  width: 100% !important;
+  height: 100% !important;
+  max-height: 100% !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  box-sizing: border-box !important;
+  padding: 24px 32px 140px 32px !important;
+  -webkit-overflow-scrolling: touch !important;
+  overscroll-behavior-y: contain !important;
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(255, 255, 255, 0.22) transparent !important;
+  animation: fadeInDashboard 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
+
+#feishin-analytics-dashboard > * {
+  flex-shrink: 0 !important;
+}
+
+#feishin-analytics-dashboard[style*="display: none"] {
+  display: none !important;
+}
+
+#feishin-analytics-dashboard::-webkit-scrollbar {
+  width: 8px !important;
+}
+
+#feishin-analytics-dashboard::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+#feishin-analytics-dashboard::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-radius: 9999px !important;
+  border: 2px solid transparent !important;
+  background-clip: padding-box !important;
+}
+
+#feishin-analytics-dashboard::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4) !important;
+  border: 2px solid transparent !important;
+  background-clip: padding-box !important;
+}
+
+@keyframes fadeInDashboard {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 4. Glass Cards Base */
+.glass-panel {
+  background: rgba(18, 23, 38, 0.65);
+  backdrop-filter: blur(40px) saturate(190%);
+  -webkit-backdrop-filter: blur(40px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 20px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  min-height: fit-content;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+
+.glass-panel:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* 5. Header Banner Glass */
+.analytics-hero-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px 28px;
+  background: linear-gradient(135deg, rgba(28, 35, 60, 0.75), rgba(15, 19, 32, 0.8));
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 22px;
+  position: relative;
+  flex-shrink: 0 !important;
+  min-height: fit-content;
+}
+
+.analytics-hero-banner::after {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -40px;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(0, 242, 254, 0.16) 0%, rgba(121, 40, 202, 0.12) 50%, transparent 75%);
+  filter: blur(45px);
+  pointer-events: none;
+}
+
+.analytics-title-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 2;
+}
+
+.analytics-title-icon-badge {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(0, 242, 254, 0.25), rgba(121, 40, 202, 0.25));
+  border: 1px solid rgba(0, 242, 254, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #00f2fe;
+  box-shadow: 0 8px 24px rgba(0, 242, 254, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  flex-shrink: 0;
+}
+
+.analytics-title-text-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.analytics-title-heading {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  line-height: 1.25 !important;
+  color: #ffffff;
+  margin: 0;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+}
+
+.analytics-title-sub {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.4 !important;
+  color: rgba(255, 255, 255, 0.65);
+  font-weight: 500;
+}
+
+.highlight-cyan {
+  color: #38bdf8;
+  font-weight: 700;
+}
+
+.analytics-timeframe-selector {
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 4px;
+  border-radius: 12px;
+  gap: 4px;
+  z-index: 2;
+}
+
+.analytics-time-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 7px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.analytics-time-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.analytics-time-btn.active {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.1));
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+/* 6. KPI Grid */
+.analytics-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+@media (max-width: 1100px) {
+  .analytics-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .analytics-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.kpi-card {
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 135px;
+}
+
+.kpi-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.kpi-icon-bubble {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.kpi-bubble-playtime {
+  background: linear-gradient(135deg, rgba(0, 242, 254, 0.3), rgba(79, 172, 254, 0.15));
+  border: 1px solid rgba(0, 242, 254, 0.45);
+  color: #00f2fe;
+}
+
+.kpi-bubble-plays {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(121, 40, 202, 0.15));
+  border: 1px solid rgba(168, 85, 247, 0.45);
+  color: #c084fc;
+}
+
+.kpi-bubble-diversity {
+  background: linear-gradient(135deg, rgba(236, 72, 153, 0.3), rgba(219, 39, 119, 0.15));
+  border: 1px solid rgba(236, 72, 153, 0.45);
+  color: #f472b6;
+}
+
+.kpi-bubble-streak {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.3), rgba(217, 119, 6, 0.15));
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  color: #fbbf24;
+}
+
+.kpi-label {
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.kpi-value {
+  font-size: 27px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  font-variant-numeric: tabular-nums;
+  color: #ffffff;
+  margin: 3px 0;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.kpi-value-sub {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.kpi-footer-note {
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.kpi-live-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background: #00f2fe;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #00f2fe;
+  animation: tabPulse 1.8s infinite ease-in-out;
+}
+
+/* 7. Section Titles */
+.analytics-section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.analytics-section-title-wrap h2 {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  margin: 0 0 4px 0;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  line-height: 1.3;
+}
+
+.analytics-section-title-wrap p {
+  margin: 0;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.4;
+}
+
+.metric-badge-highlight {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background: rgba(0, 242, 254, 0.12);
+  border: 1px solid rgba(0, 242, 254, 0.35);
+  color: #38bdf8;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 9999px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* 8. TOP 3 PODIUM CARDS (Compact, Elegant & Full-Info) */
+.podium-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 960px) {
+  .podium-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.podium-card {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border-radius: 20px;
+  padding: 18px 20px;
+  min-height: 290px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.podium-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Ambient glow halo behind cover */
+.podium-ambient-backdrop {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  right: 20px;
+  height: 150px;
+  background-size: cover;
+  background-position: center;
+  filter: blur(28px) saturate(180%) brightness(0.8);
+  opacity: 0.45;
+  border-radius: 20px;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.3s ease;
+}
+
+.podium-card:hover .podium-ambient-backdrop {
+  opacity: 0.7;
+}
+
+/* Podium Header */
+.podium-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 3;
+}
+
+.podium-rank-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 0.4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.podium-live-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  background: rgba(0, 242, 254, 0.2);
+  border: 1px solid rgba(0, 242, 254, 0.4);
+  border-radius: 9999px;
+  font-size: 10px;
+  font-weight: 800;
+  color: #00f2fe;
+  letter-spacing: 0.5px;
+}
+
+/* Equalizer Wave Bars */
+.live-eq-bar, .eq-wave span {
+  display: inline-block;
+  width: 3px;
+  background: #00f2fe;
+  border-radius: 2px;
+  animation: eqBounce 1s infinite ease-in-out;
+}
+
+.eq-wave {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 10px;
+}
+
+.eq-wave .b1 { height: 8px; animation-delay: 0.1s; }
+.eq-wave .b2 { height: 12px; animation-delay: 0.3s; }
+.eq-wave .b3 { height: 6px; animation-delay: 0.2s; }
+
+@keyframes eqBounce {
+  0%, 100% { height: 3px; }
+  50% { height: 10px; }
+}
+
+/* Gold #1 */
+.podium-gold {
+  background: linear-gradient(135deg, rgba(46, 36, 18, 0.75), rgba(18, 16, 12, 0.85));
+  border: 1px solid rgba(255, 215, 0, 0.45);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 35px rgba(255, 215, 0, 0.15), inset 0 1px 0 rgba(255, 215, 0, 0.3);
+}
+
+.podium-rank-gold {
+  background: linear-gradient(135deg, #ffd700, #ffae00);
+  color: #1a1200;
+  box-shadow: 0 0 14px rgba(255, 215, 0, 0.5);
+}
+
+.podium-color-gold {
+  color: #ffd700;
+  text-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
+}
+
+/* Silver #2 */
+.podium-silver {
+  background: linear-gradient(135deg, rgba(32, 38, 52, 0.75), rgba(16, 20, 28, 0.85));
+  border: 1px solid rgba(226, 232, 240, 0.35);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(226, 232, 240, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.podium-rank-silver {
+  background: linear-gradient(135deg, #f8fafc, #94a3b8);
+  color: #0f172a;
+}
+
+.podium-color-silver {
+  color: #e2e8f0;
+  text-shadow: 0 0 10px rgba(226, 232, 240, 0.35);
+}
+
+/* Bronze #3 */
+.podium-bronze {
+  background: linear-gradient(135deg, rgba(42, 30, 22, 0.75), rgba(20, 16, 14, 0.85));
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(245, 158, 11, 0.12), inset 0 1px 0 rgba(245, 158, 11, 0.25);
+}
+
+.podium-rank-bronze {
+  background: linear-gradient(135deg, #f59e0b, #b45309);
+  color: #ffffff;
+}
+
+.podium-color-bronze {
+  color: #fbbf24;
+  text-shadow: 0 0 10px rgba(251, 191, 36, 0.35);
+}
+
+/* Cover Image Container */
+.podium-media-wrap {
+  width: 100%;
+  height: 155px;
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+  background: #111420;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  margin-bottom: 14px;
+  z-index: 2;
+}
+
+.podium-cover-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: block;
+}
+
+.podium-card:hover .podium-cover-image {
+  transform: scale(1.05);
+}
+
+.podium-play-trigger {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  cursor: pointer;
+}
+
+.podium-card:hover .podium-play-trigger,
+.podium-card.is-playing .podium-play-trigger {
+  opacity: 1;
+}
+
+.podium-play-fab {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #0b0f19;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s;
+}
+
+.podium-play-fab:hover {
+  transform: scale(1.1);
+  background: #00f2fe;
+}
+
+/* Track Metadata */
+.podium-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 2;
+  position: relative;
+}
+
+.podium-song-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: -0.2px;
+}
+
+.podium-song-artist {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.meta-separator {
+  opacity: 0.45;
+  font-size: 11px;
+  margin: 0 4px;
+}
+
+.podium-stat-bar {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.podium-stat-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.podium-stat-caption {
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.podium-stat-highlight {
+  font-size: 21px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.4px;
+}
+
+.podium-stat-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* 9. Ranking List Table (#4 ao #30+) */
+.ranking-table-panel {
+  padding: 0;
+  overflow: hidden;
+}
+
+.ranking-table-header {
+  display: grid;
+  grid-template-columns: 50px 3fr 2fr 1fr 1fr 2fr;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 24px;
+  background: rgba(0, 0, 0, 0.25);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.ranking-table-row {
+  display: grid;
+  grid-template-columns: 50px 3fr 2fr 1fr 1fr 2fr;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.ranking-table-row:last-child {
+  border-bottom: none;
+}
+
+.ranking-table-row:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.ranking-table-row.is-current {
+  background: rgba(0, 242, 254, 0.08);
+  border-left: 3px solid #00f2fe;
+}
+
+.ranking-rank-num {
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.45);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.ranking-track-col {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.ranking-thumb {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  background: #111;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.ranking-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ranking-thumb-play {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s;
+  color: #fff;
+}
+
+.ranking-table-row:hover .ranking-thumb-play {
+  opacity: 1;
+}
+
+.ranking-track-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.ranking-track-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ranking-track-artist {
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.6);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ranking-album-col {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ranking-duration-col {
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.ranking-plays-col {
+  font-size: 13px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.ranking-playtime-col {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.ranking-playtime-val {
+  font-size: 13.5px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: #00f2fe;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ranking-progress-track {
+  width: 100%;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.ranking-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #00f2fe, #7928ca);
+  border-radius: 9999px;
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 10. Split Columns: Top Artistas & Top Álbuns */
+.split-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 900px) {
+  .split-stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mini-stat-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mini-stat-item:hover {
+  background: rgba(255, 255, 255, 0.07);
+  transform: translateX(4px);
+}
+
+.mini-stat-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.artist-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #222;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.album-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: #222;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.mini-stat-names {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.mini-stat-main {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mini-stat-sub {
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.mini-stat-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.mini-stat-time {
+  font-size: 13px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: #38bdf8;
+}
+
+.mini-stat-pct {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+/* 11. Listening Clock (24-Hour Activity Chart) */
+.listening-clock-card {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.clock-periods-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+@media (max-width: 768px) {
+  .clock-periods-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.clock-period-box {
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 12px 16px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.clock-period-box.peak {
+  border-color: rgba(0, 242, 254, 0.45);
+  background: linear-gradient(135deg, rgba(0, 242, 254, 0.14), rgba(0, 0, 0, 0.35));
+}
+
+.period-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.period-val {
+  font-size: 16px;
+  font-weight: 800;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+
+.clock-bars-visualizer {
+  display: flex;
+  align-items: flex-end;
+  height: 120px;
+  gap: 6px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.clock-hour-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.clock-hour-bar {
+  width: 100%;
+  min-height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px 4px 0 0;
+  transition: height 0.6s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s;
+  position: relative;
+}
+
+.clock-hour-col:hover .clock-hour-bar {
+  background: #00f2fe;
+  box-shadow: 0 0 12px #00f2fe;
+}
+
+.clock-hour-bar.is-peak {
+  background: linear-gradient(to top, #7928ca, #00f2fe);
+  box-shadow: 0 0 12px rgba(0, 242, 254, 0.55);
+}
+
+.clock-hour-label {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.45);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 12. Vibe DNA & Audio Profile */
+.vibe-dna-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+}
+
+.vibe-pill-card {
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.vibe-tag-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.vibe-tag-val {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.vibe-tag-desc {
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+/* 13. Recent Streams Timeline */
+.stream-history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stream-history-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background 0.2s;
+}
+
+.stream-history-item:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.stream-history-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stream-history-thumb {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.stream-history-names {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stream-history-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.stream-history-meta {
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.stream-history-time {
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: rgba(255, 255, 255, 0.55);
+}

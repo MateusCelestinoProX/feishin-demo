@@ -1,0 +1,595 @@
+/* ==========================================================================
+   FEISHIN PERSONAL OS — ULTRA-CLEAR LIQUID GLASS TRACK EDITOR
+   Visual Translúcido Cristalino com Background 100% Visível
+   Totalmente Responsivo: macOS Desktop, Android Portrait & Landscape
+   ========================================================================== */
+
+/* 1. Backdrop com desfoque suave permitindo ver o background WebGL/Vídeo do app */
+.feishin-te-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(4, 4, 10, 0.32);
+    backdrop-filter: blur(12px) saturate(160%);
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
+    z-index: 100050;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.feishin-te-backdrop.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* 2. Painel de Vidro Ultra Claro (Crystal Liquid Glass) */
+.feishin-te-panel {
+    position: relative;
+    width: 100%;
+    max-width: 840px;
+    max-height: min(90vh, 760px);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.03) 100%), rgba(14, 15, 26, 0.54) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.35) !important;
+    border-radius: 26px !important;
+    backdrop-filter: blur(48px) saturate(210%) !important;
+    -webkit-backdrop-filter: blur(48px) saturate(210%) !important;
+    box-shadow: 0 35px 95px rgba(0, 0, 0, 0.75), 0 0 1px 1px rgba(255, 255, 255, 0.20), inset 0 1px 2px rgba(255, 255, 255, 0.35) !important;
+    color: #F8FAFC;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: scale(0.94) translateY(12px);
+    opacity: 0;
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+    box-sizing: border-box;
+}
+
+.feishin-te-backdrop.open .feishin-te-panel {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+/* 3. Header do Painel */
+.feishin-te-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px 14px 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
+}
+
+.feishin-te-title-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.feishin-te-title {
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.feishin-te-title-badge {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.3) 0%, rgba(99, 102, 241, 0.2) 100%);
+    border: 1px solid rgba(167, 139, 250, 0.4);
+    color: #C4B5FD;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.feishin-te-subtitle {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.55);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 520px;
+}
+
+.feishin-te-close-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.75);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.18s ease;
+    flex-shrink: 0;
+}
+
+.feishin-te-close-btn:hover {
+    background: rgba(255, 255, 255, 0.18);
+    color: #FFFFFF;
+    transform: scale(1.06);
+}
+
+/* 4. Corpo com 2 Colunas */
+.feishin-te-body {
+    display: flex;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 20px 24px;
+    gap: 28px;
+    box-sizing: border-box;
+}
+
+/* Scrollbar Customizada Discreta */
+.feishin-te-body::-webkit-scrollbar {
+    width: 6px;
+}
+.feishin-te-body::-webkit-scrollbar-track {
+    background: transparent;
+}
+.feishin-te-body::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.16);
+    border-radius: 3px;
+}
+
+/* 4.1 Coluna Esquerda: Cover Art & Tags */
+.feishin-te-col-left {
+    width: 250px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.feishin-te-cover-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 18px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    group: hover;
+}
+
+.feishin-te-cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.feishin-te-cover-container:hover .feishin-te-cover-img {
+    transform: scale(1.03);
+    filter: brightness(0.7);
+}
+
+.feishin-te-cover-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(4px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #FFFFFF;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    padding: 12px;
+}
+
+.feishin-te-cover-container:hover .feishin-te-cover-overlay,
+.feishin-te-cover-container.dragover .feishin-te-cover-overlay {
+    opacity: 1;
+}
+
+.feishin-te-cover-badge {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: rgba(16, 16, 24, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    padding: 3px 7px;
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+}
+
+.feishin-te-cover-actions {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+}
+
+.feishin-te-btn-secondary {
+    flex: 1;
+    padding: 8px 12px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.18s ease;
+}
+
+.feishin-te-btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.22);
+}
+
+/* 4.2 Tags Box */
+.feishin-te-tags-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.feishin-te-tags-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.feishin-te-tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    min-height: 32px;
+}
+
+.feishin-te-tag-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.18) 0%, rgba(99, 102, 241, 0.12) 100%);
+    border: 1px solid rgba(167, 139, 250, 0.35);
+    color: #DDD6FE;
+    font-size: 11.5px;
+    font-weight: 600;
+    backdrop-filter: blur(8px);
+}
+
+.feishin-te-tag-remove {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    color: rgba(255, 255, 255, 0.6);
+    transition: all 0.15s ease;
+}
+
+.feishin-te-tag-remove:hover {
+    color: #FF4D4F;
+    background: rgba(255, 77, 79, 0.2);
+}
+
+.feishin-te-tag-input-row {
+    display: flex;
+    gap: 6px;
+    margin-top: 4px;
+}
+
+.feishin-te-tag-input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    padding: 6px 10px;
+    color: #FFFFFF;
+    font-size: 12px;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.feishin-te-tag-input:focus {
+    border-color: rgba(167, 139, 250, 0.6);
+    box-shadow: 0 0 0 2px rgba(167, 139, 250, 0.2);
+}
+
+.feishin-te-tag-add-btn {
+    padding: 0 12px;
+    border-radius: 10px;
+    background: rgba(167, 139, 250, 0.2);
+    border: 1px solid rgba(167, 139, 250, 0.35);
+    color: #DDD6FE;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.feishin-te-tag-add-btn:hover {
+    background: rgba(167, 139, 250, 0.35);
+}
+
+/* 4.3 Coluna Direita: Formulário de Metadados */
+.feishin-te-col-right {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.feishin-te-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.feishin-te-label {
+    font-size: 11.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.feishin-te-input,
+.feishin-te-textarea {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 12px !important;
+    padding: 10px 14px !important;
+    color: #FFFFFF !important;
+    font-size: 14px !important;
+    font-family: inherit !important;
+    outline: none !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    box-sizing: border-box !important;
+}
+
+.feishin-te-input:focus,
+.feishin-te-textarea:focus {
+    border-color: rgba(167, 139, 250, 0.7) !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.25) !important;
+}
+
+.feishin-te-input-highlight {
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.feishin-te-row-2col {
+    display: flex;
+    gap: 12px;
+}
+
+.feishin-te-row-2col > div {
+    flex: 1;
+}
+
+.feishin-te-textarea {
+    resize: vertical;
+    min-height: 52px;
+}
+
+/* 5. Footer do Painel com Ações */
+.feishin-te-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 14px 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    gap: 12px;
+    flex-shrink: 0;
+    background: rgba(10, 10, 16, 0.25);
+}
+
+.feishin-te-btn-cancel {
+    padding: 10px 18px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s ease;
+}
+
+.feishin-te-btn-cancel:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #FFFFFF;
+}
+
+.feishin-te-btn-save {
+    padding: 10px 22px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #7C3AED 0%, #4F46E5 100%);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #FFFFFF;
+    font-size: 13.5px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4);
+    transition: all 0.2s ease;
+}
+
+.feishin-te-btn-save:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 30px rgba(124, 58, 237, 0.55);
+    filter: brightness(1.1);
+}
+
+.feishin-te-btn-save:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Spinner */
+.feishin-te-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #FFFFFF;
+    border-radius: 50%;
+    animation: feishinTeSpin 0.7s linear infinite;
+}
+
+@keyframes feishinTeSpin {
+    to { transform: rotate(360deg); }
+}
+
+/* 6. Context Menu Item "Editar Faixa" */
+.feishin-track-editor-menu-item {
+    color: #C4B5FD !important;
+    font-weight: 600 !important;
+    cursor: pointer;
+    transition: background 0.15s ease !important;
+}
+
+.feishin-track-editor-menu-item:hover,
+.feishin-track-editor-menu-item[data-highlighted] {
+    background: rgba(167, 139, 250, 0.18) !important;
+    color: #FFFFFF !important;
+}
+
+/* ==========================================================================
+   7. ADAPTAÇÕES MOBILE (ANDROID PORTRAIT & LANDSCAPE)
+   ========================================================================== */
+
+/* Portrait Mobile (Telas Estreitas) */
+@media (max-width: 640px) {
+    .feishin-te-backdrop {
+        padding: 0;
+        align-items: flex-end;
+    }
+
+    .feishin-te-panel {
+        max-width: 100vw;
+        max-height: 94dvh;
+        border-bottom-left-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+        border-top-left-radius: 26px !important;
+        border-top-right-radius: 26px !important;
+        transform: translateY(100%);
+    }
+
+    .feishin-te-backdrop.open .feishin-te-panel {
+        transform: translateY(0);
+    }
+
+    .feishin-te-body {
+        flex-direction: column;
+        gap: 18px;
+        padding: 16px 18px 24px 18px;
+    }
+
+    .feishin-te-col-left {
+        width: 100%;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .feishin-te-cover-container {
+        width: 130px;
+        height: 130px;
+        flex-shrink: 0;
+    }
+
+    .feishin-te-tags-section {
+        flex: 1;
+    }
+
+    .feishin-te-input,
+    .feishin-te-btn-cancel,
+    .feishin-te-btn-save {
+        min-height: 48px; /* Ergonomia Android Touch */
+    }
+
+    .feishin-te-footer {
+        padding: 12px 18px calc(env(safe-area-inset-bottom, 12px) + 12px) 18px;
+    }
+}
+
+/* Landscape Mobile (Samsung Galaxy S22 Ultra Landscape, etc.) */
+@media (orientation: landscape) and (max-height: 520px) {
+    .feishin-te-backdrop {
+        padding: 8px 16px;
+    }
+
+    .feishin-te-panel {
+        max-height: 96dvh;
+        border-radius: 20px !important;
+    }
+
+    .feishin-te-header {
+        padding: 10px 18px 8px 18px;
+    }
+
+    .feishin-te-body {
+        padding: 10px 18px;
+        gap: 20px;
+    }
+
+    .feishin-te-col-left {
+        width: 160px;
+        gap: 10px;
+    }
+
+    .feishin-te-cover-container {
+        width: 160px;
+        height: 160px;
+    }
+
+    .feishin-te-input,
+    .feishin-te-textarea {
+        padding: 7px 12px !important;
+        font-size: 13px !important;
+    }
+
+    .feishin-te-footer {
+        padding: 8px 18px calc(env(safe-area-inset-bottom, 6px) + 6px) 18px;
+    }
+}

@@ -1,0 +1,429 @@
+/* ==========================================================================
+   FEISHIN DEMO PREMIUM UI: SPLASH REVEAL, GLASS MODAL & MODE SWITCHER
+   ========================================================================== */
+
+/* 1. Cinematic Splash Screen */
+#feishin-demo-splash {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 999999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at 50% 30%, #1e1038 0%, #0d091a 45%, #05030a 100%);
+    color: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), filter 0.75s ease;
+    overflow: hidden;
+    user-select: none;
+}
+
+#feishin-demo-splash.splash-exit {
+    opacity: 0;
+    transform: scale(1.05);
+    filter: blur(12px);
+    pointer-events: none;
+}
+
+.splash-ambient-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.28) 0%, rgba(6, 182, 212, 0.15) 50%, transparent 70%);
+    filter: blur(60px);
+    animation: splashGlowPulse 4s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes splashGlowPulse {
+    0% { transform: scale(0.9) translate(-5%, -5%); opacity: 0.6; }
+    100% { transform: scale(1.15) translate(5%, 5%); opacity: 1; }
+}
+
+.splash-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 24px;
+    max-width: 480px;
+}
+
+.splash-logo-wrap {
+    position: relative;
+    width: 88px;
+    height: 88px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.splash-logo-ring {
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 2px dashed rgba(168, 85, 247, 0.5);
+    animation: splashSpin 12s linear infinite;
+}
+
+@keyframes splashSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.splash-logo-box {
+    width: 76px;
+    height: 76px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(147, 51, 234, 0.6) 0%, rgba(59, 130, 246, 0.6) 100%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 12px 30px rgba(124, 58, 237, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.splash-logo-box svg {
+    width: 44px;
+    height: 44px;
+    fill: #ffffff;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+}
+
+.splash-title {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: 4px;
+    margin: 0 0 6px 0;
+    background: linear-gradient(135deg, #ffffff 30%, #c084fc 80%, #38bdf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+}
+
+.splash-subtitle {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.65);
+    margin: 0 0 28px 0;
+    text-transform: uppercase;
+}
+
+.splash-progress-track {
+    width: 240px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 14px;
+}
+
+.splash-progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #a855f7, #06b6d4, #a855f7);
+    background-size: 200% 100%;
+    border-radius: 999px;
+    transition: width 0.3s ease-out;
+    animation: splashShimmer 2s linear infinite;
+    box-shadow: 0 0 12px rgba(168, 85, 247, 0.8);
+}
+
+@keyframes splashShimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.splash-status-text {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 400;
+    min-height: 20px;
+}
+
+/* 2. Top Header Demo Floating Bar */
+#feishin-demo-top-bar {
+    position: fixed;
+    top: 12px;
+    right: 16px;
+    z-index: 99990;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    pointer-events: auto;
+}
+
+.demo-glass-badge {
+    background: rgba(18, 14, 32, 0.72);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    border-radius: 999px;
+    padding: 6px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    user-select: none;
+    text-decoration: none;
+}
+
+.demo-glass-badge:hover {
+    background: rgba(30, 24, 52, 0.85);
+    border-color: rgba(168, 85, 247, 0.6);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 28px rgba(168, 85, 247, 0.25);
+}
+
+.demo-badge-dot {
+    width: 7px;
+    height: 7px;
+    background: #10b981;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #10b981;
+    animation: demoBlink 2s infinite;
+}
+
+@keyframes demoBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+.demo-mode-toggle {
+    display: flex;
+    background: rgba(15, 12, 28, 0.8);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    padding: 3px;
+    gap: 2px;
+}
+
+.demo-mode-btn {
+    border: none;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.65);
+    padding: 5px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.demo-mode-btn:hover {
+    color: #ffffff;
+}
+
+.demo-mode-btn.active {
+    background: linear-gradient(135deg, #9333ea, #6366f1);
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(147, 51, 234, 0.4);
+}
+
+/* 3. Glassmorphic Modal ("Popup de Vidro") */
+#feishin-demo-apk-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(4, 2, 10, 0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 16px;
+}
+
+#feishin-demo-apk-modal.modal-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.apk-glass-card {
+    position: relative;
+    width: 100%;
+    max-width: 460px;
+    background: rgba(20, 16, 36, 0.82);
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    border: 1px solid rgba(168, 85, 247, 0.35);
+    border-radius: 28px;
+    padding: 32px 28px;
+    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.85), 0 0 35px rgba(168, 85, 247, 0.2);
+    color: #ffffff;
+    text-align: center;
+    transform: scale(0.92) translateY(12px);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+}
+
+#feishin-demo-apk-modal.modal-open .apk-glass-card {
+    transform: scale(1) translateY(0);
+}
+
+.apk-card-glow {
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 250px;
+    height: 120px;
+    background: radial-gradient(ellipse, rgba(168, 85, 247, 0.4) 0%, transparent 70%);
+    filter: blur(40px);
+    pointer-events: none;
+}
+
+.apk-icon-box {
+    width: 68px;
+    height: 68px;
+    margin: 0 auto 20px auto;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(147, 51, 234, 0.45) 0%, rgba(6, 182, 212, 0.35) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 25px rgba(147, 51, 234, 0.3);
+}
+
+.apk-icon-box svg {
+    width: 36px;
+    height: 36px;
+    fill: #38bdf8;
+}
+
+.apk-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+    color: #ffffff;
+    letter-spacing: -0.2px;
+}
+
+.apk-desc {
+    font-size: 14px;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.72);
+    margin: 0 0 24px 0;
+}
+
+.apk-chips-row {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.apk-chip {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.apk-actions-col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.btn-apk-download {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 14px 20px;
+    border-radius: 14px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(168, 85, 247, 0.4);
+    transition: all 0.25s ease;
+}
+
+.btn-apk-download:hover {
+    background: linear-gradient(135deg, #b865ff 0%, #7376ff 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(168, 85, 247, 0.55);
+}
+
+.btn-modal-dismiss {
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 600;
+    font-size: 13px;
+    padding: 12px 18px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-modal-dismiss:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+}
+
+/* 4. Responsive Device Emulation & Styling */
+body.demo-mode-desktop aside#sidebar,
+body.demo-mode-desktop .fs-left-sidebar-module-container,
+body.demo-mode-desktop #sidebar,
+body.demo-mode-desktop #left-sidebar,
+body.demo-mode-desktop .fs-sidebar-module-container {
+    display: flex !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    width: 240px !important;
+    min-width: 240px !important;
+    height: 100% !important;
+}
+
+body.demo-mode-mobile aside#sidebar,
+body.demo-mode-mobile .fs-left-sidebar-module-container,
+body.demo-mode-mobile #sidebar,
+body.demo-mode-mobile #left-sidebar,
+body.demo-mode-mobile .fs-sidebar-module-container {
+    display: none !important;
+}
+
+/* Animations */
+@keyframes feishinAppEnter {
+    0% { opacity: 0; transform: scale(0.985); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+#root.app-revealed {
+    animation: feishinAppEnter 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

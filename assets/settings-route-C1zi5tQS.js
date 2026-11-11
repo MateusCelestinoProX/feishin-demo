@@ -1,0 +1,3 @@
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["./index-C3w9ueFE.js","./index-Cp7aWvHd.css"])))=>i.map(i=>d[i]);
+import{e as a,r,af as n,j as e,bU as i,F as o,dQ as l}from"./index-C3w9ueFE.js";import{A as c}from"./animated-page-c6WcGlbL.js";const m=r.lazy(()=>n(()=>import("./index-C3w9ueFE.js").then(t=>t.gP),__vite__mapDeps([0,1]),import.meta.url).then(t=>({default:t.SettingsHeader}))),p=()=>{const t=a.c(1);let s;return t[0]===Symbol.for("react.memo_cache_sentinel")?(s=e.jsx(c,{children:e.jsx(i,{children:e.jsxs(o,{direction:"column",h:"100%",w:"100%",children:[e.jsx(r.Suspense,{fallback:e.jsx(e.Fragment,{}),children:e.jsx(m,{})}),e.jsx(l,{})]})})}),t[0]=s):s=t[0],s};export{p as default};
+//# sourceMappingURL=settings-route-C1zi5tQS.js.map

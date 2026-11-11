@@ -1,0 +1,1062 @@
+/* ==========================================================================
+   FEISHIN ULTRA-PREMIUM APPLE GLASS — RECENTLY ADDED (HIERARQUIA CRONOLÓGICA)
+   Design System: Frosted Liquid Glass, Neon Aura, Hierarchical Date Clusters
+   Universal Mobile Android & Desktop macOS Layout System
+   ========================================================================== */
+
+#feishin-recently-added-view {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  overflow-y: overlay;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  box-sizing: border-box;
+  padding: 24px 36px 80px 36px;
+  background: transparent;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  z-index: 10;
+  user-select: none;
+  animation: raFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes raFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Custom Scrollbar for Recently Added View */
+#feishin-recently-added-view::-webkit-scrollbar {
+  width: 6px;
+}
+#feishin-recently-added-view::-webkit-scrollbar-track {
+  background: transparent;
+}
+#feishin-recently-added-view::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  background-clip: padding-box;
+}
+#feishin-recently-added-view::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.32);
+}
+
+/* Route display enforcement to prevent DOM fighting */
+body.feishin-route-recently-added #feishin-recently-added-view {
+  display: flex !important;
+}
+body.feishin-route-recently-added .fs-main-content-module-main-content-body-scroll > main,
+body.feishin-route-recently-added .fs-main-content-module-main-content-body > main,
+body.feishin-route-recently-added #mobile-layout .fs-animated-page-module-animated-page,
+body.feishin-route-recently-added #mobile-layout main.fs-mobile-layout-module-main-content > main,
+body.feishin-route-recently-added .fs-mobile-layout-module-main-content > main,
+body.feishin-route-recently-added .fs-animated-page-module-animated-page,
+body.feishin-route-recently-added [class*="animated-page"] {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  max-height: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+}
+
+/* ==========================================================================
+   HERO HEADER — Liquid Glass Banner with Stats & Controls
+   ========================================================================== */
+.ra-hero-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 24px;
+  background: rgba(20, 16, 35, 0.75);
+  backdrop-filter: blur(36px) saturate(200%);
+  -webkit-backdrop-filter: blur(36px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 20px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  margin-bottom: 20px;
+  position: sticky;
+  top: 0;
+  overflow: hidden;
+  flex-shrink: 0;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 50;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease, box-shadow 0.25s ease;
+  will-change: transform;
+}
+
+.ra-hero-header.ra-header-hidden {
+  transform: translateY(calc(-100% - 20px)) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.ra-hero-header.ra-header-floating {
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.18) !important;
+}
+
+.ra-hero-header::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: 10%;
+  width: 350px;
+  height: 120px;
+  background: radial-gradient(ellipse at center, rgba(168, 85, 247, 0.28), transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.ra-header-main-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 1;
+}
+
+.ra-header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 1;
+}
+
+.ra-header-icon-badge {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.35), rgba(99, 102, 241, 0.2));
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(147, 51, 234, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  color: #e9d5ff;
+  flex-shrink: 0;
+}
+
+.ra-header-titles {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.ra-header-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.ra-header-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #ffffff 40%, rgba(255, 255, 255, 0.7) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.ra-badge-count {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  background: rgba(168, 85, 247, 0.2);
+  border: 1px solid rgba(168, 85, 247, 0.45);
+  color: #c4b5fd;
+  font-size: 11.5px;
+  font-weight: 700;
+  border-radius: 9999px;
+  letter-spacing: 0.3px;
+}
+
+.ra-header-subtitle {
+  margin: 0;
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.55);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ra-header-subtitle .pulse-dot-cyan {
+  width: 6px;
+  height: 6px;
+  background: #38bdf8;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #38bdf8;
+  animation: raDotPulse 2s infinite ease-in-out;
+  flex-shrink: 0;
+}
+
+@keyframes raDotPulse {
+  0%, 100% { opacity: 0.4; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+.ra-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 1;
+}
+
+.ra-action-buttons-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Glass Buttons */
+.ra-glass-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 9999px;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  white-space: nowrap;
+}
+
+.ra-glass-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.28);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.ra-glass-btn:active {
+  transform: scale(0.96);
+}
+
+.ra-glass-btn-primary {
+  background: linear-gradient(135deg, #2563EB, #7C3AED) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+}
+
+.ra-glass-btn-primary:hover {
+  background: linear-gradient(135deg, #3B82F6, #8B5CF6) !important;
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.45) !important;
+}
+
+.ra-glass-btn.ra-glass-btn-icon-only {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  max-width: 38px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  flex: 0 0 38px;
+}
+
+.ra-glass-btn.ra-glass-btn-icon-only svg {
+  display: block;
+  margin: auto;
+}
+
+.ra-glass-btn-active {
+  background: rgba(168, 85, 247, 0.32) !important;
+  border-color: rgba(168, 85, 247, 0.65) !important;
+  color: #c084fc !important;
+  box-shadow: 0 0 14px rgba(168, 85, 247, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+}
+
+/* Search Box in Header */
+.ra-search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+  min-width: 0;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ra-search-input {
+  width: 100%;
+  height: 38px;
+  padding: 0 34px 0 36px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: inherit;
+}
+
+.ra-search-input::placeholder {
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 12.5px;
+}
+
+.ra-search-input:focus {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(168, 85, 247, 0.65);
+  box-shadow: 0 0 16px rgba(168, 85, 247, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.ra-search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 15px;
+  height: 15px;
+  color: rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.ra-search-clear-btn {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 11px;
+  cursor: pointer;
+  padding: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 3;
+}
+
+.ra-search-clear-btn.is-visible {
+  display: flex !important;
+}
+
+.ra-search-clear-btn:hover,
+.ra-search-clear-btn:active {
+  background: rgba(168, 85, 247, 0.5);
+  color: #ffffff;
+  transform: translateY(-50%) scale(1.08);
+}
+
+/* ==========================================================================
+   HIERARCHICAL SECTIONS — Chronological Allocation by File Creation Date
+   ========================================================================== */
+.ra-hierarchical-sections-container {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  width: 100%;
+}
+
+.ra-hierarchy-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+/* Glass Section Header Bar */
+.ra-hierarchy-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: rgba(28, 22, 48, 0.75);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  position: sticky;
+  top: 0;
+  z-index: 8;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.ra-hierarchy-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.ra-hierarchy-icon {
+  font-size: 16px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.ra-hierarchy-header-texts {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  min-width: 0;
+}
+
+.ra-hierarchy-title {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.2px;
+  white-space: nowrap;
+}
+
+.ra-hierarchy-subtitle {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.45);
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.ra-hierarchy-count-pill {
+  padding: 2px 8px;
+  background: rgba(168, 85, 247, 0.22);
+  border: 1px solid rgba(168, 85, 247, 0.45);
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #d8b4fe;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ra-hierarchy-header-right {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+.ra-section-play-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 9999px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 11.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  outline: none;
+}
+
+.ra-section-play-btn:hover {
+  background: rgba(168, 85, 247, 0.35);
+  border-color: rgba(168, 85, 247, 0.6);
+  color: #ffffff;
+}
+
+.ra-section-play-btn:active {
+  transform: scale(0.96);
+}
+
+/* ==========================================================================
+   TRACKLIST TABLE (Desktop Mode)
+   ========================================================================== */
+.ra-tracklist-container {
+  display: flex;
+  flex-direction: column;
+  background: rgba(18, 14, 30, 0.45);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.ra-tracklist-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.ra-tracklist-table th {
+  padding: 12px 14px;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.ra-tracklist-row {
+  height: 52px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  transition: background 0.15s ease;
+  cursor: pointer;
+}
+
+.ra-tracklist-row:last-child {
+  border-bottom: none;
+}
+
+.ra-tracklist-row:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.ra-tracklist-row.is-playing {
+  background: linear-gradient(90deg, rgba(168, 85, 247, 0.25), rgba(99, 102, 241, 0.08)) !important;
+}
+
+.ra-tracklist-row td {
+  padding: 6px 14px;
+  vertical-align: middle;
+  font-size: 13.5px;
+}
+
+.ra-col-idx {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  position: relative;
+}
+
+.ra-row-play-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: #c084fc;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.ra-tracklist-row:hover .ra-idx-num {
+  display: none;
+}
+.ra-tracklist-row:hover .ra-row-play-btn {
+  display: inline-block;
+}
+
+.ra-track-cover-cell {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  width: 44px;
+}
+
+.ra-track-thumb-box {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
+}
+
+.ra-track-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ra-track-title-cell {
+  max-width: 280px;
+}
+
+.ra-track-title {
+  color: #ffffff;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+.ra-tracklist-row.is-playing .ra-track-title {
+  color: #d8b4fe !important;
+  text-shadow: 0 0 12px rgba(192, 132, 252, 0.45);
+}
+
+.ra-track-artist {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ra-track-album {
+  color: rgba(255, 255, 255, 0.65);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+.ra-track-creation-date {
+  display: inline-flex;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: -0.1px;
+}
+
+.ra-track-duration {
+  text-align: right;
+  color: rgba(255, 255, 255, 0.45);
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+}
+
+/* Mini Equalizer */
+.ra-mini-equalizer {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 14px;
+  width: 14px;
+  margin: 0 auto;
+}
+
+.ra-mini-equalizer span {
+  width: 2px;
+  background: #c084fc;
+  border-radius: 2px;
+  animation: raEqWave 0.8s infinite ease-in-out alternate;
+}
+
+.ra-mini-equalizer span:nth-child(1) { height: 40%; animation-delay: 0.1s; }
+.ra-mini-equalizer span:nth-child(2) { height: 90%; animation-delay: 0.3s; }
+.ra-mini-equalizer span:nth-child(3) { height: 60%; animation-delay: 0.2s; }
+.ra-mini-equalizer span:nth-child(4) { height: 100%; animation-delay: 0.4s; }
+
+@keyframes raEqWave {
+  from { height: 20%; }
+  to { height: 100%; }
+}
+
+/* Empty State */
+.ra-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  background: rgba(20, 16, 35, 0.35);
+  border: 1px dashed rgba(255, 255, 255, 0.14);
+  border-radius: 20px;
+}
+
+.ra-empty-icon {
+  font-size: 38px;
+  margin-bottom: 12px;
+}
+
+.ra-empty-title {
+  margin: 0 0 6px 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.ra-empty-desc {
+  margin: 0;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+  max-width: 400px;
+}
+
+/* Sidebar Active State Indicator */
+#personal-os-sidebar-recently-added-item.active {
+  background: var(--mantine-color-primary-light) !important;
+  color: var(--mantine-color-primary-light-color) !important;
+}
+
+/* ==========================================================================
+   MOBILE NATIVE LIQUID GLASS RESPONSIVE OVERRIDES
+   Hardware Alvo: Mobile Android (Samsung Galaxy / Touchscreens)
+   ========================================================================== */
+@media (max-width: 768px), (pointer: coarse) {
+  #feishin-recently-added-view,
+  #mobile-layout #feishin-recently-added-view {
+    padding: 6px 10px calc(140px + var(--sab, 0px)) 10px !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* Compact Mobile Liquid Glass Hero */
+  .ra-hero-header {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+    padding: 10px 12px !important;
+    border-radius: 16px !important;
+    margin-bottom: 10px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    top: 4px !important;
+  }
+
+  .ra-hero-header.ra-header-floating .ra-header-subtitle {
+    display: none !important;
+  }
+
+  .ra-header-main-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+
+  .ra-header-left {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+  }
+
+  .ra-header-icon-badge {
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+    border-radius: 10px !important;
+  }
+
+  .ra-header-icon-badge svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .ra-header-titles {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1px !important;
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+  }
+
+  .ra-header-title-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .ra-header-title {
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.3px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .ra-badge-count {
+    font-size: 10px !important;
+    padding: 2px 6px !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+
+  .ra-header-subtitle {
+    font-size: 10.5px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    opacity: 0.8 !important;
+    transition: all 0.2s ease !important;
+  }
+
+  /* Single-row streamlined mobile toolbar */
+  .ra-header-actions {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 8px !important;
+    width: 100% !important;
+    margin-top: 0 !important;
+    position: relative !important;
+  }
+
+  .ra-action-buttons-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    width: auto !important;
+    max-width: 180px !important;
+    flex-shrink: 0 !important;
+    transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    overflow: hidden !important;
+  }
+
+  .ra-glass-btn.ra-glass-btn-icon-only {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    max-width: 36px !important;
+    padding: 0 !important;
+    border-radius: 11px !important;
+    flex: 0 0 36px !important;
+  }
+
+  .ra-glass-btn.ra-glass-btn-icon-only svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  .ra-search-wrap {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    width: auto !important;
+    transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  .ra-search-input {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 36px !important;
+    box-sizing: border-box !important;
+    border-radius: 11px !important;
+    font-size: 12.5px !important;
+    padding-left: 32px !important;
+    padding-right: 32px !important;
+  }
+
+  /* Quando o usuário foca na barra de pesquisa para digitar:
+     Os botões recolhem suavemente e a barra de pesquisa ganha 100% da largura útil */
+  .ra-header-actions.is-search-focused .ra-action-buttons-row {
+    max-width: 0 !important;
+    opacity: 0 !important;
+    gap: 0 !important;
+    margin: 0 !important;
+    pointer-events: none !important;
+    transform: scale(0.85) !important;
+  }
+
+  .ra-header-actions.is-search-focused .ra-search-wrap {
+    width: 100% !important;
+    flex: 1 1 100% !important;
+  }
+
+  /* Mobile Section Headers */
+  .ra-hierarchical-sections-container {
+    gap: 18px !important;
+  }
+
+  .ra-hierarchy-section {
+    gap: 8px !important;
+  }
+
+  .ra-hierarchy-header {
+    padding: 7px 12px !important;
+    border-radius: 13px !important;
+    margin-bottom: 4px !important;
+    width: 100% !important;
+  }
+
+  .ra-hierarchy-title {
+    font-size: 13px !important;
+    font-weight: 700 !important;
+  }
+
+  .ra-hierarchy-subtitle {
+    display: none !important;
+  }
+
+  .ra-hierarchy-count-pill {
+    font-size: 10px !important;
+    padding: 1.5px 6px !important;
+  }
+
+  .ra-section-play-btn {
+    height: 26px !important;
+    padding: 0 9px !important;
+    font-size: 10.5px !important;
+    border-radius: 9999px !important;
+  }
+
+  /* Mobile Tracklist Container & Rows */
+  .ra-tracklist-container.ra-mobile-track-container {
+    border-radius: 14px !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background: rgba(16, 12, 28, 0.45) !important;
+    width: 100% !important;
+  }
+
+  .ra-mobile-track-list {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+
+  .ra-mobile-track-row {
+    display: flex !important;
+    align-items: center !important;
+    width: 100% !important;
+    height: 54px !important;
+    min-height: 54px !important;
+    padding: 0 10px !important;
+    box-sizing: border-box !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+    cursor: pointer !important;
+    transition: background 0.12s ease !important;
+  }
+
+  .ra-mobile-track-row:last-child {
+    border-bottom: none !important;
+  }
+
+  .ra-mobile-track-row:active {
+    background: rgba(139, 92, 246, 0.2) !important;
+  }
+
+  .ra-mobile-track-row.is-playing {
+    background: linear-gradient(90deg, rgba(168, 85, 247, 0.28), rgba(99, 102, 241, 0.10)) !important;
+  }
+
+  .ra-mobile-col-idx {
+    width: 20px !important;
+    min-width: 20px !important;
+    text-align: center !important;
+    font-size: 11.5px !important;
+    color: #64748B !important;
+    font-variant-numeric: tabular-nums !important;
+  }
+
+  .ra-mobile-cover-cell {
+    width: 40px !important;
+    min-width: 40px !important;
+    margin: 0 10px 0 6px !important;
+  }
+
+  .ra-mobile-cover-cell .ra-track-thumb-box {
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
+    min-height: 38px !important;
+    border-radius: 8px !important;
+  }
+
+  .ra-mobile-track-info {
+    flex: 1 1 0px !important;
+    min-width: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    gap: 2px !important;
+  }
+
+  .ra-mobile-track-info .ra-track-title {
+    font-size: 13.5px !important;
+    font-weight: 600 !important;
+    color: #FFFFFF !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    line-height: 1.25 !important;
+  }
+
+  .ra-mobile-track-row.is-playing .ra-track-title {
+    color: #d8b4fe !important;
+    text-shadow: 0 0 10px rgba(168, 85, 247, 0.5) !important;
+  }
+
+  .ra-mobile-meta-line {
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    font-size: 11px !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    line-height: 1.2 !important;
+  }
+
+  .ra-mobile-meta-line .ra-track-artist {
+    color: rgba(255, 255, 255, 0.6) !important;
+    font-size: 11px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 140px !important;
+  }
+
+  .ra-mobile-meta-line .ra-meta-dot {
+    opacity: 0.4 !important;
+    font-size: 8px !important;
+  }
+
+  .ra-mobile-meta-line .ra-track-creation-date {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 3px !important;
+    color: #d8b4fe !important;
+    font-size: 10.5px !important;
+    font-weight: 500 !important;
+    white-space: nowrap !important;
+  }
+
+  .ra-mobile-meta-line .ra-track-creation-date svg {
+    width: 9px !important;
+    height: 9px !important;
+    opacity: 0.8 !important;
+  }
+
+  .ra-mobile-track-right {
+    margin-left: 8px !important;
+    flex-shrink: 0 !important;
+    text-align: right !important;
+  }
+
+  .ra-mobile-track-right .ra-track-duration {
+    font-size: 11.5px !important;
+    color: rgba(255, 255, 255, 0.45) !important;
+    font-variant-numeric: tabular-nums !important;
+  }
+}

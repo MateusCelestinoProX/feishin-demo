@@ -1,0 +1,3374 @@
+/* ==========================================================================
+   FEISHIN x PERSONAL OS — APPLE macOS LIQUID GLASS SYSTEM
+   Standard Apple macOS Dark Vibrancy (Frosted Glass) & Ultra-Clean Controls
+   Zero High-Contrast White Glows / Inset Highlights
+   ========================================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap");
+
+:root {
+    --personal-os-glass-blur: 28px;
+    --personal-os-shader-dim: 0.25;
+}
+
+/* --- 1. GLOBAL RESETS & FOUNDATION --- */
+*, *::before, *::after {
+    box-sizing: border-box !important;
+}
+
+body, html, #root {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    overflow: hidden !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Plus Jakarta Sans", "Helvetica Neue", sans-serif !important;
+    color: #F8FAFC !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Eliminate rogue text borders and default backgrounds */
+div, span, p, a, h1, h2, h3, h4, h5, h6 {
+    border: none;
+}
+
+/* --- 2. SLIDESHOW DE IMAGENS & VÍDEOS CINEMÁTICOS (BINAURAL PRO GALLERIES) --- */
+.bg-slideshow, #bg-slideshow {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: -3 !important;
+    overflow: hidden !important;
+    contain: strict !important;
+    pointer-events: none !important;
+    transform: translate3d(0, 0, 0) !important;
+}
+
+.bg-layer {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    opacity: 0;
+    transform: scale(1.04);
+    transition: opacity 1.8s cubic-bezier(0.4, 0, 0.2, 1), transform 12s ease-out !important;
+    will-change: opacity, transform !important;
+    pointer-events: none !important;
+    display: none;
+}
+
+.bg-layer.active {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+    display: block !important;
+}
+
+.bg-video-layer {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    z-index: -2 !important;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out !important;
+    pointer-events: none !important;
+    display: none;
+}
+
+.bg-video-layer.active {
+    opacity: 1 !important;
+    display: block !important;
+}
+
+.bg-overlay {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: rgba(0, 0, 0, 0.15) !important;
+    pointer-events: none !important;
+}
+
+/* --- 2. WEBGL BACKDROP & VIGNETTE --- */
+#bg-webgl-container {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: -2 !important;
+    pointer-events: none !important;
+    overflow: hidden !important;
+    contain: strict !important;
+    transform: translate3d(0, 0, 0) !important;
+    will-change: transform !important;
+}
+
+#bg-webgl-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    transform: translate3d(0, 0, 0) !important;
+    backface-visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+#bg-webgl-dim {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: -1 !important;
+    pointer-events: none !important;
+    background-color: rgba(0, 0, 0, var(--personal-os-shader-dim, 0.25)) !important;
+    transition: background-color 0.08s ease !important;
+}
+
+#bg-webgl-vignette {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: -1 !important;
+    pointer-events: none !important;
+    background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.15) 0%, rgba(4, 4, 8, 0.65) 100%) !important;
+}
+
+/* --- 3. PERSONAL OS FLOATING ISLAND LAYOUT --- */
+#default-layout, #mobile-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100vh !important;
+    width: 100vw !important;
+    padding: 10px 14px 14px 14px !important;
+    box-sizing: border-box !important;
+    gap: 10px !important;
+    overflow: hidden !important;
+    background: transparent !important;
+}
+
+/* 3.1 TOP WINDOW BAR COMPLETELY REMOVED */
+.fs-window-bar-module-window-bar,
+.fs-window-bar-module-macos-container {
+    display: none !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+.fs-window-bar-module-title {
+    display: none !important;
+}
+
+/* Invisible Top Drag Handle to smoothly move frameless window on macOS */
+#personal-os-drag-handle {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 12px !important;
+    z-index: 99998 !important;
+    -webkit-app-region: drag !important;
+    pointer-events: auto !important;
+}
+
+/* 3.2 MAIN WORKSPACE CONTAINER */
+#main-content {
+    flex: 1 !important;
+    display: flex !important;
+    min-height: 0 !important;
+    gap: 10px !important;
+    padding-bottom: 84px !important;
+    background: transparent !important;
+    overflow: hidden !important;
+}
+
+.fs-main-content-module-main-content-container {
+    background: transparent !important;
+    height: 100% !important;
+    display: flex !important;
+    flex: 1 !important;
+    gap: 10px !important;
+}
+
+/* 3.3 LEFT NAVIGATION SIDEBAR (APPLE STANDARD VIBRANCY) */
+#sidebar,
+.fs-left-sidebar-module-container {
+    width: 250px !important;
+    min-width: 230px !important;
+    height: 100% !important;
+    border-radius: 18px !important;
+    overflow: hidden !important;
+    background: rgba(18, 18, 24, 0.62) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    backdrop-filter: blur(var(--personal-os-glass-blur, 28px)) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(var(--personal-os-glass-blur, 28px)) saturate(180%) !important;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35) !important;
+    padding: 14px 10px !important;
+}
+
+#left-sidebar, .fs-sidebar-module-sidebar {
+    background: transparent !important;
+    border: none !important;
+}
+
+/* Search input in sidebar */
+.fs-sidebar-module-container input[type="search"],
+.fs-sidebar-module-container .mantine-TextInput-input,
+.fs-search-input-module-input {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 10px !important;
+    color: #FFFFFF !important;
+    padding: 7px 12px !important;
+    font-size: 13px !important;
+    backdrop-filter: blur(12px) !important;
+    transition: all 0.2s ease !important;
+    box-shadow: none !important;
+}
+
+.fs-sidebar-module-container input[type="search"]:focus,
+.fs-sidebar-module-container .mantine-TextInput-input:focus,
+.fs-search-input-module-input:focus {
+    background: rgba(255, 255, 255, 0.09) !important;
+    border-color: rgba(255, 255, 255, 0.20) !important;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.10) !important;
+}
+
+/* Sidebar Navigation Items - Apple macOS List Style */
+.fs-sidebar-item-module-link,
+.fs-sidebar-item-module-root {
+    border-radius: 10px !important;
+    margin: 2px 4px !important;
+    padding: 7px 12px !important;
+    background: transparent !important;
+    border: 1px solid transparent !important;
+    box-shadow: none !important;
+    color: rgba(255, 255, 255, 0.72) !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    transition: background-color 0.15s ease, color 0.15s ease !important;
+}
+
+.fs-sidebar-item-module-link:hover,
+.fs-sidebar-item-module-root:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    color: #FFFFFF !important;
+}
+
+/* Targeted Active Selector */
+.fs-sidebar-item-module-link[data-active="true"],
+.fs-sidebar-item-module-link.active,
+.fs-sidebar-item-module-link[aria-current="page"] {
+    background: rgba(255, 255, 255, 0.12) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.20) !important;
+    color: #FFFFFF !important;
+    font-weight: 600 !important;
+}
+
+/* Sidebar Section Headers & Accordions */
+.fs-accordion-module-panel,
+.fs-sidebar-module-accordion-content,
+.fs-sidebar-module-accordion-control {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: rgba(255, 255, 255, 0.45) !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+}
+
+/* 3.4 MAIN CONTENT BODY (STAGE ISLAND) */
+.fs-main-content-module-main-content-body {
+    flex: 1 !important;
+    height: 100% !important;
+    min-width: 0 !important;
+    border-radius: 18px !important;
+    overflow: hidden !important;
+    background: rgba(16, 16, 22, 0.55) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    backdrop-filter: blur(var(--personal-os-glass-blur, 28px)) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(var(--personal-os-glass-blur, 28px)) saturate(180%) !important;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35) !important;
+}
+
+.fs-main-content-module-main-content-body-scroll,
+.fs-animated-page-module-animated-page {
+    background: transparent !important;
+}
+
+/* 3.5 RIGHT SIDEBAR (QUEUE / LYRICS / INFO DOCKED ISLAND) */
+/* A fila de reprodução agora fica permanentemente dentro do reprodutor (tela da música) */
+#sidebar-queue,
+.fs-right-sidebar-module-right-sidebar-container,
+.fs-main-content-module-right-expanded > #sidebar-queue {
+    display: none !important;
+    width: 0 !important;
+    min-width: 0 !important;
+    max-width: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+}
+
+/* Permitir que o corpo principal ocupe 100% da largura útil sem o balão lateral */
+.fs-main-content-module-main-content-body {
+    flex: 1 1 0% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+#sidebar-play-queue-container,
+.fs-sidebar-play-queue-module-lyrics-section,
+.fs-sidebar-play-queue-module-visualizer-section,
+.fs-sidebar-play-queue-module-header,
+.fs-sidebar-play-queue-module-empty-container {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+}
+
+.fs-resize-handle-module-handle {
+    background: rgba(255, 255, 255, 0.06) !important;
+    transition: background 0.2s ease !important;
+}
+
+.fs-resize-handle-module-handle:hover {
+    background: rgba(255, 255, 255, 0.18) !important;
+}
+
+/* --- 4. ALBUM & MEDIA CARDS (APPLE MUSIC STANDARD) --- */
+.fs-item-card-module-container {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.fs-item-card-module-container:hover {
+    transform: translateY(-2px) !important;
+}
+
+/* Outer image container */
+.fs-item-card-module-image-container {
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35) !important;
+    background: transparent !important;
+    transition: all 0.2s ease !important;
+}
+
+.fs-item-card-module-container:hover .fs-item-card-module-image-container {
+    border-color: rgba(255, 255, 255, 0.18) !important;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45) !important;
+}
+
+/* Inner image container: no double border, no fake background */
+.fs-item-card-module-image-container .fs-image-module-image-container,
+.fs-image-module-image-container {
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+.fs-item-card-module-detail-container,
+.fs-item-card-module-row {
+    padding: 8px 4px 2px 4px !important;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+.fs-item-card-module-row a {
+    color: #F8FAFC !important;
+    font-weight: 600 !important;
+}
+
+.fs-item-card-module-muted,
+.fs-item-card-module-artists-row {
+    color: rgba(255, 255, 255, 0.50) !important;
+    font-size: 12px !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Disallow misplaced sidebar album thumbnail */
+#sidebar .fs-sidebar-module-image-container,
+.fs-sidebar-module-image-container,
+.fs-sidebar-module-sidebar-image {
+    display: none !important;
+    height: 0 !important;
+    max-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    pointer-events: none !important;
+}
+
+/* Hide toggle arrow that moves album art to the sidebar */
+.fs-left-controls-module-toggle-button {
+    display: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+}
+
+/* --- 5. FLOATING MEDIA PLAYER DOCK (APPLE macOS DOCK) --- */
+#player-bar {
+    position: fixed !important;
+    bottom: 12px !important;
+    left: 14px !important;
+    right: 14px !important;
+    height: 72px !important;
+    border-radius: 18px !important;
+    background: rgba(22, 22, 28, 0.72) !important;
+    border: 1px solid rgba(255, 255, 255, 0.09) !important;
+    backdrop-filter: blur(var(--personal-os-glass-blur, 28px)) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(var(--personal-os-glass-blur, 28px)) saturate(180%) !important;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45) !important;
+    z-index: 9999 !important;
+    padding: 0 16px 0 10px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+
+.fs-playerbar-module-container {
+    background: transparent !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.fs-playerbar-module-controls-grid {
+    height: 100% !important;
+    max-height: 100% !important;
+    grid-template-rows: 100% !important;
+    align-items: center !important;
+    width: 100% !important;
+}
+
+.fs-playerbar-module-left-grid-item,
+.fs-playerbar-module-center-grid-item,
+.fs-playerbar-module-right-grid-item {
+    height: 100% !important;
+    max-height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+/* 5.1 CORNER ALBUM ART IN PLAYER DOCK */
+.fs-left-controls-module-left-controls-container {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.fs-left-controls-module-image-wrapper {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: auto !important;
+}
+
+.fs-left-controls-module-image {
+    width: 52px !important;
+    height: 52px !important;
+    min-width: 52px !important;
+    min-height: 52px !important;
+    border-radius: 11px !important;
+    overflow: hidden !important;
+    position: relative !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.40) !important;
+    object-fit: cover !important;
+    cursor: pointer !important;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease !important;
+}
+
+.fs-left-controls-module-image:hover {
+    transform: scale(1.03) !important;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.50) !important;
+    border-color: rgba(255, 255, 255, 0.22) !important;
+}
+
+.fs-left-controls-module-image-wrapper img,
+.fs-left-controls-module-playerbar-image {
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 100% !important;
+    min-height: 100% !important;
+    border-radius: 10px !important;
+    border: none !important;
+    box-shadow: none !important;
+    object-fit: cover !important;
+}
+
+.fs-left-controls-module-metadata-stack {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    gap: 2px !important;
+    max-width: 280px !important;
+    overflow: hidden !important;
+}
+
+/* === ULTRA HIGH CONTRAST PLAYER BAR BUTTONS & CONTROLS === */
+
+/* 5.2 HERO PLAY/PAUSE BUTTON - Apple Pure Solid White Circle */
+#player-bar .fs-player-button-module-main,
+.fs-center-controls-module-buttons-container .fs-player-button-module-main,
+button.fs-player-button-module-main {
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
+    border-radius: 50% !important;
+    background: #FFFFFF !important;
+    background-color: #FFFFFF !important;
+    color: #0A0A0E !important;
+    border: 1px solid rgba(255, 255, 255, 0.95) !important;
+    box-shadow: 0 4px 18px rgba(255, 255, 255, 0.45), 0 0 12px rgba(255, 255, 255, 0.25) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    opacity: 1 !important;
+    margin: 0 4px !important;
+    transition: all 0.20s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+#player-bar .fs-player-button-module-main:hover,
+button.fs-player-button-module-main:hover {
+    transform: scale(1.08) !important;
+    background: #FFFFFF !important;
+    box-shadow: 0 6px 24px rgba(255, 255, 255, 0.65), 0 0 16px rgba(255, 255, 255, 0.40) !important;
+}
+
+#player-bar .fs-player-button-module-main:active,
+button.fs-player-button-module-main:active {
+    transform: scale(0.96) !important;
+}
+
+#player-bar .fs-player-button-module-main svg,
+button.fs-player-button-module-main svg {
+    color: #0A0A0E !important;
+    fill: #0A0A0E !important;
+    stroke: #0A0A0E !important;
+    width: 20px !important;
+    height: 20px !important;
+}
+
+#player-bar .fs-player-button-module-main svg * {
+    fill: #0A0A0E !important;
+    stroke: #0A0A0E !important;
+}
+
+/* 5.3 ALL SECONDARY / ACTION BUTTONS IN PLAYER BAR */
+#player-bar button:not(.fs-player-button-module-main),
+#player-bar .mantine-ActionIcon-root:not(.fs-player-button-module-main),
+.fs-center-controls-module-buttons-container button:not(.fs-player-button-module-main),
+.fs-playerbar-module-right-grid-item button:not(.fs-player-button-module-main),
+.fs-left-controls-module-left-controls-container button:not(.fs-player-button-module-main) {
+    color: #FFFFFF !important;
+    opacity: 0.95 !important;
+    border-radius: 8px !important;
+    background: transparent !important;
+    border: 1px solid transparent !important;
+    transition: all 0.15s ease !important;
+}
+
+/* Hover effect for all secondary buttons */
+#player-bar button:not(.fs-player-button-module-main):hover,
+#player-bar .mantine-ActionIcon-root:not(.fs-player-button-module-main):hover {
+    background: rgba(255, 255, 255, 0.14) !important;
+    color: #FFFFFF !important;
+    opacity: 1 !important;
+    transform: scale(1.08) !important;
+}
+
+/* Active / click effect */
+#player-bar button:not(.fs-player-button-module-main):active,
+#player-bar .mantine-ActionIcon-root:not(.fs-player-button-module-main):active {
+    transform: scale(0.94) !important;
+    background: rgba(255, 255, 255, 0.22) !important;
+}
+
+/* SVGs in Secondary Buttons - High Contrast Crisp Rendering */
+#player-bar button:not(.fs-player-button-module-main) svg,
+#player-bar .mantine-ActionIcon-root:not(.fs-player-button-module-main) svg {
+    color: #FFFFFF !important;
+    stroke: #FFFFFF !important;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.60)) !important;
+}
+
+/* Filled icon styles (stroke-width 0 like Repeat & Queue) */
+#player-bar button:not(.fs-player-button-module-main) svg[stroke-width="0"],
+#player-bar button:not(.fs-player-button-module-main) svg[stroke-width="0"] path {
+    fill: #FFFFFF !important;
+    stroke: none !important;
+}
+
+/* Outline icons: ensure fill is none so shapes do not fill up */
+#player-bar button:not(.fs-player-button-module-main) svg[stroke-width="2"]:not([fill="default"]) path,
+#player-bar button:not(.fs-player-button-module-main) svg[stroke-width="2"]:not([fill="default"]) rect {
+    fill: none !important;
+    stroke: #FFFFFF !important;
+}
+
+/* Polygons (Prev / Next triangles) */
+#player-bar .fs-center-controls-module-buttons-container button:not(.fs-player-button-module-main) polygon {
+    fill: #FFFFFF !important;
+    stroke: #FFFFFF !important;
+}
+
+/* Stop button (rect only-child) */
+#player-bar .fs-center-controls-module-buttons-container button svg:has(> rect:only-child) rect,
+#player-bar .fs-center-controls-module-buttons-container button:first-child rect {
+    fill: #FFFFFF !important;
+    stroke: #FFFFFF !important;
+}
+
+/* 3 dots menu vertical circles */
+#player-bar .fs-left-controls-module-metadata-stack button svg circle {
+    fill: #FFFFFF !important;
+    stroke: #FFFFFF !important;
+}
+
+/* Sidebar / panel outline button - ensure interior stays transparent */
+#player-bar button svg:has(path) rect {
+    fill: transparent !important;
+    stroke: #FFFFFF !important;
+}
+
+/* 5.4 AUTO DJ BUTTON */
+#player-bar .fs-button-module-root {
+    background: rgba(255, 255, 255, 0.12) !important;
+    border: 1px solid rgba(255, 255, 255, 0.28) !important;
+    color: #FFFFFF !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.6px !important;
+    font-size: 11px !important;
+    padding: 3px 10px !important;
+    border-radius: 6px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35) !important;
+    opacity: 1 !important;
+    transition: all 0.15s ease !important;
+}
+
+#player-bar .fs-button-module-root:hover {
+    background: rgba(255, 255, 255, 0.22) !important;
+    border-color: rgba(255, 255, 255, 0.55) !important;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.30) !important;
+    transform: scale(1.04) !important;
+}
+
+/* 5.5 RATING STARS */
+#player-bar .fs-rating-module-root svg {
+    stroke: rgba(255, 255, 255, 0.85) !important;
+    fill: transparent !important;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6)) !important;
+}
+
+#player-bar .fs-rating-module-root svg[data-filled="true"],
+#player-bar .fs-rating-module-symbol-body[data-filled="true"] svg {
+    fill: #FFD23F !important;
+    stroke: #FFD23F !important;
+}
+
+/* 5.6 VOLUME SLIDER & SCRUBBER / PROGRESS BAR */
+.mantine-Slider-track {
+    background: rgba(255, 255, 255, 0.20) !important;
+    height: 4px !important;
+    border-radius: 2px !important;
+    transition: height 0.15s ease !important;
+}
+
+.mantine-Slider-root:hover .mantine-Slider-track {
+    height: 6px !important;
+}
+
+.mantine-Slider-bar {
+    background: #FFFFFF !important;
+    border-radius: 2px !important;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.80) !important;
+}
+
+.mantine-Slider-thumb {
+    background: #FFFFFF !important;
+    border: 1px solid rgba(0, 0, 0, 0.20) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.50) !important;
+    width: 12px !important;
+    height: 12px !important;
+}
+
+/* 5.7 TRACK TIME DURATION LABELS */
+#player-bar .fs-text-module-muted,
+#player-bar .current-duration,
+#player-bar .total-duration {
+    color: rgba(255, 255, 255, 0.90) !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+}
+
+/* 5.8 ACTIVE BUTTON STATES (Shuffle/Repeat/Lyrics/Equalizer activated) */
+#player-bar button[data-active="true"],
+#player-bar button.fs-action-icon-module-active,
+#player-bar button[aria-pressed="true"],
+#player-bar button[data-variant="light"],
+#player-bar button[data-variant="filled"] {
+    background: rgba(167, 139, 250, 0.28) !important;
+    border: 1px solid rgba(167, 139, 250, 0.60) !important;
+    color: #FFFFFF !important;
+}
+
+#player-bar button[data-active="true"] svg,
+#player-bar button.fs-action-icon-module-active svg,
+#player-bar button[aria-pressed="true"] svg {
+    color: #C4B5FD !important;
+    stroke: #C4B5FD !important;
+    filter: drop-shadow(0 0 8px rgba(167, 139, 250, 0.70)) !important;
+}
+
+/* Scrubber / Progress Bar */
+.mantine-Slider-track {
+    background: rgba(255, 255, 255, 0.12) !important;
+    height: 4px !important;
+    border-radius: 2px !important;
+    transition: height 0.15s ease !important;
+}
+
+.mantine-Slider-root:hover .mantine-Slider-track {
+    height: 5px !important;
+}
+
+.mantine-Slider-bar {
+    background: #FFFFFF !important;
+    border-radius: 2px !important;
+    box-shadow: none !important;
+}
+
+.mantine-Slider-thumb {
+    background: #FFFFFF !important;
+    border: none !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35) !important;
+    width: 12px !important;
+    height: 12px !important;
+}
+
+/* --- 6. SONGS TABLE & LIST VIEW --- */
+.fs-virtual-table-module-row,
+[role="row"] {
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+    border-radius: 8px !important;
+    margin: 1px 0 !important;
+    transition: background-color 0.12s ease !important;
+    will-change: transform;
+    contain: layout style;
+}
+
+.fs-virtual-table-module-row:hover,
+[role="row"]:hover {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+}
+
+/* GPU Accelerated Zero-Lag Virtual Scroll Containers */
+[role="grid"],
+.fs-item-table-container,
+.fs-item-table-list-module-height-100,
+.fs-main-content-module-main-content-body-scroll {
+    will-change: scroll-position;
+    transform: translateZ(0);
+    contain: strict;
+}
+
+.fs-virtual-table-module-row[data-selected="true"],
+.fs-song-row-module-playing {
+    background: rgba(255, 255, 255, 0.10) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.20) !important;
+}
+
+.fs-virtual-table-module-header, thead, thead tr {
+    background: transparent !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    color: rgba(255, 255, 255, 0.45) !important;
+    letter-spacing: 0.6px !important;
+    text-transform: uppercase !important;
+}
+
+/* Action Bar Toolbar at top of lists */
+.fs-action-bar-module-container,
+.fs-song-list-module-controls-container {
+    background: transparent !important;
+    padding: 8px 12px !important;
+}
+
+.fs-action-bar-module-container button {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 8px !important;
+    color: rgba(255, 255, 255, 0.80) !important;
+    transition: background-color 0.15s ease !important;
+    box-shadow: none !important;
+}
+
+.fs-action-bar-module-container button:hover {
+    background: rgba(255, 255, 255, 0.10) !important;
+    color: #FFFFFF !important;
+}
+
+/* --- 7. PERSONAL OS SIDEBAR BACKGROUNDS ITEM, SETTINGS ITEM & SQUARE MODAL --- */
+#personal-os-sidebar-backgrounds-item,
+#personal-os-sidebar-backgrounds-item *,
+#personal-os-sidebar-settings-item,
+#personal-os-sidebar-settings-item *,
+#personal-os-shader-modal,
+#personal-os-shader-modal *,
+#personal-os-shader-backdrop {
+    -webkit-app-region: no-drag !important;
+    pointer-events: auto !important;
+}
+
+#personal-os-sidebar-backgrounds-item,
+#personal-os-sidebar-settings-item {
+    cursor: pointer !important;
+    user-select: none !important;
+    transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+#personal-os-sidebar-backgrounds-item:hover,
+#personal-os-sidebar-settings-item:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    color: #FFFFFF !important;
+    transform: translateX(2px) !important;
+}
+
+#personal-os-sidebar-backgrounds-item.active,
+#personal-os-sidebar-settings-item.active {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.04) 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.45) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+    color: #FFFFFF !important;
+}
+
+#personal-os-shader-pill {
+    display: none !important;
+}
+
+#personal-os-shader-backdrop {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: rgba(0, 0, 0, 0.08) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    z-index: 100000 !important;
+    display: none;
+}
+
+/* BOX QUADRADO PERSONAL OS (CLEAR LIQUID GLASS) */
+#personal-os-shader-modal {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: min(780px, 88vw, 88vh) !important;
+    height: min(780px, 88vw, 88vh) !important;
+    aspect-ratio: 1 / 1 !important;
+    border-radius: 24px !important;
+    background: linear-gradient(180deg, rgba(16, 12, 28, 0.40) 0%, rgba(8, 6, 18, 0.54) 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.35) !important;
+    backdrop-filter: blur(16px) saturate(190%) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(190%) !important;
+    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.55), inset 0 1px 1px rgba(255, 255, 255, 0.22) !important;
+    z-index: 100001 !important;
+    padding: 20px 22px !important;
+    display: none;
+    flex-direction: column !important;
+    gap: 12px !important;
+    color: #F8FAFC !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+}
+
+/* MODAL HEADER */
+.shader-modal-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+    flex-shrink: 0 !important;
+}
+
+.shader-modal-title-group {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+
+.shader-modal-icon {
+    font-size: 22px !important;
+    line-height: 1 !important;
+    filter: drop-shadow(0 2px 6px rgba(255, 255, 255, 0.2)) !important;
+}
+
+.shader-modal-title {
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.3px !important;
+    color: #FFFFFF !important;
+    margin: 0 !important;
+    line-height: 1.2 !important;
+}
+
+.shader-modal-subtitle {
+    font-size: 10.5px !important;
+    color: rgba(255, 255, 255, 0.45) !important;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace !important;
+    letter-spacing: 0.2px !important;
+}
+
+.shader-header-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+.shader-modal-close {
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: 8px !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.10) !important;
+    color: rgba(255, 255, 255, 0.70) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 13px !important;
+    cursor: pointer !important;
+    transition: all 0.15s ease !important;
+}
+
+.shader-modal-close:hover {
+    background: rgba(255, 255, 255, 0.18) !important;
+    color: #FFFFFF !important;
+    transform: scale(1.05) !important;
+}
+
+.shader-ctrl-btn {
+    padding: 6px 12px !important;
+    border-radius: 9px !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.09) !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-size: 11.5px !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    transition: all 0.15s ease !important;
+    box-shadow: none !important;
+}
+
+.shader-ctrl-btn:hover {
+    background: rgba(255, 255, 255, 0.12) !important;
+    color: #FFFFFF !important;
+}
+
+.shader-ctrl-btn.active {
+    background: rgba(255, 255, 255, 0.18) !important;
+    border-color: rgba(255, 255, 255, 0.25) !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* NOVO PAINEL DE CONTROLES: BLUR DO VIDRO & ESCURECIMENTO DO SHADER */
+.shader-controls-panel {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px !important;
+    background: rgba(255, 255, 255, 0.035) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 14px !important;
+    padding: 10px 14px !important;
+    flex-shrink: 0 !important;
+}
+
+.shader-slider-box {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 5px !important;
+}
+
+.shader-slider-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.shader-slider-label {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+}
+
+.slider-icon {
+    font-size: 13px !important;
+    line-height: 1 !important;
+    font-family: "Apple Color Emoji", -apple-system, sans-serif !important;
+}
+
+.shader-slider-badge {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace !important;
+    color: #60A5FA !important;
+    background: rgba(96, 165, 250, 0.12) !important;
+    border: 1px solid rgba(96, 165, 250, 0.25) !important;
+    padding: 1px 7px !important;
+    border-radius: 6px !important;
+}
+
+.shader-slider-wrapper {
+    display: flex !important;
+    align-items: center !important;
+    height: 18px !important;
+}
+
+.shader-range-slider {
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    width: 100% !important;
+    height: 5px !important;
+    border-radius: 9999px !important;
+    background: rgba(255, 255, 255, 0.15) !important;
+    outline: none !important;
+    cursor: pointer !important;
+    transition: background 0.15s ease !important;
+}
+
+.shader-range-slider:hover {
+    background: rgba(255, 255, 255, 0.22) !important;
+}
+
+.shader-range-slider::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    width: 15px !important;
+    height: 15px !important;
+    border-radius: 50% !important;
+    background: #FFFFFF !important;
+    cursor: pointer !important;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.6), 0 2px 4px rgba(0, 0, 0, 0.4) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.9) !important;
+    transition: transform 0.15s ease, background-color 0.15s ease !important;
+}
+
+.shader-range-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.18) !important;
+    background: #93C5FD !important;
+}
+
+.shader-slider-scale {
+    display: flex !important;
+    justify-content: space-between !important;
+    font-size: 8.5px !important;
+    color: rgba(255, 255, 255, 0.35) !important;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace !important;
+}
+
+/* PRESET CHIPS RÁPIDOS */
+.shader-slider-presets {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 4px !important;
+    margin-top: 2px !important;
+}
+
+.shader-preset-chip {
+    flex: 1 !important;
+    padding: 3.5px 4px !important;
+    border-radius: 6px !important;
+    font-size: 9px !important;
+    font-weight: 600 !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    color: rgba(255, 255, 255, 0.70) !important;
+    cursor: pointer !important;
+    transition: all 0.15s ease !important;
+    outline: none !important;
+    user-select: none !important;
+}
+
+.shader-preset-chip:hover {
+    background: rgba(255, 255, 255, 0.12) !important;
+    color: #FFFFFF !important;
+}
+
+.shader-preset-chip.active {
+    background: rgba(96, 165, 250, 0.22) !important;
+    border-color: rgba(147, 197, 253, 0.5) !important;
+    color: #FFFFFF !important;
+    font-weight: 700 !important;
+    box-shadow: 0 0 8px rgba(96, 165, 250, 0.3) !important;
+}
+
+.shader-modal-sheet-handle {
+    display: none;
+}
+
+/* CATEGORY FILTER PILLS */
+.shader-category-pills {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    overflow-x: auto !important;
+    padding-bottom: 2px !important;
+    flex-shrink: 0 !important;
+}
+
+.shader-category-pills::-webkit-scrollbar {
+    display: none !important;
+}
+
+.shader-pill-btn {
+    padding: 5px 11px !important;
+    border-radius: 20px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    color: rgba(255, 255, 255, 0.65) !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    white-space: nowrap !important;
+    transition: all 0.15s ease !important;
+}
+
+.shader-pill-btn:hover {
+    background: rgba(255, 255, 255, 0.10) !important;
+    color: #FFFFFF !important;
+}
+
+.shader-pill-btn.active {
+    background: rgba(255, 255, 255, 0.18) !important;
+    border-color: rgba(255, 255, 255, 0.28) !important;
+    color: #FFFFFF !important;
+    font-weight: 600 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* 4-COLUMN SHADERS GRID (1 SHADER PER AVAILABLE SLOT) */
+.shader-grid-wrapper {
+    flex: 1 !important;
+    overflow-y: auto !important;
+    padding-right: 4px !important;
+    min-height: 0 !important;
+}
+
+.shader-grid-wrapper::-webkit-scrollbar {
+    width: 6px !important;
+}
+
+.shader-grid-wrapper::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+.shader-grid-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.18) !important;
+    border-radius: 9999px !important;
+}
+
+.shader-grid-wrapper::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.32) !important;
+}
+
+.shader-grid-4col {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 9px !important;
+}
+
+.shader-item-card {
+    padding: 10px 8px !important;
+    border-radius: 12px !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.07) !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    gap: 4px !important;
+    min-height: 78px !important;
+    transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    position: relative !important;
+    user-select: none !important;
+    box-shadow: none !important;
+}
+
+.shader-item-card:hover {
+    background: rgba(255, 255, 255, 0.10) !important;
+    border-color: rgba(255, 255, 255, 0.18) !important;
+    color: #FFFFFF !important;
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.40) !important;
+}
+
+.shader-item-card.active {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.08) 100%) !important;
+    border-color: rgba(255, 255, 255, 0.38) !important;
+    border-top-color: rgba(255, 255, 255, 0.60) !important;
+    box-shadow: 0 0 16px rgba(96, 165, 250, 0.25), 0 8px 24px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.45) !important;
+    color: #FFFFFF !important;
+    font-weight: 600 !important;
+}
+
+.shader-card-icon {
+    font-size: 20px !important;
+    line-height: 1 !important;
+}
+
+.shader-card-title {
+    font-size: 11.5px !important;
+    font-weight: 600 !important;
+    color: #FFFFFF !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 100% !important;
+    line-height: 1.2 !important;
+}
+
+.shader-card-badge {
+    font-size: 8.5px !important;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace !important;
+    color: rgba(255, 255, 255, 0.40) !important;
+    letter-spacing: 0.2px !important;
+}
+
+.shader-item-card.active .shader-card-badge {
+    color: #93C5FD !important;
+}
+
+/* --- 8. MANTINE MODALS & SETTINGS PANELS (APPLE macOS LIQUID GLASS) --- */
+.mantine-Modal-overlay {
+    background: rgba(0, 0, 0, 0.35) !important;
+    backdrop-filter: blur(16px) saturate(160%) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(160%) !important;
+}
+
+.mantine-Modal-content,
+.fs-modal-module-content,
+.mantine-Dialog-root {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%), rgba(16, 16, 22, 0.60) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.25) !important;
+    border-radius: 20px !important;
+    backdrop-filter: blur(36px) saturate(190%) !important;
+    -webkit-backdrop-filter: blur(36px) saturate(190%) !important;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.65), inset 0 1px 1px rgba(255, 255, 255, 0.18) !important;
+    color: #F8FAFC !important;
+    overflow: hidden !important;
+}
+
+.mantine-Modal-header,
+.fs-modal-module-header {
+    background: transparent !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    padding: 16px 24px !important;
+}
+
+.mantine-Modal-title {
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    color: #FFFFFF !important;
+    letter-spacing: -0.3px !important;
+}
+
+.mantine-Modal-body,
+.fs-modal-module-body {
+    background: transparent !important;
+    padding: 20px 24px !important;
+}
+
+.mantine-Modal-close,
+.fs-modal-module-close {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    color: rgba(255, 255, 255, 0.75) !important;
+    border-radius: 50% !important;
+    transition: all 0.15s ease !important;
+}
+
+.mantine-Modal-close:hover,
+.fs-modal-module-close:hover {
+    background: rgba(255, 255, 255, 0.18) !important;
+    color: #FFFFFF !important;
+    transform: scale(1.05) !important;
+}
+
+/* Modal Tabs Navigation */
+.mantine-Tabs-list,
+.fs-tabs-module-list {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background: transparent !important;
+    gap: 4px !important;
+}
+
+.mantine-Tabs-tab,
+.fs-tabs-module-tab {
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 2px solid transparent !important;
+    color: rgba(255, 255, 255, 0.65) !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    padding: 8px 14px !important;
+    border-radius: 8px 8px 0 0 !important;
+    transition: all 0.18s ease !important;
+}
+
+.mantine-Tabs-tab:hover,
+.fs-tabs-module-tab:hover {
+    background: rgba(255, 255, 255, 0.06) !important;
+    color: #FFFFFF !important;
+}
+
+.mantine-Tabs-tab[data-active="true"],
+.fs-tabs-module-tab[data-active="true"] {
+    background: rgba(255, 255, 255, 0.10) !important;
+    color: #FFFFFF !important;
+    font-weight: 600 !important;
+    border-bottom: 2px solid #A78BFA !important;
+}
+
+/* Settings Options & Rows */
+.fs-settings-option-module-row,
+.fs-settings-option-module-row-indented {
+    padding: 10px 14px !important;
+    border-radius: 12px !important;
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid rgba(255, 255, 255, 0.04) !important;
+    margin-bottom: 6px !important;
+    transition: background 0.15s ease !important;
+}
+
+.fs-settings-option-module-row:hover,
+.fs-settings-option-module-row-indented:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Modal Inputs, TextFields, Selects */
+.mantine-Modal-content input[type="text"],
+.mantine-Modal-content input[type="search"],
+.mantine-Modal-content .mantine-TextInput-input,
+.mantine-Modal-content .mantine-Select-input,
+.mantine-Modal-content .mantine-Input-input {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.10) !important;
+    border-radius: 10px !important;
+    color: #FFFFFF !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    transition: all 0.2s ease !important;
+}
+
+.mantine-Modal-content input:focus,
+.mantine-Modal-content .mantine-Input-input:focus {
+    border-color: rgba(167, 139, 250, 0.60) !important;
+    box-shadow: 0 0 0 2px rgba(167, 139, 250, 0.25) !important;
+}
+
+/* Switches inside settings */
+.mantine-Modal-content .mantine-Switch-track,
+.mantine-Modal-content .fs-switch-module-track {
+    background: rgba(255, 255, 255, 0.14) !important;
+    border: 1px solid rgba(255, 255, 255, 0.10) !important;
+}
+
+.mantine-Modal-content input:checked + .mantine-Switch-track,
+.mantine-Modal-content input:checked + * .mantine-Switch-track,
+.mantine-Modal-content .mantine-Switch-track[data-checked="true"] {
+    background: #6366F1 !important;
+    border-color: #818CF8 !important;
+}
+
+.mantine-Menu-dropdown,
+.mantine-Popover-dropdown {
+    background: rgba(28, 28, 34, 0.85) !important;
+    border: 1px solid rgba(255, 255, 255, 0.09) !important;
+    border-radius: 14px !important;
+    backdrop-filter: blur(30px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(30px) saturate(180%) !important;
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.50), 0 2px 8px rgba(0, 0, 0, 0.25) !important;
+    padding: 6px !important;
+}
+
+.mantine-Menu-item {
+    border-radius: 8px !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    transition: background-color 0.12s ease !important;
+    box-shadow: none !important;
+}
+
+.mantine-Menu-item:hover, .mantine-Menu-item[data-hovered="true"] {
+    background: rgba(255, 255, 255, 0.10) !important;
+    color: #FFFFFF !important;
+}
+
+/* --- 9. ULTRA-SLEEK SCROLLBARS --- */
+::-webkit-scrollbar {
+    width: 6px !important;
+    height: 6px !important;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.18) !important;
+    border-radius: 10px !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.32) !important;
+}
+
+/* --- 10. FULLSCREEN & EXPANDED PLAYER PERSONAL OS LIQUID GLASS (50/50 SPLIT: CAPA + FILA) --- */
+#main-content:has(.fs-full-screen-player-module-container) > #sidebar,
+#main-content:has(.fs-full-screen-player-module-container) > #sidebar-queue,
+#main-content:has(.fs-full-screen-player-module-container) > .fs-main-content-module-main-content-body {
+    display: none !important;
+}
+
+.fs-full-screen-player-module-container,
+.fs-mobile-fullscreen-player-module-container,
+.fs-mobile-layout-module-full-screen-player-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 999 !important;
+    overflow: hidden !important;
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+.fs-full-screen-player-module-container.fs-fast-dismiss {
+    transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.12s ease-out !important;
+    transform: translateY(100%) !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+.fs-full-screen-player-module-background-image,
+.fs-full-screen-player-module-background-image-overlay,
+.fs-full-screen-player-module-background-overlay,
+.fs-mobile-fullscreen-player-module-background-image,
+.fs-mobile-fullscreen-player-module-background-image-overlay,
+.fs-mobile-fullscreen-player-module-background-overlay,
+.fs-mobile-fullscreen-player-module-background-color {
+    display: none !important;
+    opacity: 0 !important;
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* Layout Responsivo Universal do Reprodutor */
+.fs-full-screen-player-module-responsive-container {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: row !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    box-sizing: border-box !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* MODO SIMPLES / RETRAÍDO: Capa centralizada (100% de respiro imersivo sem fila visível) */
+.fs-full-screen-player-module-image-column.fs-full-screen-player-module-image-column-full,
+.fs-full-screen-player-module-responsive-container:has(.fs-full-screen-player-queue-module-grid-container-collapsed) .fs-full-screen-player-module-image-column {
+    flex: 1 1 100vw !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: calc(100vh - 104px) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+    margin: 0 auto !important;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* MODO DIVIDIDO: Quando a fila estiver visível/expandida (Split side-by-side 50/50 sem sobreposição - Imagem 2) */
+.fs-full-screen-player-module-responsive-container:not(:has(.fs-full-screen-player-queue-module-grid-container-collapsed)) .fs-full-screen-player-module-image-column:not(.fs-full-screen-player-module-image-column-full),
+.fs-full-screen-player-module-image-column:not(.fs-full-screen-player-module-image-column-full) {
+    flex: 0 0 50vw !important;
+    width: 50vw !important;
+    max-width: 50vw !important;
+    height: calc(100vh - 104px) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.fs-full-screen-player-image-module-player-container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    height: 100% !important;
+    padding: 1.5rem !important;
+}
+
+.fs-full-screen-player-image-module-image-container {
+    border-radius: 28px !important;
+    padding: 14px !important;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.02) 100%), rgba(10, 10, 16, 0.35) !important;
+    border: 1px solid rgba(255, 255, 255, 0.20) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.42) !important;
+    backdrop-filter: blur(var(--personal-os-glass-blur, 28px)) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(var(--personal-os-glass-blur, 28px)) saturate(200%) !important;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.60), inset 0 1px 2px rgba(255, 255, 255, 0.40) !important;
+    max-height: 65vh !important;
+    max-width: 65vh !important;
+    aspect-ratio: 1 / 1 !important;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.fs-full-screen-player-image-module-image {
+    border-radius: 18px !important;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45) !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+}
+
+/* OCULTAR SCRUBBER A-Z & HUD NO REPRODUTOR FULLSCREEN (MAC E ANDROID) */
+body:has(.fs-full-screen-player-module-container) #feishin-alphabet-scrubber,
+body:has(.fs-full-screen-player-module-container) #feishin-alphabet-hud,
+.fs-full-screen-player-module-container ~ #feishin-alphabet-scrubber,
+.fs-full-screen-player-module-container ~ #feishin-alphabet-hud,
+.fs-full-screen-player-module-container #feishin-alphabet-scrubber,
+.fs-full-screen-player-module-container #feishin-alphabet-hud,
+body.feishin-tp-open #feishin-alphabet-scrubber,
+body.feishin-tp-open #feishin-alphabet-hud,
+body.feishin-tp-open #feishin-mobile-bottom-nav,
+body.feishin-tp-open #feishin-more-glass-backdrop,
+body.feishin-tp-open #feishin-more-glass-box,
+#feishin-track-page.open ~ #feishin-alphabet-scrubber,
+#feishin-track-page.open ~ #feishin-alphabet-hud {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+/* FILA DE REPRODUÇÃO QUANDO CONTRAÍDA / RECOLHIDA */
+.fs-full-screen-player-queue-module-grid-container.fs-full-screen-player-queue-module-grid-container-collapsed,
+.fs-full-screen-player-module-responsive-container:has(.fs-full-screen-player-module-image-column-full) .fs-full-screen-player-queue-module-grid-container {
+    transform: translateX(110%) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, visibility 0.4s !important;
+}
+
+/* FILA DE REPRODUÇÃO QUANDO ABERTA / EXPANDIDA (Side-by-side 50% na direita com Liquid Glass - Imagem 2) */
+.fs-full-screen-player-queue-module-grid-container:not(.fs-full-screen-player-queue-module-grid-container-collapsed) {
+    position: absolute !important;
+    top: 72px !important;
+    right: 20px !important;
+    bottom: 104px !important;
+    left: auto !important;
+    width: calc(50vw - 32px) !important;
+    max-width: calc(50vw - 32px) !important;
+    height: calc(100vh - 176px) !important;
+    max-height: calc(100vh - 176px) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: translateX(0%) !important;
+    border-radius: 24px !important;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%), rgba(10, 10, 16, 0.38) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.38) !important;
+    backdrop-filter: blur(var(--personal-os-glass-blur, 28px)) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(var(--personal-os-glass-blur, 28px)) saturate(200%) !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.30) !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease !important;
+}
+
+.fs-full-screen-player-queue-module-grid-container:before {
+    display: none !important;
+}
+
+/* Fila de reprodução interna no reprodutor */
+.fs-full-screen-player-queue-module-queue-container {
+    height: 100% !important;
+    width: 100% !important;
+    padding: 10px !important;
+    box-sizing: border-box !important;
+    border-radius: 24px !important;
+    overflow: hidden !important;
+}
+
+.fs-full-screen-player-queue-module-grid-container .fs-item-table-list-module-item-table-container,
+.fs-full-screen-player-queue-module-grid-container .fs-item-table-list-module-item-table-grid-container {
+    background: transparent !important;
+    background-color: transparent !important;
+    border-radius: 18px !important;
+}
+
+.fs-full-screen-player-queue-module-grid-container [role="row"] {
+    border-radius: 12px !important;
+    margin-bottom: 3px !important;
+    transition: background 0.15s ease !important;
+}
+
+.fs-full-screen-player-queue-module-grid-container [role="row"]:hover {
+    background: rgba(255, 255, 255, 0.12) !important;
+}
+
+.fs-full-screen-player-queue-module-grid-container [role="row"][data-selected="true"],
+.fs-full-screen-player-queue-module-grid-container [role="row"][aria-selected="true"] {
+    background: rgba(255, 255, 255, 0.18) !important;
+    box-shadow: inset 3px 0 0 #00F0FF !important;
+}
+
+/* Botões de controle superior do reprodutor (voltar, config, etc.) */
+.fs-full-screen-player-module-container .full-screen-player-controls-container:not(.fs-full-screen-player-queue-module-controls-container) {
+    top: 14px !important;
+    left: 14px !important;
+    padding: 6px 12px !important;
+    border-radius: 16px !important;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.03) 100%), rgba(14, 14, 22, 0.45) !important;
+    border: 1px solid rgba(255, 255, 255, 0.20) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.40) !important;
+    backdrop-filter: blur(24px) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(200%) !important;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.40), inset 0 1px 1px rgba(255, 255, 255, 0.35) !important;
+    z-index: 100 !important;
+    opacity: 0.8 !important;
+    transition: opacity 0.25s ease !important;
+}
+
+.fs-full-screen-player-module-container:hover .full-screen-player-controls-container:not(.fs-full-screen-player-queue-module-controls-container) {
+    opacity: 1 !important;
+}
+
+.fs-full-screen-player-module-container .full-screen-player-controls-container button {
+    border-radius: 10px !important;
+    color: rgba(255, 255, 255, 0.90) !important;
+    transition: all 0.2s ease !important;
+}
+
+.fs-full-screen-player-module-container .full-screen-player-controls-container button:hover {
+    background: rgba(255, 255, 255, 0.18) !important;
+    color: #FFFFFF !important;
+}
+
+/* Botões da aba da fila do reprodutor (topo direito) */
+.fs-full-screen-player-queue-module-controls-container {
+    top: 14px !important;
+    bottom: auto !important;
+    right: 20px !important;
+    padding: 6px 12px !important;
+    border-radius: 16px !important;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.02) 100%), rgba(10, 10, 16, 0.40) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.38) !important;
+    backdrop-filter: blur(20px) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(200%) !important;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.30) !important;
+    z-index: 100 !important;
+}
+
+.fs-full-screen-player-queue-module-controls-container button {
+    border-radius: 10px !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    transition: all 0.2s ease !important;
+}
+
+.fs-full-screen-player-queue-module-controls-container button:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: #FFFFFF !important;
+}
+
+
+/* ==========================================================================
+   FEISHIN TAGS SYSTEM & ENGINE — STYLING
+   Glassmorphism de alta fidelidade para Tag Editor, Hero Boxes e Abas
+   ========================================================================== */
+
+/* Page Mount & Root */
+.fs-tags-page-root {
+    width: 100% !important;
+    height: 100% !important;
+    overflow-y: auto !important;
+    padding: 24px 32px 100px 32px !important;
+    color: #FFFFFF !important;
+    font-family: "Plus Jakarta Sans", "Outfit", -apple-system, sans-serif !important;
+}
+
+.fs-tags-container {
+    max-width: 1400px !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 24px !important;
+}
+
+/* 1. TOP CONTROL BAR & VIEW TOGGLE */
+.fs-tags-top-bar {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: wrap !important;
+    gap: 16px !important;
+    padding-bottom: 20px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.fs-tags-title-block {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+}
+
+.fs-tags-title {
+    font-size: 28px !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.02em !important;
+    margin: 0 !important;
+    background: linear-gradient(135deg, #FFFFFF 0%, #C4B5FD 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+.fs-tags-count-badge {
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    padding: 4px 10px !important;
+    border-radius: 99px !important;
+    background: rgba(167, 139, 250, 0.15) !important;
+    border: 1px solid rgba(167, 139, 250, 0.35) !important;
+    color: #C4B5FD !important;
+}
+
+/* O TOGGLE SWITCH */
+.fs-tags-toggle-switch {
+    display: flex !important;
+    align-items: center !important;
+    padding: 4px !important;
+    border-radius: 14px !important;
+    background: rgba(18, 18, 24, 0.65) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+}
+
+.fs-tags-toggle-btn {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 8px 16px !important;
+    border: none !important;
+    border-radius: 10px !important;
+    background: transparent !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.fs-tags-toggle-btn:hover {
+    color: #FFFFFF !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+}
+
+.fs-tags-toggle-btn.active {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.3) 0%, rgba(139, 92, 246, 0.2) 100%), rgba(255, 255, 255, 0.1) !important;
+    color: #FFFFFF !important;
+    border: 1px solid rgba(167, 139, 250, 0.45) !important;
+    box-shadow: 0 4px 14px rgba(139, 92, 246, 0.25) !important;
+}
+
+/* 2. TAG EDITOR & MODAL SYSTEM (MINIMALIST & ELEGANT) */
+.fs-tags-top-bar-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+}
+
+.fs-btn-new-tag-primary {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 8px 16px !important;
+    border-radius: 12px !important;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.85) 0%, rgba(109, 40, 217, 0.95) 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    color: #FFFFFF !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    backdrop-filter: blur(10px) !important;
+    box-shadow: 0 4px 18px rgba(109, 40, 217, 0.35) !important;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.fs-btn-new-tag-primary:hover {
+    transform: translateY(-1px) scale(1.02) !important;
+    box-shadow: 0 6px 24px rgba(139, 92, 246, 0.5) !important;
+    filter: brightness(1.1) !important;
+}
+
+/* Minimalist Subheader Bar */
+.fs-tags-minimal-bar {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 10px 16px !important;
+    border-radius: 14px !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    margin-bottom: 20px !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+}
+
+.fs-tags-minimal-chips {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+}
+
+/* Card Hover Actions (Edit & Delete on each Hero Box) */
+.fs-hero-box-top-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+}
+
+.fs-hero-card-action-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: 8px !important;
+    background: rgba(12, 12, 18, 0.75) !important;
+    backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    color: rgba(255, 255, 255, 0.75) !important;
+    cursor: pointer !important;
+    opacity: 0 !important;
+    transform: scale(0.9) !important;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.fs-hero-box:hover .fs-hero-card-action-btn {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+}
+
+.fs-hero-card-action-btn:hover {
+    color: #FFFFFF !important;
+    background: rgba(167, 139, 250, 0.3) !important;
+    border-color: rgba(167, 139, 250, 0.5) !important;
+    transform: scale(1.1) !important;
+}
+
+.fs-hero-card-action-btn.fs-card-delete-btn:hover {
+    background: rgba(239, 68, 68, 0.3) !important;
+    border-color: rgba(239, 68, 68, 0.5) !important;
+    color: #FCA5A5 !important;
+}
+
+/* Modal Backdrop & Animations */
+.fs-tag-modal-backdrop {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 999999 !important;
+    background: rgba(8, 6, 18, 0.22) !important;
+    backdrop-filter: blur(8px) saturate(190%) contrast(105%) !important;
+    -webkit-backdrop-filter: blur(8px) saturate(190%) contrast(105%) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 24px !important;
+    animation: fsFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
+
+@keyframes fsFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fsModalPop {
+    from { opacity: 0; transform: scale(0.94) translateY(12px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.fs-tag-modal-dialog {
+    width: 100% !important;
+    max-width: 720px !important;
+    max-height: 90vh !important;
+    background: rgba(20, 16, 38, 0.48) !important;
+    backdrop-filter: blur(32px) saturate(210%) contrast(110%) !important;
+    -webkit-backdrop-filter: blur(32px) saturate(210%) contrast(110%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.22) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.45) !important;
+    border-radius: 24px !important;
+    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.35), 0 0 35px rgba(139, 92, 246, 0.22) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    animation: fsModalPop 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
+
+.fs-tag-modal-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 20px 26px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+
+.fs-tag-modal-title-group {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+}
+
+.fs-tag-modal-icon-badge {
+    width: 38px !important;
+    height: 38px !important;
+    border-radius: 10px !important;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(167, 139, 250, 0.1)) !important;
+    border: 1px solid rgba(167, 139, 250, 0.3) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 18px !important;
+}
+
+.fs-tag-modal-title {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: #FFFFFF !important;
+    margin: 0 !important;
+    letter-spacing: -0.01em !important;
+}
+
+.fs-tag-modal-close-btn {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 14px !important;
+    transition: all 0.15s ease !important;
+}
+
+.fs-tag-modal-close-btn:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: #FFFFFF !important;
+    transform: scale(1.08) !important;
+}
+
+/* Modal Body */
+.fs-tag-modal-body {
+    padding: 24px 26px !important;
+    overflow-y: auto !important;
+    display: grid !important;
+    grid-template-columns: 240px 1fr !important;
+    gap: 24px !important;
+}
+
+@media (max-width: 640px) {
+    .fs-tag-modal-body {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+.fs-tag-modal-preview-col {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+}
+
+.fs-modal-preview-card {
+    height: 180px !important;
+    border-radius: 16px !important;
+    pointer-events: none !important;
+}
+
+.fs-tag-preview-hint {
+    font-size: 11px !important;
+    color: rgba(255, 255, 255, 0.4) !important;
+    line-height: 1.4 !important;
+}
+
+.fs-tag-modal-form-col {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 18px !important;
+}
+
+.fs-modal-field-group {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+}
+
+.fs-tag-modal-label {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    color: rgba(255, 255, 255, 0.65) !important;
+}
+
+.fs-modal-text-input {
+    width: 100% !important;
+    background: rgba(12, 12, 18, 0.65) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 12px !important;
+    padding: 11px 15px !important;
+    color: #FFFFFF !important;
+    font-size: 13.5px !important;
+    outline: none !important;
+    transition: all 0.2s ease !important;
+}
+
+.fs-modal-text-input:focus {
+    border-color: #A78BFA !important;
+    background: rgba(14, 14, 22, 0.85) !important;
+    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.25) !important;
+}
+
+/* Upload Dropzone */
+.fs-tag-upload-dropzone {
+    border: 2px dashed rgba(167, 139, 250, 0.35) !important;
+    border-radius: 14px !important;
+    background: rgba(255, 255, 255, 0.02) !important;
+    padding: 22px 16px !important;
+    text-align: center !important;
+    cursor: pointer !important;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+}
+
+.fs-tag-upload-dropzone:hover {
+    border-color: #A78BFA !important;
+    background: rgba(167, 139, 250, 0.06) !important;
+    box-shadow: 0 0 20px rgba(167, 139, 250, 0.15) !important;
+}
+
+.fs-tag-upload-dropzone.dragover {
+    border-color: #C4B5FD !important;
+    background: rgba(167, 139, 250, 0.15) !important;
+    box-shadow: 0 0 30px rgba(167, 139, 250, 0.3) !important;
+    transform: scale(1.01) !important;
+}
+
+.fs-dropzone-icon {
+    color: #A78BFA !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-bottom: 2px !important;
+}
+
+.fs-dropzone-text {
+    font-size: 13px !important;
+    color: #FFFFFF !important;
+    line-height: 1.3 !important;
+}
+
+.fs-dropzone-text strong {
+    color: #C4B5FD !important;
+}
+
+.fs-dropzone-subtext {
+    font-size: 11px !important;
+    color: rgba(255, 255, 255, 0.45) !important;
+}
+
+.fs-dropzone-loaded-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding: 4px 10px !important;
+    border-radius: 99px !important;
+    background: rgba(167, 139, 250, 0.2) !important;
+    border: 1px solid rgba(167, 139, 250, 0.4) !important;
+    color: #E9D5FF !important;
+    font-size: 11.5px !important;
+    font-weight: 600 !important;
+}
+
+/* Secondary URL / Presets Accordion */
+.fs-modal-secondary-options {
+    margin-top: 4px !important;
+}
+
+.fs-modal-details {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    border-radius: 12px !important;
+    padding: 10px 14px !important;
+}
+
+.fs-modal-details-summary {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    color: rgba(255, 255, 255, 0.55) !important;
+    cursor: pointer !important;
+    user-select: none !important;
+    outline: none !important;
+    transition: color 0.15s ease !important;
+}
+
+.fs-modal-details-summary:hover {
+    color: #C4B5FD !important;
+}
+
+.fs-modal-details-content {
+    margin-top: 10px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+}
+
+.fs-presets-chips-compact {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    flex-wrap: wrap !important;
+}
+
+.fs-preset-chip-compact {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    padding: 4px 8px !important;
+    border-radius: 6px !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+    font-size: 11px !important;
+    cursor: pointer !important;
+    transition: all 0.15s ease !important;
+}
+
+.fs-preset-chip-compact:hover {
+    background: rgba(167, 139, 250, 0.2) !important;
+    border-color: rgba(167, 139, 250, 0.4) !important;
+    color: #FFFFFF !important;
+}
+
+/* Modal Footer */
+.fs-tag-modal-footer {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 18px 26px !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background: rgba(255, 255, 255, 0.02) !important;
+}
+
+.fs-modal-footer-right {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    margin-left: auto !important;
+}
+
+.fs-modal-btn-cancel {
+    padding: 9px 18px !important;
+    border-radius: 10px !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: rgba(255, 255, 255, 0.75) !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.15s ease !important;
+}
+
+.fs-modal-btn-cancel:hover {
+    background: rgba(255, 255, 255, 0.12) !important;
+    color: #FFFFFF !important;
+}
+
+.fs-modal-btn-save {
+    padding: 9px 22px !important;
+    border-radius: 10px !important;
+    background: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    color: #FFFFFF !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    box-shadow: 0 4px 16px rgba(109, 40, 217, 0.35) !important;
+    transition: all 0.2s ease !important;
+}
+
+.fs-modal-btn-save:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5) !important;
+    filter: brightness(1.1) !important;
+}
+
+.fs-modal-btn-delete {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding: 8px 14px !important;
+    border-radius: 10px !important;
+    background: rgba(239, 68, 68, 0.12) !important;
+    border: 1px solid rgba(239, 68, 68, 0.25) !important;
+    color: #FCA5A5 !important;
+    font-size: 12.5px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.15s ease !important;
+}
+
+.fs-modal-btn-delete:hover {
+    background: rgba(239, 68, 68, 0.22) !important;
+    border-color: rgba(239, 68, 68, 0.45) !important;
+    color: #FFFFFF !important;
+}
+
+/* Delete Confirm Dialog */
+.fs-delete-dialog {
+    max-width: 440px !important;
+    text-align: center !important;
+    padding: 26px !important;
+}
+
+.fs-delete-icon-wrap {
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 50% !important;
+    background: rgba(239, 68, 68, 0.15) !important;
+    border: 1px solid rgba(239, 68, 68, 0.3) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 auto 16px !important;
+    color: #EF4444 !important;
+    font-size: 22px !important;
+}
+
+.fs-delete-title {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: #FFFFFF !important;
+    margin: 0 0 8px 0 !important;
+}
+
+.fs-delete-msg {
+    font-size: 13.5px !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+    line-height: 1.5 !important;
+    margin: 0 0 24px 0 !important;
+}
+
+.fs-delete-actions {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+}
+
+.fs-btn-confirm-delete {
+    padding: 10px 20px !important;
+    border-radius: 10px !important;
+    background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: #FFFFFF !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    box-shadow: 0 4px 16px rgba(220, 38, 38, 0.35) !important;
+    transition: all 0.2s ease !important;
+}
+
+.fs-btn-confirm-delete:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5) !important;
+    filter: brightness(1.1) !important;
+}
+
+.fs-tag-pill-add-btn {
+    border: 1px dashed rgba(167, 139, 250, 0.4) !important;
+    background: rgba(167, 139, 250, 0.08) !important;
+    color: #C4B5FD !important;
+}
+
+.fs-tag-pill-add-btn:hover {
+    border-color: #A78BFA !important;
+    background: rgba(167, 139, 250, 0.18) !important;
+    color: #FFFFFF !important;
+}
+
+/* Backward Compatibility Tag Manager Pills */
+.fs-tag-manager-pill {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 4px 10px !important;
+    border-radius: 99px !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    font-size: 12px !important;
+    color: #FFFFFF !important;
+    transition: all 0.15s ease !important;
+}
+
+.fs-tag-manager-pill:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(167, 139, 250, 0.4) !important;
+}
+
+.fs-tag-mini-thumb {
+    width: 18px !important;
+    height: 18px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+}
+
+.fs-tag-manager-count {
+    padding: 1px 6px !important;
+    border-radius: 99px !important;
+    background: rgba(167, 139, 250, 0.25) !important;
+    color: #C4B5FD !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+}
+
+.fs-tag-mini-btn {
+    background: transparent !important;
+    border: none !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+    cursor: pointer !important;
+    padding: 2px !important;
+    font-size: 11px !important;
+    border-radius: 4px !important;
+    transition: all 0.15s ease !important;
+}
+
+.fs-tag-mini-btn:hover {
+    color: #FFFFFF !important;
+    transform: scale(1.15) !important;
+}
+
+/* 3. HERO BOXES GRID */
+.fs-hero-boxes-header {
+    display: flex !important;
+    align-items: baseline !important;
+    justify-content: space-between !important;
+    margin-top: 10px !important;
+    margin-bottom: -6px !important;
+}
+
+.fs-hero-boxes-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)) !important;
+    gap: 20px !important;
+    width: 100% !important;
+}
+
+.fs-hero-box {
+    position: relative !important;
+    height: 220px !important;
+    border-radius: 18px !important;
+    background-size: cover !important;
+    background-position: center !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    overflow: hidden !important;
+    cursor: pointer !important;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35) !important;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    padding: 18px !important;
+}
+
+.fs-hero-box:hover {
+    transform: translateY(-4px) scale(1.01) !important;
+    border-color: rgba(167, 139, 250, 0.5) !important;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), 0 0 25px rgba(139, 92, 246, 0.25) !important;
+}
+
+.fs-hero-box-overlay {
+    position: absolute !important;
+    inset: 0 !important;
+    background: linear-gradient(180deg, rgba(10, 10, 14, 0.15) 0%, rgba(10, 10, 16, 0.88) 85%) !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+    transition: background 0.3s ease !important;
+}
+
+.fs-hero-box:hover .fs-hero-box-overlay {
+    background: linear-gradient(180deg, rgba(10, 10, 14, 0.05) 0%, rgba(10, 10, 16, 0.92) 80%) !important;
+}
+
+.fs-hero-box-top {
+    position: relative !important;
+    z-index: 2 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+
+.fs-hero-box-tag-pill {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    padding: 4px 10px !important;
+    border-radius: 99px !important;
+    background: rgba(10, 10, 16, 0.65) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    backdrop-filter: blur(10px) !important;
+    color: #FFFFFF !important;
+}
+
+.fs-hero-box-count-pill {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    padding: 4px 10px !important;
+    border-radius: 99px !important;
+    background: rgba(139, 92, 246, 0.3) !important;
+    border: 1px solid rgba(167, 139, 250, 0.4) !important;
+    color: #FFFFFF !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+.fs-hero-box-bottom {
+    position: relative !important;
+    z-index: 2 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+}
+
+.fs-hero-box-title {
+    font-size: 22px !important;
+    font-weight: 800 !important;
+    color: #FFFFFF !important;
+    letter-spacing: -0.01em !important;
+    margin: 0 !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6) !important;
+}
+
+.fs-hero-box-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    opacity: 0 !important;
+    transform: translateY(6px) !important;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.fs-hero-box:hover .fs-hero-box-actions {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+.fs-hero-btn-play {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding: 6px 14px !important;
+    border-radius: 8px !important;
+    background: #8B5CF6 !important;
+    color: #FFFFFF !important;
+    border: none !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4) !important;
+    transition: all 0.15s ease !important;
+}
+
+.fs-hero-btn-play:hover {
+    background: #7C3AED !important;
+    transform: scale(1.05) !important;
+}
+
+.fs-hero-btn-shuffle {
+    display: inline-flex !important;
+    align-items: center !important;
+    padding: 6px 10px !important;
+    border-radius: 8px !important;
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: #FFFFFF !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    font-size: 12px !important;
+    cursor: pointer !important;
+    backdrop-filter: blur(8px) !important;
+}
+
+.fs-hero-box-footer-hint {
+    font-size: 11px !important;
+    color: rgba(255, 255, 255, 0.45) !important;
+    transition: color 0.2s ease !important;
+}
+
+.fs-hero-box:hover .fs-hero-box-footer-hint {
+    color: #C4B5FD !important;
+}
+
+/* 4. TAG PLAYLIST VIEW (Inside clicked box) */
+.fs-tag-playlist-view {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+}
+
+.fs-tag-hero-banner {
+    position: relative !important;
+    height: 240px !important;
+    border-radius: 20px !important;
+    background-size: cover !important;
+    background-position: center !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    overflow: hidden !important;
+    padding: 24px 32px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45) !important;
+}
+
+.fs-tag-hero-banner-overlay {
+    position: absolute !important;
+    inset: 0 !important;
+    background: linear-gradient(180deg, rgba(10, 10, 16, 0.4) 0%, rgba(10, 10, 18, 0.92) 100%) !important;
+    z-index: 1 !important;
+}
+
+.fs-tag-btn-back {
+    position: relative !important;
+    z-index: 2 !important;
+    align-self: flex-start !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding: 6px 14px !important;
+    border-radius: 8px !important;
+    background: rgba(10, 10, 16, 0.6) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    color: #FFFFFF !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    backdrop-filter: blur(12px) !important;
+    transition: all 0.2s ease !important;
+}
+
+.fs-tag-btn-back:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+    transform: translateX(-2px) !important;
+}
+
+.fs-tag-hero-banner-content {
+    position: relative !important;
+    z-index: 2 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+}
+
+.fs-tag-badge-pill {
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.08em !important;
+    color: #A78BFA !important;
+}
+
+.fs-tag-banner-title {
+    font-size: 34px !important;
+    font-weight: 800 !important;
+    margin: 0 !important;
+    color: #FFFFFF !important;
+    letter-spacing: -0.02em !important;
+}
+
+.fs-tag-banner-meta {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    font-size: 13px !important;
+    color: rgba(255, 255, 255, 0.65) !important;
+    margin-bottom: 6px !important;
+}
+
+.fs-tag-banner-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+
+/* 5. VIEW 2: ABAS COM BOTÕES NO TOPO */
+.fs-tabs-view-container {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+}
+
+.fs-tabs-buttons-bar {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    overflow-x: auto !important;
+    padding-bottom: 8px !important;
+    scrollbar-width: thin !important;
+}
+
+.fs-tag-pill-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 8px 16px !important;
+    border-radius: 99px !important;
+    background: rgba(18, 18, 24, 0.6) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(16px) !important;
+    color: rgba(255, 255, 255, 0.75) !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    white-space: nowrap !important;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.fs-tag-pill-btn:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #FFFFFF !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.fs-tag-pill-btn.active {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.35) 0%, rgba(139, 92, 246, 0.2) 100%), rgba(20, 20, 28, 0.8) !important;
+    border-color: #A78BFA !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 4px 18px rgba(139, 92, 246, 0.3) !important;
+    transform: translateY(-1px) !important;
+}
+
+.fs-tag-pill-thumb {
+    width: 20px !important;
+    height: 20px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+}
+
+.fs-tag-pill-count {
+    padding: 2px 7px !important;
+    border-radius: 99px !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+}
+
+.fs-tag-pill-btn.active .fs-tag-pill-count {
+    background: rgba(167, 139, 250, 0.4) !important;
+    color: #FFFFFF !important;
+}
+
+/* Active Tag Action Bar (View 2) */
+.fs-active-tag-action-bar {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: wrap !important;
+    gap: 16px !important;
+    background: rgba(18, 18, 24, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 14px !important;
+    padding: 14px 20px !important;
+    backdrop-filter: blur(20px) !important;
+}
+
+.fs-active-tag-large-thumb {
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 10px !important;
+    object-fit: cover !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+.fs-tag-search-input {
+    background: rgba(10, 10, 14, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 8px !important;
+    padding: 8px 12px !important;
+    color: #FFFFFF !important;
+    font-size: 13px !important;
+    width: 220px !important;
+    outline: none !important;
+}
+
+.fs-tag-search-input:focus {
+    border-color: #A78BFA !important;
+}
+
+/* 6. TRACKLIST TABLE */
+.fs-tag-track-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    font-size: 13px !important;
+    background: rgba(16, 16, 22, 0.4) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    border-radius: 14px !important;
+    overflow: hidden !important;
+    backdrop-filter: blur(16px) !important;
+}
+
+.fs-tag-track-table thead tr {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.fs-tag-track-table th {
+    padding: 12px 14px !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    color: rgba(255, 255, 255, 0.4) !important;
+    letter-spacing: 0.05em !important;
+    text-align: left !important;
+}
+
+.fs-tag-track-row {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+    transition: background 0.15s ease !important;
+    cursor: default !important;
+}
+
+.fs-tag-track-row:hover {
+    background: rgba(255, 255, 255, 0.06) !important;
+}
+
+.fs-tag-track-row td {
+    padding: 10px 14px !important;
+    vertical-align: middle !important;
+}
+
+.fs-col-idx {
+    position: relative !important;
+}
+
+.fs-row-play-btn {
+    display: none !important;
+    background: #8B5CF6 !important;
+    border: none !important;
+    color: #FFFFFF !important;
+    border-radius: 50% !important;
+    width: 24px !important;
+    height: 24px !important;
+    font-size: 10px !important;
+    line-height: 24px !important;
+    text-align: center !important;
+    cursor: pointer !important;
+    margin: 0 auto !important;
+}
+
+.fs-tag-track-row:hover .fs-idx-num {
+    display: none !important;
+}
+
+.fs-tag-track-row:hover .fs-row-play-btn {
+    display: inline-block !important;
+}
+
+.fs-track-thumb-container {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 6px !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 14px !important;
+}
+
+.fs-btn-remove-from-tag {
+    background: transparent !important;
+    border: none !important;
+    color: rgba(255, 255, 255, 0.3) !important;
+    font-size: 13px !important;
+    cursor: pointer !important;
+    padding: 4px 8px !important;
+    border-radius: 4px !important;
+    transition: all 0.15s ease !important;
+}
+
+.fs-btn-remove-from-tag:hover {
+    color: #EF4444 !important;
+    background: rgba(239, 68, 68, 0.15) !important;
+}
+
+.fs-tag-empty-state {
+    text-align: center !important;
+    padding: 60px 20px !important;
+}
+
+/* 7. CONTEXT MENU SUBMENU */
+.fs-tags-context-submenu {
+    position: fixed !important;
+    z-index: 10000 !important;
+    min-width: 180px !important;
+    border-radius: 12px !important;
+    background: rgba(20, 20, 28, 0.95) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.35) !important;
+    backdrop-filter: blur(28px) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6) !important;
+    padding: 6px 0 !important;
+}
+
+.fs-tags-submenu-row:hover {
+    background: rgba(167, 139, 250, 0.2) !important;
+    color: #FFFFFF !important;
+}
+
+/* 8. FLOATING TOAST */
+#fs-tags-floating-toast {
+    position: fixed !important;
+    bottom: 90px !important;
+    right: 28px !important;
+    z-index: 99999 !important;
+    background: rgba(20, 20, 28, 0.88) !important;
+    border: 1px solid rgba(167, 139, 250, 0.45) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.4) !important;
+    backdrop-filter: blur(28px) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 20px rgba(139, 92, 246, 0.25) !important;
+    border-radius: 12px !important;
+    padding: 10px 18px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: #FFFFFF !important;
+    opacity: 0 !important;
+    transform: translateY(12px) !important;
+    pointer-events: none !important;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+#fs-tags-floating-toast.fs-tags-toast-active {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+#fs-tags-floating-toast.toast-error {
+    border-color: rgba(239, 68, 68, 0.5) !important;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 20px rgba(239, 68, 68, 0.25) !important;
+}
+
+/* ==========================================================================
+   12. PLAYER KILL SWITCH & GLASS CONFIRMATION DIALOG (BOTÃO X)
+   ========================================================================== */
+#feishin-kill-switch-btn {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Glass Modal Backdrop Overlay */
+.feishin-glass-modal-backdrop {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 999999 !important;
+    background: rgba(0, 0, 0, 0.6) !important;
+    backdrop-filter: blur(14px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(14px) saturate(180%) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    animation: feishinModalFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+    transition: opacity 0.16s ease !important;
+}
+
+@keyframes feishinModalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Glass Dialog Box Card */
+.feishin-glass-dialog-box {
+    width: 90% !important;
+    max-width: 420px !important;
+    background: rgba(20, 20, 28, 0.82) !important;
+    backdrop-filter: blur(40px) saturate(210%) !important;
+    -webkit-backdrop-filter: blur(40px) saturate(210%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.28) !important;
+    border-radius: 22px !important;
+    padding: 28px 28px 24px 28px !important;
+    box-shadow: 0 28px 65px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.05), 0 0 40px rgba(239, 68, 68, 0.14) !important;
+    text-align: center !important;
+    color: #FFFFFF !important;
+    font-family: "Outfit", "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif !important;
+    transform-origin: center center !important;
+    animation: feishinModalScaleIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+    transition: transform 0.16s ease !important;
+}
+
+@keyframes feishinModalScaleIn {
+    from { transform: scale(0.92); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* Badge Icon */
+.feishin-glass-dialog-badge {
+    width: 52px !important;
+    height: 52px !important;
+    border-radius: 50% !important;
+    margin: 0 auto 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.22), rgba(220, 38, 38, 0.08)) !important;
+    border: 1px solid rgba(239, 68, 68, 0.4) !important;
+    color: #F87171 !important;
+    box-shadow: 0 0 24px rgba(239, 68, 68, 0.28), inset 0 1px 1px rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Title & Description */
+.feishin-glass-dialog-title {
+    font-size: 19px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.02em !important;
+    margin: 0 0 8px 0 !important;
+    color: #FFFFFF !important;
+}
+
+.feishin-glass-dialog-desc {
+    font-size: 13.5px !important;
+    line-height: 1.5 !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+    margin: 0 0 18px 0 !important;
+    padding: 0 8px !important;
+}
+
+/* Song card preview in modal */
+.feishin-glass-dialog-song-card {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.09) !important;
+    border-radius: 14px !important;
+    padding: 10px 14px !important;
+    margin-bottom: 22px !important;
+    text-align: left !important;
+}
+
+.feishin-glass-song-cover {
+    width: 38px !important;
+    height: 38px !important;
+    border-radius: 8px !important;
+    object-fit: cover !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4) !important;
+    flex-shrink: 0 !important;
+}
+
+.feishin-glass-dialog-song-card .song-icon {
+    font-size: 18px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 38px !important;
+    height: 38px !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-radius: 8px !important;
+    flex-shrink: 0 !important;
+}
+
+.feishin-glass-dialog-song-card .song-details {
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+}
+
+.feishin-glass-dialog-song-card .song-name {
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: #F1F5F9 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.feishin-glass-dialog-song-card .song-sub {
+    font-size: 11.5px !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+/* Actions Row */
+.feishin-glass-dialog-actions {
+    display: flex !important;
+    gap: 10px !important;
+    justify-content: stretch !important;
+}
+
+.feishin-glass-btn {
+    flex: 1 !important;
+    border: none !important;
+    outline: none !important;
+    padding: 12px 18px !important;
+    border-radius: 12px !important;
+    font-size: 13.5px !important;
+    font-family: inherit !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.feishin-glass-btn-cancel {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    color: #E2E8F0 !important;
+}
+
+.feishin-glass-btn-cancel:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: rgba(255, 255, 255, 0.22) !important;
+    transform: translateY(-1px) !important;
+}
+
+.feishin-glass-btn-cancel:active {
+    transform: translateY(0) !important;
+}
+
+.feishin-glass-btn-danger {
+    flex: 1.25 !important;
+    background: linear-gradient(135deg, #EF4444, #DC2626) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 4px 18px rgba(239, 68, 68, 0.38) !important;
+}
+
+.feishin-glass-btn-danger:hover {
+    background: linear-gradient(135deg, #F87171, #EF4444) !important;
+    box-shadow: 0 6px 24px rgba(239, 68, 68, 0.55) !important;
+    transform: translateY(-1px) !important;
+}
+
+.feishin-glass-btn-danger:active {
+    transform: translateY(0) !important;
+}
+
+/* ==========================================================================
+   11. SISTEMA INTELIGENTE DESLIZANTE A-Z (ALPHABET FAST-SCRUBBER & HUD)
+   ========================================================================== */
+.fs-az-scrubber {
+    position: fixed !important;
+    right: 12px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    background: rgba(18, 12, 34, 0.48) !important;
+    backdrop-filter: blur(24px) saturate(190%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.13) !important;
+    box-shadow: 0 10px 36px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+    border-radius: 20px !important;
+    padding: 8px 3px !important;
+    z-index: 9999 !important;
+    user-select: none !important;
+    cursor: pointer !important;
+    width: 22px !important;
+    height: calc(100vh - 240px) !important;
+    min-height: 480px !important;
+    max-height: 640px !important;
+    transition: width 0.22s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s, box-shadow 0.2s !important;
+}
+
+.fs-az-scrubber:hover,
+.fs-az-scrubber.dragging {
+    width: 28px !important;
+    background: rgba(22, 14, 42, 0.72) !important;
+    box-shadow: 0 14px 44px rgba(0, 0, 0, 0.6), 0 0 20px rgba(168, 85, 247, 0.25) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.fs-az-item {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    color: rgba(255, 255, 255, 0.65) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 18px !important;
+    height: 16px !important;
+    border-radius: 9px !important;
+    transition: transform 0.14s cubic-bezier(0.16, 1, 0.3, 1), color 0.12s, background 0.12s, box-shadow 0.12s !important;
+    cursor: pointer !important;
+}
+
+.fs-az-scrubber:hover .fs-az-item {
+    width: 22px !important;
+    height: 17px !important;
+}
+
+.fs-az-item:hover {
+    color: #ffffff !important;
+    transform: scale(1.3) !important;
+    text-shadow: 0 0 8px rgba(168, 85, 247, 0.9) !important;
+}
+
+.fs-az-item.active {
+    background: linear-gradient(135deg, #a855f7, #6366f1) !important;
+    color: #ffffff !important;
+    box-shadow: 0 2px 10px rgba(168, 85, 247, 0.7) !important;
+    transform: scale(1.22) !important;
+}
+
+.fs-az-item.empty {
+    opacity: 0.22 !important;
+    cursor: default !important;
+}
+
+.fs-az-item.empty:hover {
+    transform: none !important;
+    color: rgba(255, 255, 255, 0.4) !important;
+    text-shadow: none !important;
+}
+
+/* Floating Magnifier HUD Bubble */
+.fs-az-hud {
+    position: fixed !important;
+    right: 52px !important;
+    transform: translateY(-50%) scale(0.92) !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    z-index: 10000 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 16px !important;
+    padding: 14px 18px !important;
+    min-width: 240px !important;
+    max-width: 320px !important;
+    background: rgba(18, 14, 32, 0.82) !important;
+    backdrop-filter: blur(28px) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.65), 0 0 24px rgba(168, 85, 247, 0.3) !important;
+    transition: opacity 0.18s cubic-bezier(0.16, 1, 0.3, 1), transform 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.fs-az-hud.visible {
+    opacity: 1 !important;
+    transform: translateY(-50%) scale(1) !important;
+}
+
+.fs-az-hud-badge {
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 14px !important;
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(99, 102, 241, 0.3)) !important;
+    border: 1px solid rgba(255, 255, 255, 0.22) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 26px !important;
+    font-weight: 900 !important;
+    color: #ffffff !important;
+    text-shadow: 0 0 14px rgba(168, 85, 247, 0.8) !important;
+    flex-shrink: 0 !important;
+}
+
+.fs-az-hud-content {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 3px !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+}
+
+.fs-az-hud-title {
+    font-size: 13.5px !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    line-height: 1.2 !important;
+}
+
+.fs-az-hud-count {
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    color: #c084fc !important;
+    line-height: 1.2 !important;
+}
+
+.fs-az-hud-preview {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2px !important;
+    margin-top: 4px !important;
+    padding-top: 5px !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+    min-width: 0 !important;
+}
+
+.fs-az-hud-song {
+    font-size: 11.5px !important;
+    font-weight: 600 !important;
+    color: rgba(255, 255, 255, 0.95) !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 220px !important;
+}
+
+.fs-az-hud-artist {
+    font-size: 10.5px !important;
+    font-weight: 500 !important;
+    color: rgba(255, 255, 255, 0.55) !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 220px !important;
+}
+
+/* ==========================================================================
+   FEISHIN CONTEXT MENU CENTRALIZATION (macOS Desktop & Android Mobile)
+   ========================================================================== */
+[data-radix-popper-content-wrapper]:has(> [role="menu"]:not([aria-labelledby])),
+[data-radix-popper-content-wrapper]:has(> [data-feishin-context-menu="main"]),
+[data-feishin-menu-wrapper="main"] {
+    position: fixed !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    z-index: 100000 !important;
+    max-height: 90vh !important;
+    max-width: 90vw !important;
+}
+
+[data-radix-popper-content-wrapper]:has(> [role="menu"]:not([aria-labelledby])) > [role="menu"],
+[data-radix-popper-content-wrapper]:has(> [data-feishin-context-menu="main"]) > [role="menu"],
+[data-feishin-menu-wrapper="main"] > [role="menu"] {
+    max-height: min(34rem, 82vh) !important;
+    width: min(20rem, 86vw) !important;
+    min-width: 16rem !important;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.12) !important;
+    border-radius: 18px !important;
+    backdrop-filter: blur(28px) saturate(190%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
+}
