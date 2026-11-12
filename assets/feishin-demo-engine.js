@@ -614,6 +614,32 @@
     window.fetch = function(resource, init) {
         const url = typeof resource === 'string' ? resource : (resource && resource.url ? resource.url : '');
 
+        // Intercept Navidrome /api/song for fast A-Z alphabet scrubber
+        if (url.includes('/api/song')) {
+            const list = db.songs.map(s => ({
+                id: s.id,
+                title: s.title,
+                artist: s.artist,
+                album: s.album,
+                duration: s.duration,
+                year: s.year,
+                genre: s.genre,
+                track: s.track,
+                coverArt: s.coverArt,
+                path: s.path,
+                starred: s.starred
+            }));
+            return Promise.resolve(new Response(JSON.stringify(list), {
+                status: 200,
+                statusText: 'OK',
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Access-Control-Allow-Origin': '*',
+                    'x-total-count': String(list.length)
+                }
+            }));
+        }
+
         // Intercept /api/engine/* calls cleanly
         if (url.includes('/api/engine/')) {
             const method = (init && init.method) || 'GET';
@@ -715,6 +741,24 @@
                     xhr.dispatchEvent(new Event('loadend'));
                 }, 10);
             };
+
+            if (requestUrl.includes('/api/song')) {
+                const list = db.songs.map(s => ({
+                    id: s.id,
+                    title: s.title,
+                    artist: s.artist,
+                    album: s.album,
+                    duration: s.duration,
+                    year: s.year,
+                    genre: s.genre,
+                    track: s.track,
+                    coverArt: s.coverArt,
+                    path: s.path,
+                    starred: s.starred
+                }));
+                respondJson(list);
+                return;
+            }
 
             if (requestUrl.includes('/api/engine/')) {
                 const bodyText = typeof body === 'string' ? body : '';

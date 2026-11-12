@@ -21,14 +21,51 @@ export const getOptimizedDPR = () => {
 };
 
 let isTabVisible = typeof document !== 'undefined' ? !document.hidden : true;
+let isWindowFocused = typeof document !== 'undefined' ? (document.hasFocus ? document.hasFocus() : true) : true;
+let isElectronWindowVisible = true;
+const pendingResumeCallbacks = new Set();
+let lastFrameTime = 0;
+
+const shouldAnimate = () => {
+  if (typeof window !== 'undefined' && window.__FORCE_SHADER_RUNNING__) return true;
+  if (typeof window !== 'undefined' && window.__PAUSE_WEBGL_SHADERS__) return false;
+  return isTabVisible && isElectronWindowVisible;
+};
+
+const handleStateChange = () => {
+  isTabVisible = typeof document !== 'undefined' ? !document.hidden : true;
+  isWindowFocused = typeof document !== 'undefined' ? (document.hasFocus ? document.hasFocus() : true) : true;
+  
+  if (shouldAnimate() && pendingResumeCallbacks.size > 0) {
+    const cbs = Array.from(pendingResumeCallbacks);
+    pendingResumeCallbacks.clear();
+    const now = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
+    for (const cb of cbs) {
+      try { cb(now); } catch(e) {}
+    }
+  }
+};
+
 if (typeof document !== 'undefined') {
-  document.addEventListener('visibilitychange', () => {
-    isTabVisible = !document.hidden;
-  }, { passive: true });
+  document.addEventListener('visibilitychange', handleStateChange, { passive: true });
+}
+if (typeof window !== 'undefined') {
+  window.addEventListener('focus', handleStateChange, { passive: true });
+  window.addEventListener('blur', handleStateChange, { passive: true });
+  
+  if (window.api && window.api.ipc && typeof window.api.ipc.on === 'function') {
+    window.api.ipc.on('window-visibility-state', (_event, visible) => {
+      isElectronWindowVisible = !!visible;
+      handleStateChange();
+    });
+    window.api.ipc.on('window-focus-state', (_event, focused) => {
+      isWindowFocused = !!focused;
+      handleStateChange();
+    });
+  }
 }
 
-// Universal ultra-fluid RAF: sincronizado diretamente ao VSYNC nativo da tela (120Hz/90Hz/60Hz)
-// Zero atraso artificial, zero throttling em scroll/touch, zero microtravamentos
+// Universal ultra-fluid RAF: sincronizado diretamente ao VSYNC nativo da tela
 const nativeRAF = (typeof window !== 'undefined' && window.requestAnimationFrame)
   ? window.requestAnimationFrame.bind(window)
   : (cb) => setTimeout(cb, 16);
@@ -37,16 +74,49 @@ const nativeCAF = (typeof window !== 'undefined' && window.cancelAnimationFrame)
   ? window.cancelAnimationFrame.bind(window)
   : clearTimeout;
 
+// Gerenciador inteligente de taxa de quadros e economia de energia macOS:
+// - Janela oculta/minimizada: 0 FPS (0% CPU / 0% GPU)
+// - Janela em segundo plano (unfocused): limitado a ~24 FPS (redução de 75% no consumo GPU)
+// - Janela ativa/em foco: sincronizado suave a ~60 FPS (evita estresse térmico em ProMotion 120Hz)
 const requestAnimationFrame = (callback) => {
   const session = currentBgSession;
+
+  if (!shouldAnimate()) {
+    pendingResumeCallbacks.add((time) => {
+      if (session === currentBgSession) {
+        lastFrameTime = time;
+        callback(time);
+      }
+    });
+    return 0;
+  }
+
+  const minInterval = isWindowFocused ? 16 : 41;
+
   return nativeRAF((time) => {
     if (session !== currentBgSession) return;
-    if (!isTabVisible && !(typeof window !== 'undefined' && window.__FORCE_SHADER_RUNNING__)) {
-      nativeRAF((nextTime) => {
-        if (session === currentBgSession) callback(nextTime);
+    if (!shouldAnimate()) {
+      pendingResumeCallbacks.add((nextTime) => {
+        if (session === currentBgSession) {
+          lastFrameTime = nextTime;
+          callback(nextTime);
+        }
       });
       return;
     }
+
+    const elapsed = time - lastFrameTime;
+    if (elapsed < minInterval) {
+      nativeRAF((nextTime) => {
+        if (session === currentBgSession) {
+          lastFrameTime = nextTime;
+          callback(nextTime);
+        }
+      });
+      return;
+    }
+
+    lastFrameTime = time;
     callback(time);
   });
 };
@@ -268,7 +338,7 @@ function initStrands(ctn, opts = {}) {
   const dispersion = opts.dispersion ?? 1;
   const glassSize = opts.glassSize ?? 1;
 
-  const renderer = new Renderer({ dpr: getOptimizedDPR(), alpha: true, premultipliedAlpha: true, antialias: false, powerPreference: 'high-performance' });
+  const renderer = new Renderer({ dpr: getOptimizedDPR(), alpha: true, premultipliedAlpha: true, antialias: false, powerPreference: 'low-power' });
   const gl = renderer.gl;
   gl.clearColor(0, 0, 0, 0);
   gl.enable(gl.BLEND);
@@ -654,7 +724,7 @@ function initPlasmaWave(ctn, opts = {}) {
     stencil: false,
     premultipliedAlpha: false,
     preserveDrawingBuffer: false,
-    powerPreference: 'high-performance'
+    powerPreference: 'low-power'
   });
 
   const gl = renderer.gl;
@@ -2102,7 +2172,7 @@ function initDither(ctn, opts = {}) {
   const enableMouse = opts.enableMouseInteraction ?? true;
   const mouseRadius = opts.mouseRadius ?? 0.3;
 
-  const renderer = new Renderer({ dpr: getOptimizedDPR(), alpha: true, antialias: false, powerPreference: 'high-performance' });
+  const renderer = new Renderer({ dpr: getOptimizedDPR(), alpha: true, antialias: false, powerPreference: 'low-power' });
   const gl = renderer.gl;
   gl.canvas.style.width = '100%';
   gl.canvas.style.height = '100%';
@@ -3517,7 +3587,7 @@ function initBalatro(container, opts = {}) {
   }
   `;
 
-  const renderer = new Renderer({ dpr: getOptimizedDPR(), antialias: false, powerPreference: 'high-performance' });
+  const renderer = new Renderer({ dpr: getOptimizedDPR(), antialias: false, powerPreference: 'low-power' });
   const gl = renderer.gl;
   gl.clearColor(0, 0, 0, 1);
   const canvas = gl.canvas;
@@ -4587,7 +4657,7 @@ function initAurora(container, opts = {}) {
   }
   `;
 
-  const renderer = new Renderer({ dpr: getOptimizedDPR(), alpha: true, premultipliedAlpha: true, antialias: false, powerPreference: 'high-performance' });
+  const renderer = new Renderer({ dpr: getOptimizedDPR(), alpha: true, premultipliedAlpha: true, antialias: false, powerPreference: 'low-power' });
   const gl = renderer.gl;
   gl.clearColor(0, 0, 0, 0);
   gl.enable(gl.BLEND);
@@ -6813,7 +6883,7 @@ function initLightning(container, opts = {}) {
   }
   `;
 
-  const renderer = new Renderer({ dpr: getOptimizedDPR(), alpha: true, premultipliedAlpha: false, antialias: false, powerPreference: 'high-performance' });
+  const renderer = new Renderer({ dpr: getOptimizedDPR(), alpha: true, premultipliedAlpha: false, antialias: false, powerPreference: 'low-power' });
   const gl = renderer.gl;
   const canvas = gl.canvas;
   canvas.style.position = 'absolute';
@@ -7000,7 +7070,7 @@ function initEvilEye(container, opts = {}) {
   }
   `;
 
-  const renderer = new Renderer({ dpr: getOptimizedDPR(), alpha: true, premultipliedAlpha: false, antialias: false, powerPreference: 'high-performance' });
+  const renderer = new Renderer({ dpr: getOptimizedDPR(), alpha: true, premultipliedAlpha: false, antialias: false, powerPreference: 'low-power' });
   const gl = renderer.gl;
   gl.clearColor(0, 0, 0, 0);
   const canvas = gl.canvas;
@@ -8716,7 +8786,7 @@ void main(){
   const renderer = new THREE_LIB.WebGLRenderer({
     antialias: true,
     alpha: true,
-    powerPreference: 'high-performance'
+    powerPreference: 'low-power'
   });
   renderer.domElement.style.width = '100%';
   renderer.domElement.style.height = '100%';

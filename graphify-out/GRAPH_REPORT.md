@@ -1,62 +1,62 @@
-# Graph Report - feishin-demo  (2026-11-11)
+# Graph Report - feishin-demo  (2026-11-12)
 
 ## Corpus Check
-- 151 files · ~673,530 words
+- 150 files · ~661,072 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 9105 nodes · 35240 edges · 252 communities (174 shown, 66 thin omitted)
-- Extraction: 85% EXTRACTED · 15% INFERRED · 0% AMBIGUOUS · INFERRED: 5339 edges (avg confidence: 0.85)
+- 9118 nodes · 35437 edges · 252 communities (169 shown, 73 thin omitted)
+- Extraction: 85% EXTRACTED · 15% INFERRED · 0% AMBIGUOUS · INFERRED: 5374 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `baf3dd18`
+- Built from commit: `4d814a69`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - $_
-- constructor
+- e
 - c
 - Lt
-- folder-list-route-By-REs_O.js
-- bWe
-- d
-- e
+- G
+- .toUpperCase
+- m
+- r
 - nze
 - .toJSON
 - mCe
 - three.min.js
 - item-detail-list-CjYNqcsP.js
 - i0t
-- kt
+- playlist-detail-song-list-route-CZnAfhnF.js
 - ws
 - pt
-- t
+- _T
 - album-artist-detail-route-DmkhEjpB.js
 - kze
 - St
 - sn
 - _
-- G
+- list-config-settings-modal-DuH0evOB.js
 - se
-- update
+- .applyMatrix4
 - setOptions
 - webgl-backgrounds.js
 - .copy
-- be
-- .constructor
+- J
+- Dr
 - Ce
 - feishin-tags-engine.js
 - song-edit-context-modal-DGh4JdI9.js
 - bt
 - visualizer-DY_3zGB_.js
-- x
+- W
 - vt
 - o
 - .toString
-- oo
-- Eu
+- kP
+- e
 - tn
 - share-item-context-modal-9-HbWLCc.js
 - Yt
@@ -68,25 +68,25 @@
 - find
 - oL
 - en
-- vc
+- Cs
 - bn
 - yN
 - Dh
-- Zqt
+- lyrics-settings-modal-BLzimO8L.js
 - .toLowerCase
-- eEe
+- constructor
 - yit
-- song-list-content-CkaO60to.js
-- Gs
-- q1
+- taglib-wrapper-D2LEXDmW.js
+- uBe
+- .clear
 - U
 - Y
 - t1t
-- Ts
+- lo
 - hi
 - W
 - butterchurn-C7sAlk08.js
-- .then
+- ._parse
 - K
 - Ge
 - feishin-recently-added.js
@@ -97,26 +97,26 @@
 - ks
 - yo
 - playerbar-waveform-RI7r7IxC.js
-- Z
-- rWe
+- sidebar-BLJHaOap.js
+- eWe
 - q
 - kot
-- mountShaderSwitcherUI
+- Si
 - Lc
-- F
-- nn
+- S0
+- Cn
 - yc
 - xc
 - feishin-personal-os.js
-- nXe
+- setQueryData
 - lt
 - jr
 - nct
 - V
 - Gc
-- .fetch
+- .then
 - jc
-- bct
+- wo
 - fa
 - .remove
 - pt
@@ -125,62 +125,63 @@
 - K
 - Rt
 - music-analytics.js
-- kP
-- tb
+- F
+- o1e
 - ar
 - .update
 - ._calcBars
-- He
+- xe
 - FeishinTrackEditor
 - hit
 - Vt
-- .getValue
+- iW
 - .update
 - vo
 - sJ
 - kt
 - jt
-- feishin-mobile-enhancer.js
-- .init
-- .resolve
+- xL
+- .endsWith
+- pL
 - mr
 - audioMotion-analyzer-BdcHGKNF.js
 - Bt
 - index-DtVGTb_R.js
-- eWe
+- extra-BHam7ubk.js
 - iWe
-- xe
+- Vimeo-fTD5QOs8.js
 - j
-- mL
+- nt
 - Su
 - le
 - dkt
+- ._update
 - he
-- cV
-- x9t
+- login-route-BIIk57lE.js
+- DailyMotion-DZ8dPZdJ.js
 - N
 - .emit
-- EA
-- .removeAllListeners
+- initPlayerKillSwitch
+- .trim
 - pt
-- dde
+- yo
 - mW
-- at
-- Prt
-- g5t
-- Na
-- feishin-demo-ui.js
-- Z
+- hJ
+- trt
+- bze
+- ja
+- createSplashScreen
+- Xt
 - g8
-- wJ
+- .init
 - Fs
 - feishin-delete-engine.js
-- qh
+- dge
 - F
 - cje
 - Oo
-- Cde
-- Li
+- wPe
+- nje
 - di
 - ni
 - Ve
@@ -189,16 +190,16 @@
 - fje
 - a1t
 - pge
-- nJ
-- an
-- 🎵 Feishin — Audiophile Music Suite (Portfolio Demo)
+- _ye
+- Ho
+- 🎵 Feishin — macOS Native Client (Web Edition)
 - ._draw
 - ai
 - mi
 - St
 - feishin-demo-engine.js
 - initTrayBridge
-- cqe
+- $
 - Gy
 - uAe
 - Hft
@@ -207,66 +208,67 @@
 - ije
 - Zft
 - xbt
-- o5t
+- my
 - q6t
 - bc
 - Mixcloud-C1g7A36t.js
-- Streamable-CFSeGlWP.js
+- nfe
 - dct
 - KF
-- bi
+- df
 - Vr
 - SoundCloud-2x6IUpl_.js
 - Preview-CHKHEDLD.js
 - YouTube-BlD2Wbfx.js
 - eea
-- eV
+- y$e
 - g3e
-- Ex
-- Eze
+- kW
+- kQ
 - skt
-- D0
+- nKe
 - pC
 - lje
 - rRe
-- wr
+- fr
 - G1t
 - g9e
 - iye
 - $je
-- jXe
+- g0t
 - lye
 - lze
 - nye
 - qje
 - yat
-- l9e
+- gT
 - N9e
 - tBe
-- tqe
+- Oa
 - sw-demo.js
 - v9e
 - r
 - e
-- a
+- oze
 - zje
-- ia
-- Ps
-- pa
-- "src/taglib/audio-file-base.ts"
+- rat
+- Aze
+- xPe
+- uqe
+- y9e
 - .lt
 
 ## God Nodes (most connected - your core abstractions)
 1. `$_` - 2992 edges
 2. `c()` - 599 edges
-3. `e()` - 573 edges
+3. `e()` - 574 edges
 4. `n()` - 485 edges
-5. `t()` - 460 edges
+5. `t()` - 462 edges
 6. `a()` - 445 edges
 7. `mCe()` - 436 edges
-8. `r()` - 384 edges
+8. `r()` - 385 edges
 9. `i0t()` - 371 edges
-10. `o()` - 365 edges
+10. `o()` - 368 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `uBe` --indirect_call--> `ea()`  [INFERRED]
@@ -283,135 +285,135 @@
 ## Import Cycles
 - None detected.
 
-## Communities (252 total, 66 thin omitted)
+## Communities (252 total, 73 thin omitted)
 
 ### Community 0 - "$_"
 Cohesion: 0.00
-Nodes (622): $_, $1, _3, _3e, $3t(), _4e, $4t, _5e (+614 more)
+Nodes (595): $_, $1, _3, _3e, _4e, $4t, _5e, _6e (+587 more)
 
-### Community 1 - "constructor"
-Cohesion: 0.04
-Nodes (61): r(), cl, constructor(), i(), s(), t(), eo(), er() (+53 more)
+### Community 1 - "e"
+Cohesion: 0.05
+Nodes (27): bindSkeletons(), cl, dl, hl, ic, ii, il(), load() (+19 more)
 
 ### Community 2 - "c"
-Cohesion: 0.03
-Nodes (198): att, aXe(), b9t(), Bft(), bit(), bjt(), bOe, bue (+190 more)
+Cohesion: 0.02
+Nodes (226): r(), aIe(), aRe(), aXe(), Azt(), b9t(), Bft(), bit() (+218 more)
 
 ### Community 3 - "Lt"
 Cohesion: 0.02
-Nodes (15): Aa, ai, clone(), copy(), ec, A(), Lt, Ne (+7 more)
+Nodes (11): ai, copy(), ec, S(), A(), Lt, Ne, re (+3 more)
 
-### Community 4 - "folder-list-route-By-REs_O.js"
+### Community 4 - "G"
+Cohesion: 0.03
+Nodes (187): C(), D, F(), G, O(), U(), V, __vite__mapDeps() (+179 more)
+
+### Community 5 - ".toUpperCase"
 Cohesion: 0.04
-Nodes (196): $e(), Ke(), Ve(), C(), F(), O(), U(), d() (+188 more)
+Nodes (53): aht(), B3t(), bo(), bWe(), cBe, dWe(), ege, c() (+45 more)
 
-### Community 5 - "bWe"
-Cohesion: 0.07
-Nodes (30): B3t(), bo(), build(), bWe(), defaultMutationOptions(), defaultQueryOptions(), fwt(), getMutationDefaults() (+22 more)
+### Community 6 - "m"
+Cohesion: 0.06
+Nodes (231): ee(), ade(), aEe, Au(), awt, b0t, bbt, bde() (+223 more)
 
-### Community 6 - "d"
-Cohesion: 0.07
-Nodes (198): ee(), b0t, bbt, bde(), bqt(), Bv(), c7t(), ce() (+190 more)
-
-### Community 7 - "e"
-Cohesion: 0.01
-Nodes (372): r(), a$e, aat(), aBe, accessor(), i(), afe(), aft (+364 more)
+### Community 7 - "r"
+Cohesion: 0.02
+Nodes (183): aat(), aBe, e(), accessor(), i(), ait(), aKe(), alt() (+175 more)
 
 ### Community 8 - "nze"
-Cohesion: 0.24
-Nodes (10): lL(), m9(), mme(), n3e(), nze(), pme(), r3e(), Rx() (+2 more)
+Cohesion: 0.29
+Nodes (8): lL(), m9(), mme(), n3e(), nze(), pme(), r3e(), Rx()
 
 ### Community 9 - ".toJSON"
 Cohesion: 0.03
-Nodes (16): Al, bl, n(), dl, el, fl, gl, il() (+8 more)
+Nodes (11): ac, Al, r(), n(), el, Ll, ml, nc (+3 more)
 
 ### Community 10 - "mCe"
 Cohesion: 0.02
-Nodes (138): _A(), Bw(), c4(), Dg(), eA(), EP(), eTe(), gb() (+130 more)
+Nodes (139): _A(), Gw(), hP(), Ib(), Lg(), m4(), Nk(), oA() (+131 more)
 
 ### Community 11 - "three.min.js"
 Cohesion: 0.02
-Nodes (67): to(), Ah, _applyPMREM(), Ba, bind(), bindSkeletons(), _blur(), br() (+59 more)
+Nodes (89): to(), Ah, _allocateTargets(), ao(), _applyPMREM(), Ba, bind(), _blur() (+81 more)
 
 ### Community 12 - "item-detail-list-CjYNqcsP.js"
-Cohesion: 0.04
-Nodes (62): Bl(), _Ce(), f7(), f7t, _Fe, fh(), r(), fW (+54 more)
+Cohesion: 0.02
+Nodes (118): B3e(), Bl(), c_(), cG(), Ch(), D7, D8, d9() (+110 more)
 
 ### Community 13 - "i0t"
-Cohesion: 0.04
-Nodes (121): i0t(), _4(), a2(), $b(), Bb(), Bf(), Pe(), BR() (+113 more)
+Cohesion: 0.03
+Nodes (145): i0t(), _4(), a2(), A4(), b2(), b4(), Bd(), Bf() (+137 more)
 
-### Community 14 - "kt"
-Cohesion: 0.04
-Nodes (144): Xe(), Ge(), ne(), Pe(), tr(), J(), nt(), aet() (+136 more)
+### Community 14 - "playlist-detail-song-list-route-CZnAfhnF.js"
+Cohesion: 0.05
+Nodes (128): $e(), Ke(), Qe(), Ve(), $e(), nt(), j(), Dt() (+120 more)
 
 ### Community 15 - "ws"
-Cohesion: 0.05
-Nodes (63): _allocateTargets(), bi(), bs, d(), u(), dc, dispose(), ds() (+55 more)
+Cohesion: 0.03
+Nodes (99): bi(), br(), bs, constructor(), d(), u(), i(), dispose() (+91 more)
 
 ### Community 16 - "pt"
 Cohesion: 0.03
-Nodes (3): eh, jt(), pt()
+Nodes (4): eh, jt(), Mh, pt()
 
-### Community 17 - "t"
-Cohesion: 0.05
-Nodes (145): D, G, V, __vite__mapDeps(), x, Y(), ae(), st() (+137 more)
+### Community 17 - "_T"
+Cohesion: 0.07
+Nodes (105): Y(), ae(), st(), be(), D, G, M(), N (+97 more)
 
 ### Community 18 - "album-artist-detail-route-DmkhEjpB.js"
 Cohesion: 0.02
-Nodes (181): Qe(), An(), ar(), As(), br(), constructor(), cr(), #d() (+173 more)
+Nodes (212): An(), ar(), As(), br(), constructor(), cr(), #d(), destroy() (+204 more)
 
 ### Community 19 - "kze"
-Cohesion: 0.29
-Nodes (4): jc(), kze(), wze(), c()
+Cohesion: 0.22
+Nodes (5): jc(), kze(), wze(), c(), _ze()
 
 ### Community 20 - "St"
 Cohesion: 0.03
 Nodes (12): cs, fs, hs, Jl, kl, Kn, Ql, St (+4 more)
 
 ### Community 21 - "sn"
-Cohesion: 0.04
-Nodes (13): ac, an, cn, dn, fn, hn, la, ln (+5 more)
+Cohesion: 0.05
+Nodes (11): an, cn, dn, fn, hn, ln, on, pn (+3 more)
 
 ### Community 22 - "_"
 Cohesion: 0.03
 Nodes (53): _, ae(), at, bs(), bt(), ce(), ct(), dt (+45 more)
 
-### Community 23 - "G"
-Cohesion: 0.03
-Nodes (121): Nn(), B, d, P, S, u, Ge(), Je() (+113 more)
+### Community 23 - "list-config-settings-modal-DuH0evOB.js"
+Cohesion: 0.07
+Nodes (41): cut(), Dz(), e8, fAe(), e4(), iea, _t(), Ut() (+33 more)
 
 ### Community 24 - "se"
 Cohesion: 0.03
-Nodes (17): ra(), as(), Da, Ea(), S(), ia, is(), jn() (+9 more)
+Nodes (13): ra(), as(), Da, ia, is(), la, os(), se (+5 more)
 
-### Community 25 - "update"
-Cohesion: 0.07
-Nodes (9): fi(), hh, ls(), V(), setFromCamera(), update(), b(), wh() (+1 more)
+### Community 25 - ".applyMatrix4"
+Cohesion: 0.08
+Nodes (5): Ea(), jn(), ls(), setFromCamera(), wh()
 
 ### Community 26 - "setOptions"
-Cohesion: 0.05
-Nodes (50): c1(), cancel(), clear(), continue(), DTe(), Dy(), ensureInfiniteQueryData(), ensureQueryData() (+42 more)
+Cohesion: 0.04
+Nodes (66): c1(), clear(), continue(), cTe(), DTe(), Dy(), eC(), ensureInfiniteQueryData() (+58 more)
 
 ### Community 27 - "webgl-backgrounds.js"
 Cohesion: 0.06
-Nodes (59): buildStrandsPalette(), easePower2InOut(), getOptimizedDPR(), hexToRgb(), hexToRgbArr(), initAcidSquares(), initAntigravity(), initAurora() (+51 more)
+Nodes (62): buildStrandsPalette(), easePower2InOut(), getOptimizedDPR(), handleStateChange(), hexToRgb(), hexToRgbArr(), initAcidSquares(), initAntigravity() (+54 more)
 
 ### Community 28 - ".copy"
 Cohesion: 0.05
 Nodes (25): cr, Ee(), er, v(), he(), ke, ki(), Lt (+17 more)
 
-### Community 29 - "be"
-Cohesion: 0.09
-Nodes (34): _2(), Bu(), c2(), Ck(), Cw(), Ek(), Fd(), FP() (+26 more)
-
-### Community 30 - ".constructor"
+### Community 29 - "J"
 Cohesion: 0.06
-Nodes (10): z(), ge, gn(), gs, o(), G(), qc, ts() (+2 more)
+Nodes (65): Xe(), Ge(), ne(), Pe(), _2(), Ao(), Bb(), bP() (+57 more)
+
+### Community 30 - "Dr"
+Cohesion: 0.05
+Nodes (60): Bw(), c2(), FP(), Gd(), hR(), iA(), iS(), l2() (+52 more)
 
 ### Community 31 - "Ce"
-Cohesion: 0.05
-Nodes (11): Ce, ci, pi(), p(), qn, sh, Si(), ti (+3 more)
+Cohesion: 0.04
+Nodes (15): Ce, ci, clone(), pi(), p(), qn, _s(), n() (+7 more)
 
 ### Community 32 - "feishin-tags-engine.js"
 Cohesion: 0.09
@@ -419,67 +421,67 @@ Nodes (39): bindTracklistEvents(), checkAndInjectTagsMenuItem(), closeTagModals(
 
 ### Community 33 - "song-edit-context-modal-DGh4JdI9.js"
 Cohesion: 0.03
-Nodes (33): _a(), Be, Co(), Da(), Do(), dt, ea(), Fo() (+25 more)
+Nodes (42): Be, bi(), Da(), dt, ea(), gt, _i(), ia() (+34 more)
 
 ### Community 34 - "bt"
-Cohesion: 0.06
-Nodes (12): bt, ct(), ei, es(), ii, li(), ns(), parseTextures() (+4 more)
+Cohesion: 0.04
+Nodes (11): Aa, bt, ct(), es(), li(), ns(), qc, Ra (+3 more)
 
 ### Community 35 - "visualizer-DY_3zGB_.js"
-Cohesion: 0.09
-Nodes (29): c, d(), u, dL(), e9e(), fG(), fJ, fK() (+21 more)
+Cohesion: 0.11
+Nodes (27): cat(), dL(), e9e(), fG(), fJ, fK(), Fl(), g0e() (+19 more)
 
-### Community 36 - "x"
-Cohesion: 0.06
-Nodes (75): ct(), D(), dt(), $e(), eS(), gt(), Gw(), Hd() (+67 more)
+### Community 36 - "W"
+Cohesion: 0.11
+Nodes (45): ct(), D(), dt(), $e(), eS(), g4(), gt(), Hd() (+37 more)
 
 ### Community 37 - "vt"
-Cohesion: 0.04
-Nodes (3): Rs, Vs, vt
+Cohesion: 0.03
+Nodes (7): bl, dc, fl, gl, Rs, Vs, vt
 
 ### Community 38 - "o"
 Cohesion: 0.02
-Nodes (205): connect(), _0e(), _9e(), a0t(), g(), ade(), adt(), aEe (+197 more)
+Nodes (193): _0e(), _9e(), g(), adt(), s(), r(), akt(), att (+185 more)
 
 ### Community 39 - ".toString"
 Cohesion: 0.06
-Nodes (15): u(), fRe(), kpt, m3e(), qze(), e(), n(), sL() (+7 more)
+Nodes (11): fRe(), kpt, m3e(), Qy, t6t(), u7t(), Uy, v1 (+3 more)
 
-### Community 40 - "oo"
-Cohesion: 0.08
-Nodes (42): Co(), dp(), eN(), ev(), fk(), fs(), Gu(), h4() (+34 more)
+### Community 40 - "kP"
+Cohesion: 0.05
+Nodes (74): $b(), Cg(), Co(), cp(), Df(), dp(), ds(), Eg() (+66 more)
 
-### Community 41 - "Eu"
-Cohesion: 0.04
-Nodes (47): bat(), c6t(), d6t(), eBe, Eu(), fqe(), G0(), n() (+39 more)
+### Community 41 - "e"
+Cohesion: 0.02
+Nodes (216): a0t(), ACe(), act, e(), aqe(), e(), b1e(), bqe() (+208 more)
 
 ### Community 42 - "tn"
 Cohesion: 0.04
 Nodes (11): _a, bo, Do, dt(), $e(), ms(), Qe(), ss() (+3 more)
 
 ### Community 43 - "share-item-context-modal-9-HbWLCc.js"
-Cohesion: 0.06
-Nodes (68): aM, _Ee(), EI(), eM, ew, GD(), hKe(), lft() (+60 more)
+Cohesion: 0.05
+Nodes (73): B, d, S, u, Ge(), Je(), Me(), Oe() (+65 more)
 
 ### Community 44 - "Yt"
 Cohesion: 0.06
-Nodes (46): __vite__mapDeps(), Yt(), Ae(), at(), be(), e(), r(), Bt() (+38 more)
+Nodes (44): Yt(), Ae(), at(), be(), e(), r(), Bt(), ce() (+36 more)
 
 ### Community 45 - "visualizer-settings-modal-BNTa4ZQ0.js"
-Cohesion: 0.15
-Nodes (40): dK(), IXt(), W(), X(), pt, al(), bl(), Ce() (+32 more)
+Cohesion: 0.14
+Nodes (38): dK(), IXt(), X(), al(), bl(), Ce(), cl(), De (+30 more)
 
 ### Community 46 - "Pd"
-Cohesion: 0.10
-Nodes (17): a5t(), B0e(), e5t(), f0e(), Lpt(), n5t(), oXe, a() (+9 more)
+Cohesion: 0.11
+Nodes (15): a5t(), B0e(), e5t(), f0e(), Lpt(), n5t(), Pd(), Py() (+7 more)
 
 ### Community 49 - "la"
-Cohesion: 0.02
-Nodes (90): _9(), a0e, ahe(), AXt(), b$e, bBe, bpt, btt() (+82 more)
+Cohesion: 0.03
+Nodes (67): _9(), ahe(), b$e, bat(), bBe, dw(), ent(), ett (+59 more)
 
 ### Community 50 - "find"
-Cohesion: 0.05
-Nodes (8): Bm(), canRun(), find(), gze(), jMt(), kOe, oea(), Qy
+Cohesion: 0.06
+Nodes (10): Bm(), canRun(), u(), find(), Fpt(), gze(), kOe, oea() (+2 more)
 
 ### Community 51 - "oL"
 Cohesion: 0.11
@@ -487,47 +489,47 @@ Nodes (4): kit(), nW(), oL(), rd()
 
 ### Community 52 - "en"
 Cohesion: 0.06
-Nodes (17): ao(), ca, v(), en, fh, fo(), Ga, Mh (+9 more)
+Nodes (16): ca, v(), en, fo(), Ga, go, mn, mo() (+8 more)
 
-### Community 53 - "vc"
-Cohesion: 0.14
-Nodes (17): aht(), cBe, cXe(), e(), n(), H0(), e(), mWe() (+9 more)
+### Community 53 - "Cs"
+Cohesion: 0.13
+Nodes (20): bS(), Cs(), Dw(), Ln(), ro(), Tl(), tR(), vP() (+12 more)
 
 ### Community 54 - "bn"
-Cohesion: 0.07
-Nodes (46): Azt(), bn(), czt, dZt, Eht(), eyt, ezt, g7() (+38 more)
+Cohesion: 0.09
+Nodes (39): bn(), cXe(), e(), n(), dZt, Eht(), eyt, ezt (+31 more)
 
 ### Community 55 - "yN"
-Cohesion: 0.05
-Nodes (12): N(), bT, e(), create(), kNe, #n(), of, onMutationUpdate() (+4 more)
+Cohesion: 0.06
+Nodes (11): N(), bT, e(), create(), kNe, #n(), of, onMutationUpdate() (+3 more)
 
 ### Community 56 - "Dh"
 Cohesion: 0.08
-Nodes (40): ame(), BEe(), bQ(), Dh(), eme(), fat(), gEe(), hat() (+32 more)
+Nodes (46): ame(), BEe(), bQ(), Dh(), _Ee(), eme(), fat(), GD() (+38 more)
 
-### Community 57 - "Zqt"
-Cohesion: 0.08
-Nodes (26): Aot(), cot(), EQt(), F8t(), G8t(), Go(), h1e(), kAe() (+18 more)
+### Community 57 - "lyrics-settings-modal-BLzimO8L.js"
+Cohesion: 0.23
+Nodes (15): P, DS, ai(), ci(), di(), fi(), gi(), hi() (+7 more)
 
 ### Community 58 - ".toLowerCase"
-Cohesion: 0.05
-Nodes (35): a7e(), bCe(), bje(), cEe(), ege, c(), EH(), eNe (+27 more)
-
-### Community 59 - "eEe"
-Cohesion: 0.10
-Nodes (24): applyPatches(), createDraft(), defineProperty(), eEe(), finishDraft(), g1(), iG(), iL() (+16 more)
-
-### Community 61 - "song-list-content-CkaO60to.js"
-Cohesion: 0.19
-Nodes (13): af, Cu(), m, __vite__mapDeps(), xa(), E, F, G (+5 more)
-
-### Community 62 - "Gs"
-Cohesion: 0.18
-Nodes (24): bA(), f4(), gs(), IP(), p4(), Pb(), yA(), b4() (+16 more)
-
-### Community 63 - "q1"
 Cohesion: 0.12
-Nodes (15): Che, jhe(), kge(), q1(), a(), q9e(), i(), qhe() (+7 more)
+Nodes (10): eNe, jMt(), gg(), mje, nE(), RCe, rNe, tLe() (+2 more)
+
+### Community 59 - "constructor"
+Cohesion: 0.04
+Nodes (51): $3t(), _9t, A9t(), applyPatches(), bindMethods(), bRe(), constructor(), createDraft() (+43 more)
+
+### Community 61 - "taglib-wrapper-D2LEXDmW.js"
+Cohesion: 0.50
+Nodes (3): __vite__mapDeps(), xa(), __vite__mapDeps()
+
+### Community 62 - "uBe"
+Cohesion: 0.12
+Nodes (36): bA(), gs(), yA(), an(), ao(), b4(), Bs(), ca() (+28 more)
+
+### Community 63 - ".clear"
+Cohesion: 0.05
+Nodes (31): addObserver(), Che, clearGcTimeout(), destroy(), hasListeners(), jhe(), kge(), nJ (+23 more)
 
 ### Community 64 - "U"
 Cohesion: 0.05
@@ -535,15 +537,15 @@ Nodes (17): ai(), di(), fi(), gi(), hi(), ii(), li(), mi() (+9 more)
 
 ### Community 65 - "Y"
 Cohesion: 0.08
-Nodes (12): gG, XIe, getCurrentTime(), getMediaElement(), isPlaying(), isSeeking(), setPlaybackRate(), setTime() (+4 more)
+Nodes (9): getCurrentTime(), getMediaElement(), isPlaying(), isSeeking(), pause(), setPlaybackRate(), setTime(), V() (+1 more)
 
 ### Community 66 - "t1t"
-Cohesion: 0.10
-Nodes (24): aSe(), b1t(), c1t(), e1t(), f1t(), Gx(), k1t(), l1t() (+16 more)
+Cohesion: 0.09
+Nodes (26): aSe(), b1t(), c1t(), e1t(), f1t(), Gx(), k1t(), l1t() (+18 more)
 
-### Community 67 - "Ts"
-Cohesion: 0.06
-Nodes (67): Ao(), av(), Ci(), cp(), Db(), E2(), Eb(), Ed() (+59 more)
+### Community 67 - "lo"
+Cohesion: 0.12
+Nodes (22): av(), Eb(), eN(), eR(), ev(), Hw(), i4(), Ik() (+14 more)
 
 ### Community 69 - "W"
 Cohesion: 0.09
@@ -553,9 +555,9 @@ Nodes (8): Ds(), it, on, or, St, ui(), un, W
 Cohesion: 0.08
 Nodes (23): Be(), Ce(), ci(), constructor(), createBorderShader(), drawCustomShape(), drawCustomShapeInstance(), dt (+15 more)
 
-### Community 71 - ".then"
+### Community 71 - "._parse"
 Cohesion: 0.12
-Nodes (10): gT, mT(), rf, u0t(), o(), V9(), vT, y1() (+2 more)
+Nodes (9): cEe(), mT(), rf, o(), V9(), vT, y1(), yT (+1 more)
 
 ### Community 72 - "K"
 Cohesion: 0.07
@@ -579,31 +581,27 @@ Nodes (5): ft(), Lt, pi, Xe(), xi
 
 ### Community 77 - "search"
 Cohesion: 0.06
-Nodes (40): add(), _bubbleUp(), condition(), _coversAllTokens(), _createObjectRecord(), _createStringRecord(), dWe(), E3t() (+32 more)
+Nodes (40): add(), _bubbleUp(), condition(), _coversAllTokens(), _createObjectRecord(), _createStringRecord(), E3t(), extractSorted() (+32 more)
 
 ### Community 78 - "Fs"
-Cohesion: 0.08
-Nodes (26): B7t(), b8t(), D8t(), dFt(), Fs(), G7t(), gFt(), i7t() (+18 more)
+Cohesion: 0.06
+Nodes (35): Aot(), B7t(), b8t(), D8t(), EQt(), F8t(), Fs(), G7t() (+27 more)
 
 ### Community 79 - "ks"
 Cohesion: 0.09
 Nodes (4): ci(), ge(), ks, me()
 
-### Community 80 - "yo"
-Cohesion: 0.09
-Nodes (5): jo, qo, wo, xo, yo
-
 ### Community 81 - "playerbar-waveform-RI7r7IxC.js"
-Cohesion: 0.07
-Nodes (24): g9(), GJ(), at(), constructor(), destroy(), Dt(), et, F() (+16 more)
+Cohesion: 0.08
+Nodes (20): g9(), GJ(), at(), constructor(), destroy(), et, getSrc(), _init() (+12 more)
 
-### Community 82 - "Z"
-Cohesion: 0.04
-Nodes (85): Ae(), be(), _e(), fe(), ge(), Ie(), Le(), P (+77 more)
+### Community 82 - "sidebar-BLJHaOap.js"
+Cohesion: 0.06
+Nodes (48): Ce(), ge(), le(), ze(), ae, $e(), Ge(), J (+40 more)
 
-### Community 83 - "rWe"
-Cohesion: 0.17
-Nodes (9): aWe(), e(), e(), a(), rWe(), tWe(), e(), xge() (+1 more)
+### Community 83 - "eWe"
+Cohesion: 0.10
+Nodes (9): aWe(), e(), e(), eWe(), a(), rWe(), tWe(), e() (+1 more)
 
 ### Community 84 - "q"
 Cohesion: 0.09
@@ -611,35 +609,39 @@ Nodes (8): As(), en, p(), gr, q, sn, Vr(), ze
 
 ### Community 85 - "kot"
 Cohesion: 0.07
-Nodes (10): $6(), c3t(), jI(), kot, Ms(), n1e(), o1e, qVe (+2 more)
+Nodes (17): $6(), c3t(), cW(), elt, fQ(), g1e(), on(), jI() (+9 more)
 
-### Community 86 - "mountShaderSwitcherUI"
-Cohesion: 0.35
-Nodes (11): mountShaderSwitcherUI(), closeModal(), ensureSidebarItem(), filterCards(), findMantineModalsContext(), openFeishinSettings(), openModal(), renderCategoryPills() (+3 more)
+### Community 86 - "Si"
+Cohesion: 0.16
+Nodes (14): a$e, eSe, iSe(), Jkt(), km(), kse(), lCe(), Nr() (+6 more)
 
 ### Community 87 - "Lc"
-Cohesion: 0.09
+Cohesion: 0.10
 Nodes (3): getInput(), getOutput(), Lc
 
-### Community 88 - "F"
-Cohesion: 0.17
-Nodes (21): B(), A(), J(), S0(), F(), d(), n(), p() (+13 more)
+### Community 88 - "S0"
+Cohesion: 0.21
+Nodes (18): B(), A(), J(), S0(), p(), w(), Ue(), x() (+10 more)
 
-### Community 89 - "nn"
-Cohesion: 0.04
-Nodes (85): A4(), AP(), b2(), b4(), bP(), Cb(), Cn(), Cs() (+77 more)
+### Community 89 - "Cn"
+Cohesion: 0.07
+Nodes (50): AP(), Cn(), E2(), f2(), Fb(), h2(), Ho(), j4() (+42 more)
 
 ### Community 92 - "feishin-personal-os.js"
-Cohesion: 0.13
-Nodes (24): applyBackground(), applyShader(), cycleBgNow(), ensureBackgroundContainer(), ensureShaderContainer(), getNextBgUrl(), initEngine(), initFullScreenFreeSpaceDismiss() (+16 more)
+Cohesion: 0.16
+Nodes (25): applyBackground(), applyShader(), cycleBgNow(), ensureBackgroundContainer(), ensureShaderContainer(), getNextBgUrl(), initEngine(), initFullScreenFreeSpaceDismiss() (+17 more)
 
-### Community 93 - "nXe"
-Cohesion: 0.06
-Nodes (30): cTe(), eC(), fBe, fLe(), getDefaultOptions(), getMutationCache(), H6t(), H8t() (+22 more)
+### Community 93 - "setQueryData"
+Cohesion: 0.08
+Nodes (25): build(), defaultMutationOptions(), defaultQueryOptions(), fBe, fLe(), fwt(), getMutationDefaults(), getQueriesData() (+17 more)
+
+### Community 94 - "lt"
+Cohesion: 0.12
+Nodes (6): Dt(), F(), lt(), rt(), st(), _t()
 
 ### Community 95 - "jr"
-Cohesion: 0.16
-Nodes (24): aR(), gP(), j2(), jr(), Ba(), mu(), nc(), pr() (+16 more)
+Cohesion: 0.13
+Nodes (29): aR(), IP(), j2(), jr(), Ba(), du(), mu(), nc() (+21 more)
 
 ### Community 96 - "nct"
 Cohesion: 0.18
@@ -650,24 +652,24 @@ Cohesion: 0.08
 Nodes (4): De(), ji(), qi(), V
 
 ### Community 98 - "Gc"
-Cohesion: 0.07
-Nodes (31): _7e(), age(), bqe(), n(), e0, e7e(), f8e, Gc (+23 more)
+Cohesion: 0.15
+Nodes (17): _7e(), age(), b7e(), e0, e7e(), f8e, Gc, i9() (+9 more)
 
-### Community 99 - ".fetch"
-Cohesion: 0.10
-Nodes (7): fetchNextPage(), fetchOptimistic(), fetchPreviousPage(), Jrt, tL(), Tp(), xL
+### Community 99 - ".then"
+Cohesion: 0.14
+Nodes (7): fetchNextPage(), fetchOptimistic(), fetchPreviousPage(), Jrt, sTe(), tL(), Tp()
 
-### Community 101 - "bct"
-Cohesion: 0.22
-Nodes (5): bct, dlt, gct(), i1t(), r1t()
+### Community 101 - "wo"
+Cohesion: 0.15
+Nodes (15): bXt(), d0e(), Co(), Do(), Eo(), Fo(), ko(), Lr() (+7 more)
 
 ### Community 102 - "fa"
 Cohesion: 0.16
-Nodes (5): CUe(), fa(), PUe(), wL, Zp
+Nodes (6): CUe(), fa(), PUe(), sL(), wL, Zp
 
 ### Community 103 - ".remove"
 Cohesion: 0.07
-Nodes (23): a$t(), AAe(), c7(), d1, fWe(), Got, gWe(), hCe() (+15 more)
+Nodes (22): a$t(), AAe(), d1, e9(), Got, hCe(), hot(), i_t() (+14 more)
 
 ### Community 104 - "pt"
 Cohesion: 0.08
@@ -685,13 +687,9 @@ Nodes (4): Gs(), Hs(), qs(), Xs()
 Cohesion: 0.18
 Nodes (21): ensureSidebarAnalyticsItem(), fetchAnalyticsData(), formatDuration(), formatPlayTime(), getAnalyticsMountContainer(), getCoverUrl(), getCurrentPlayingSong(), getStatsForTimeframe() (+13 more)
 
-### Community 110 - "kP"
-Cohesion: 0.11
-Nodes (32): Bd(), Df(), ds(), Fu(), go(), jk(), Kk(), Lk() (+24 more)
-
-### Community 111 - "tb"
-Cohesion: 0.09
-Nodes (9): cJ(), t(), glt(), i1e(), mct, qlt, sie(), tb (+1 more)
+### Community 110 - "F"
+Cohesion: 0.21
+Nodes (5): F(), d(), n(), r(), u()
 
 ### Community 112 - "ar"
 Cohesion: 0.17
@@ -701,25 +699,25 @@ Nodes (3): ar, dr(), pr()
 Cohesion: 0.13
 Nodes (5): cs, Fs(), is, rr, Ys()
 
-### Community 115 - "He"
-Cohesion: 0.29
-Nodes (19): Ee(), He(), je(), E(), ke(), f(), Te(), Ve() (+11 more)
+### Community 115 - "xe"
+Cohesion: 0.26
+Nodes (22): Ee(), He(), je(), E(), ke(), f(), Te(), Ve() (+14 more)
 
-### Community 119 - ".getValue"
-Cohesion: 0.19
-Nodes (6): iVe, lVe, oT(), pot(), rot(), vot
+### Community 117 - "hit"
+Cohesion: 0.10
+Nodes (8): cancel(), Egt, f9e(), hit(), m9e(), t(), p9e(), vVe
+
+### Community 119 - "iW"
+Cohesion: 0.10
+Nodes (6): iVe, iW, lVe, oT(), pot(), u1e()
 
 ### Community 120 - ".update"
 Cohesion: 0.16
 Nodes (6): _1e(), G6(), Ox(), rit(), sct, U6()
 
 ### Community 121 - "vo"
-Cohesion: 0.11
-Nodes (5): bge(), n(), iht(), request(), vo
-
-### Community 122 - "sJ"
-Cohesion: 0.15
-Nodes (5): kJ(), kje(), oqe(), n(), sJ()
+Cohesion: 0.12
+Nodes (4): bge(), n(), iht(), vo
 
 ### Community 123 - "kt"
 Cohesion: 0.15
@@ -729,17 +727,9 @@ Nodes (3): bi, Ei, kt
 Cohesion: 0.21
 Nodes (15): jt(), A(), b(), c(), d(), f(), g(), h() (+7 more)
 
-### Community 125 - "feishin-mobile-enhancer.js"
-Cohesion: 0.14
-Nodes (9): debouncedUnifyToolbar(), initUnitaryQueueSystem(), preloadNextTracksInQueue(), runAutoCoverPrecache(), setupBottomNav(), syncActiveTab(), updateAppOrientation(), syncPlayerState() (+1 more)
-
-### Community 126 - ".init"
-Cohesion: 0.14
-Nodes (3): gje(), yje(), Zx()
-
-### Community 127 - ".resolve"
-Cohesion: 0.20
-Nodes (4): nje, oje(), pL, R1()
+### Community 126 - ".endsWith"
+Cohesion: 0.06
+Nodes (32): d(), fqe(), iue(), jbt, kqe(), Lge(), m6t(), NA() (+24 more)
 
 ### Community 128 - "mr"
 Cohesion: 0.15
@@ -753,21 +743,17 @@ Nodes (13): ai, Bt, Dt, ei, ii, It(), Jt, ni (+5 more)
 Cohesion: 0.15
 Nodes (9): B, q, De(), $e, Ie(), Le(), Ne, ze (+1 more)
 
+### Community 132 - "extra-BHam7ubk.js"
+Cohesion: 0.33
+Nodes (3): c, d(), q
+
 ### Community 133 - "iWe"
 Cohesion: 0.12
 Nodes (3): iWe(), n(), zWe
 
-### Community 134 - "xe"
-Cohesion: 0.13
-Nodes (9): __vite__mapDeps(), i(), xe(), q, T, A, x, F (+1 more)
-
 ### Community 135 - "j"
 Cohesion: 0.24
 Nodes (3): j, vi, i()
-
-### Community 136 - "mL"
-Cohesion: 0.29
-Nodes (4): mL, qCe(), vje(), zPe()
 
 ### Community 137 - "Su"
 Cohesion: 0.16
@@ -777,57 +763,45 @@ Nodes (5): r(), n(), r(), Su, vL()
 Cohesion: 0.15
 Nodes (13): bmt(), dkt(), s(), dmt(), fmt(), kmt(), mmt(), pmt() (+5 more)
 
-### Community 142 - "cV"
-Cohesion: 0.33
-Nodes (7): b9(), BSe(), cV, IN(), throwIfRequested(), uE(), zN()
-
-### Community 143 - "x9t"
-Cohesion: 0.29
-Nodes (6): _9t, A9t(), jm(), qAe, w9t(), x9t()
+### Community 142 - "login-route-BIIk57lE.js"
+Cohesion: 0.13
+Nodes (24): Ae(), be(), _e(), fe(), ge(), Ie(), Le(), P (+16 more)
 
 ### Community 144 - "N"
-Cohesion: 0.25
+Cohesion: 0.24
 Nodes (8): ct(), ht(), jt(), N(), l(), r(), u(), play()
 
-### Community 146 - "EA"
-Cohesion: 0.29
-Nodes (7): c0(), e9(), EA(), NA(), oM(), TCe(), ugt
+### Community 146 - "initPlayerKillSwitch"
+Cohesion: 0.67
+Nodes (3): initPlayerKillSwitch(), executeKillSwitch(), openKillSwitchGlassDialog()
 
-### Community 147 - ".removeAllListeners"
-Cohesion: 0.25
-Nodes (7): brt, Frt, gRt(), krt(), l0(), Vrt(), W0t()
+### Community 147 - ".trim"
+Cohesion: 0.06
+Nodes (32): a7e(), bCe(), brt, btt(), cht(), cJ(), t(), Frt (+24 more)
 
-### Community 149 - "dde"
-Cohesion: 0.25
-Nodes (5): dCe(), i(), dde(), t(), eRe()
+### Community 149 - "yo"
+Cohesion: 0.50
+Nodes (4): B_t(), fnt(), pnt(), yo()
 
-### Community 151 - "at"
-Cohesion: 0.04
-Nodes (72): at, bhe(), bRe(), C3e(), cKe(), cPe(), cVe, D6() (+64 more)
+### Community 152 - "trt"
+Cohesion: 0.67
+Nodes (3): irt(), jZt(), trt()
 
-### Community 152 - "Prt"
-Cohesion: 0.29
-Nodes (7): C9e(), irt(), jV(), jZt(), Prt(), trt(), vNe
+### Community 154 - "ja"
+Cohesion: 0.13
+Nodes (15): fh(), r(), jat(), Ks(), nat(), vXt(), al(), _a() (+7 more)
 
-### Community 153 - "g5t"
-Cohesion: 0.29
-Nodes (7): d5t(), f5t(), g5t(), h5t(), m5t(), p5t(), y5t()
-
-### Community 155 - "feishin-demo-ui.js"
-Cohesion: 0.39
-Nodes (7): checkApkPromptAuto(), closeApkModal(), createApkModal(), createMacOsApkBadge(), createSplashScreen(), revealApp(), openApkModal()
-
-### Community 156 - "Z"
-Cohesion: 0.19
-Nodes (3): it(), ot(), Z
+### Community 156 - "Xt"
+Cohesion: 0.10
+Nodes (13): EH(), gG, iat(), lf, q0, X8t(), XIe, Ga() (+5 more)
 
 ### Community 157 - "g8"
-Cohesion: 0.09
-Nodes (17): F, I, c, d(), q, $, ee, g8() (+9 more)
+Cohesion: 0.08
+Nodes (17): c, d(), u, g8(), Lr(), N, R, c (+9 more)
 
-### Community 158 - "wJ"
-Cohesion: 0.25
-Nodes (4): dge(), a(), hqe(), wJ
+### Community 158 - ".init"
+Cohesion: 0.15
+Nodes (6): bje(), EA(), gje(), ugt, wJ, Zx()
 
 ### Community 159 - "Fs"
 Cohesion: 0.27
@@ -837,29 +811,21 @@ Nodes (10): Aa(), fa(), Fs(), ga(), hr(), mr(), Pr(), Sa() (+2 more)
 Cohesion: 0.42
 Nodes (7): attachTrackPageDeleteOption(), executeDelete(), initRealtimeSync(), connect(), openConfirmModal(), purgeSongFromUI(), showGlassToast()
 
-### Community 161 - "qh"
-Cohesion: 0.29
-Nodes (3): put(), qh(), sje
+### Community 161 - "dge"
+Cohesion: 0.50
+Nodes (3): dge(), a(), hqe()
 
 ### Community 165 - "Oo"
-Cohesion: 0.20
-Nodes (11): ltt(), yXt(), Bo(), jo(), ko(), Lo(), Lr(), No() (+3 more)
+Cohesion: 0.29
+Nodes (8): ltt(), yXt(), Bo(), jo(), Lo(), No(), _o(), Oo()
 
-### Community 166 - "Cde"
+### Community 166 - "wPe"
 Cohesion: 0.33
-Nodes (6): Cde(), GU(), jPe(), pN(), uN(), YU()
-
-### Community 167 - "Li"
-Cohesion: 0.25
-Nodes (8): ji(), Li(), lt(), Oi(), qe(), qi(), ta(), us()
+Nodes (6): fN(), GU(), iQ(), jPe(), uN(), wPe()
 
 ### Community 172 - "vercel.json"
 Cohesion: 0.20
 Nodes (9): buildCommand, cleanUrls, framework, headers, installCommand, outputDirectory, rewrites, $schema (+1 more)
-
-### Community 173 - "fje"
-Cohesion: 0.27
-Nodes (3): eKe(), fje, pje()
 
 ### Community 174 - "a1t"
 Cohesion: 0.50
@@ -869,17 +835,17 @@ Nodes (4): a1t(), n(), n1t(), nSe()
 Cohesion: 0.40
 Nodes (5): getUri(), i9e(), e(), pge(), r9e()
 
-### Community 176 - "nJ"
-Cohesion: 0.40
-Nodes (4): nJ, i(), z9e(), n()
+### Community 176 - "_ye"
+Cohesion: 0.50
+Nodes (3): _ye, a(), e()
 
-### Community 177 - "an"
-Cohesion: 0.67
-Nodes (3): an(), en(), tn()
+### Community 177 - "Ho"
+Cohesion: 0.29
+Nodes (7): an(), en(), Ho(), qo(), tn(), Yo(), Zo()
 
-### Community 178 - "🎵 Feishin — Audiophile Music Suite (Portfolio Demo)"
-Cohesion: 0.25
-Nodes (7): 🌟 Destaques da Demo:, 🚀 Execução Local, 🎧 Faixas em Destaque no Catálogo, 🎵 Feishin — Audiophile Music Suite (Portfolio Demo), 📱 Versão Nativa Android (APK), 📱 Versões Nativas Android (APK), ⚡ Visão Geral do Projeto
+### Community 178 - "🎵 Feishin — macOS Native Client (Web Edition)"
+Cohesion: 0.33
+Nodes (5): 🌟 Destaques da Engenharia Desktop macOS:, 🚀 Execução Local, 🎧 Faixas no Catálogo Masterizado, 🎵 Feishin — macOS Native Client (Web Edition), ⚡ Visão Geral da Arquitetura
 
 ### Community 183 - "feishin-demo-engine.js"
 Cohesion: 0.24
@@ -888,10 +854,6 @@ Nodes (9): emitEngineEvent(), handleEngineApi(), handleSubsonicEndpoint(), hookP
 ### Community 184 - "initTrayBridge"
 Cohesion: 0.60
 Nodes (5): initTrayBridge(), broadcastState(), getCoverUrl(), getPlayerStore(), handleAction()
-
-### Community 185 - "cqe"
-Cohesion: 0.50
-Nodes (4): cqe(), F(), hV, qge()
 
 ### Community 187 - "uAe"
 Cohesion: 0.50
@@ -902,8 +864,8 @@ Cohesion: 0.50
 Nodes (4): fFt(), Hft(), pFt(), yr
 
 ### Community 190 - "radio-list-route-xijgO2Hl.js"
-Cohesion: 0.05
-Nodes (58): H, We, p, Au(), aW(), Ax(), _Be, Cp (+50 more)
+Cohesion: 0.06
+Nodes (56): H, We, a1(), aM, aW(), Ax(), Az(), _Be (+48 more)
 
 ### Community 191 - "p2t"
 Cohesion: 0.40
@@ -917,25 +879,29 @@ Nodes (4): Jft(), n(), Zft(), e()
 Cohesion: 0.29
 Nodes (7): $8t(), a8t(), e8t(), n8t(), r8t(), t8t(), xbt
 
-### Community 196 - "o5t"
-Cohesion: 0.29
-Nodes (7): c5t(), i5t(), l5t(), o5t(), r5t(), s5t(), u5t()
+### Community 196 - "my"
+Cohesion: 0.13
+Nodes (15): a0e, c0e, i5t(), invalidate(), invalidateQueries(), l0e, my(), n0e (+7 more)
 
 ### Community 197 - "q6t"
 Cohesion: 0.50
 Nodes (4): K6t(), q6t(), X6t(), Z6t()
 
+### Community 200 - "nfe"
+Cohesion: 0.67
+Nodes (3): afe(), nfe(), xLe()
+
 ### Community 201 - "dct"
-Cohesion: 0.07
-Nodes (26): addObserver(), clearGcTimeout(), dct, destroy(), Egt, f9e(), hye, iy (+18 more)
+Cohesion: 0.05
+Nodes (25): bct, dct, dlt, gct(), glt(), Go(), h1e(), hye (+17 more)
 
 ### Community 202 - "KF"
 Cohesion: 0.67
 Nodes (3): deleteProperty(), KF(), q9()
 
-### Community 203 - "bi"
-Cohesion: 0.50
-Nodes (4): bi(), _i(), ki(), nt()
+### Community 203 - "df"
+Cohesion: 0.67
+Nodes (3): df(), udt(), ydt()
 
 ### Community 204 - "Vr"
 Cohesion: 0.67
@@ -949,21 +915,25 @@ Nodes (3): A, q(), R
 Cohesion: 0.67
 Nodes (3): eea(), NAe(), p6t()
 
-### Community 210 - "eV"
+### Community 210 - "y$e"
 Cohesion: 0.67
-Nodes (3): eV, l1e(), OD()
+Nodes (3): e0t(), X_t(), y$e
 
-### Community 212 - "Ex"
+### Community 212 - "kW"
 Cohesion: 0.67
-Nodes (3): Ex(), vJ(), x3e
+Nodes (3): Ept(), kW(), Rpt()
+
+### Community 213 - "kQ"
+Cohesion: 0.67
+Nodes (3): F6(), kQ(), y9()
 
 ### Community 214 - "skt"
 Cohesion: 0.67
 Nodes (3): gse(), okt(), skt()
 
-### Community 215 - "D0"
-Cohesion: 0.40
-Nodes (4): D0, kXe(), xE(), a()
+### Community 215 - "nKe"
+Cohesion: 0.67
+Nodes (3): fgt(), nKe(), yH()
 
 ### Community 216 - "pC"
 Cohesion: 0.67
@@ -973,28 +943,40 @@ Nodes (3): HIe(), pC, WIe
 Cohesion: 0.67
 Nodes (3): rRe(), Tst, xst
 
-### Community 219 - "wr"
+### Community 219 - "fr"
+Cohesion: 0.40
+Nodes (5): fr, wr(), "src/taglib/audio-file-impl.ts"(), "src/taglib/load-audio-data.ts"(), "src/taglib/save-reconstruct.ts"()
+
+### Community 225 - "g0t"
 Cohesion: 0.67
-Nodes (3): wr(), "src/taglib/load-audio-data.ts"(), "src/taglib/save-reconstruct.ts"()
+Nodes (3): g0t, K0t(), Y0t()
+
+### Community 234 - "Oa"
+Cohesion: 0.67
+Nodes (3): Oa, rft(), Y6()
+
+### Community 246 - "rat"
+Cohesion: 0.67
+Nodes (3): rat(), vBe, wtt()
 
 ### Community 262 - ".lt"
-Cohesion: 0.03
-Nodes (151): _0(), a(), aPe(), awt, Aze, b3, B_t(), Bc() (+143 more)
+Cohesion: 0.02
+Nodes (218): _0(), a(), aft, aPe(), at, b3, Bc(), bfe() (+210 more)
 
 ## Knowledge Gaps
-- **570 isolated node(s):** `I`, `F`, `B`, `q`, `ee` (+565 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 1991 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **66 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **574 isolated node(s):** `I`, `F`, `B`, `q`, `ee` (+569 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 1992 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **73 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `$_` connect `$_` to `c`, `folder-list-route-By-REs_O.js`, `bWe`, `d`, `e`, `nze`, `mCe`, `item-detail-list-CjYNqcsP.js`, `i0t`, `kt`, `t`, `album-artist-detail-route-DmkhEjpB.js`, `kze`, `G`, `setOptions`, `song-edit-context-modal-DGh4JdI9.js`, `visualizer-DY_3zGB_.js`, `o`, `.toString`, `Eu`, `share-item-context-modal-9-HbWLCc.js`, `Yt`, `visualizer-settings-modal-BNTa4ZQ0.js`, `Pd`, `oVe`, `la`, `find`, `oL`, `vc`, `bn`, `yN`, `Dh`, `Zqt`, `.toLowerCase`, `eEe`, `yit`, `song-list-content-CkaO60to.js`, `q1`, `Y`, `t1t`, `.then`, `K1`, `search`, `Fs`, `playerbar-waveform-RI7r7IxC.js`, `Z`, `rWe`, `kot`, `F`, `feishin-personal-os.js`, `nXe`, `nct`, `Gc`, `.fetch`, `bct`, `fa`, `.remove`, `tb`, `hit`, `.getValue`, `.update`, `vo`, `sJ`, `.init`, `.resolve`, `index-DtVGTb_R.js`, `eWe`, `iWe`, `xe`, `mL`, `Su`, `dkt`, `cV`, `x9t`, `EA`, `.removeAllListeners`, `dde`, `mW`, `at`, `Prt`, `g5t`, `g8`, `wJ`, `qh`, `cje`, `Oo`, `Cde`, `fje`, `a1t`, `pge`, `nJ`, `cqe`, `Gy`, `uAe`, `Hft`, `radio-list-route-xijgO2Hl.js`, `p2t`, `ije`, `Zft`, `xbt`, `o5t`, `q6t`, `Mixcloud-C1g7A36t.js`, `Streamable-CFSeGlWP.js`, `dct`, `KF`, `Vr`, `SoundCloud-2x6IUpl_.js`, `Preview-CHKHEDLD.js`, `YouTube-BlD2Wbfx.js`, `eea`, `eV`, `g3e`, `Ex`, `Eze`, `skt`, `D0`, `pC`, `lje`, `rRe`, `wr`, `G1t`, `g9e`, `iye`, `$je`, `jXe`, `lye`, `lze`, `nye`, `qje`, `yat`, `l9e`, `N9e`, `tBe`, `tqe`, `v9e`, `r`, `e`, `a`, `zje`, `.lt`?**
-  _High betweenness centrality (0.647) - this node is a cross-community bridge._
-- **Why does `mCe()` connect `mCe` to `$_`, `c`, `folder-list-route-By-REs_O.js`, `d`, `e`, `.lt`, `item-detail-list-CjYNqcsP.js`, `i0t`, `kt`, `t`, `album-artist-detail-route-DmkhEjpB.js`, `dde`, `G`, `be`, `x`, `o`, `.toString`, `oo`, `share-item-context-modal-9-HbWLCc.js`, `.toLowerCase`, `Gs`, `radio-list-route-xijgO2Hl.js`, `Ts`, `.then`, `Z`, `F`, `nn`, `jr`, `kP`, `sJ`?**
-  _High betweenness centrality (0.088) - this node is a cross-community bridge._
+- **Why does `$_` connect `$_` to `c`, `G`, `.toUpperCase`, `m`, `r`, `nze`, `mCe`, `item-detail-list-CjYNqcsP.js`, `i0t`, `playlist-detail-song-list-route-CZnAfhnF.js`, `_T`, `album-artist-detail-route-DmkhEjpB.js`, `kze`, `list-config-settings-modal-DuH0evOB.js`, `setOptions`, `song-edit-context-modal-DGh4JdI9.js`, `visualizer-DY_3zGB_.js`, `o`, `.toString`, `e`, `share-item-context-modal-9-HbWLCc.js`, `Yt`, `visualizer-settings-modal-BNTa4ZQ0.js`, `Pd`, `oVe`, `la`, `find`, `oL`, `bn`, `yN`, `Dh`, `lyrics-settings-modal-BLzimO8L.js`, `.toLowerCase`, `constructor`, `yit`, `taglib-wrapper-D2LEXDmW.js`, `uBe`, `.clear`, `t1t`, `._parse`, `K1`, `search`, `Fs`, `playerbar-waveform-RI7r7IxC.js`, `sidebar-BLJHaOap.js`, `eWe`, `kot`, `Si`, `S0`, `setQueryData`, `nct`, `Gc`, `.then`, `wo`, `fa`, `.remove`, `o1e`, `hit`, `iW`, `.update`, `vo`, `sJ`, `xL`, `.endsWith`, `pL`, `index-DtVGTb_R.js`, `extra-BHam7ubk.js`, `iWe`, `Vimeo-fTD5QOs8.js`, `Su`, `dkt`, `login-route-BIIk57lE.js`, `DailyMotion-DZ8dPZdJ.js`, `.trim`, `yo`, `mW`, `hJ`, `trt`, `bze`, `ja`, `Xt`, `g8`, `.init`, `dge`, `cje`, `Oo`, `wPe`, `nje`, `fje`, `a1t`, `pge`, `_ye`, `$`, `Gy`, `uAe`, `Hft`, `radio-list-route-xijgO2Hl.js`, `p2t`, `ije`, `Zft`, `xbt`, `my`, `q6t`, `Mixcloud-C1g7A36t.js`, `nfe`, `dct`, `KF`, `df`, `Vr`, `SoundCloud-2x6IUpl_.js`, `Preview-CHKHEDLD.js`, `YouTube-BlD2Wbfx.js`, `eea`, `y$e`, `g3e`, `kW`, `kQ`, `skt`, `nKe`, `pC`, `lje`, `rRe`, `fr`, `G1t`, `g9e`, `iye`, `$je`, `g0t`, `lye`, `lze`, `nye`, `qje`, `yat`, `gT`, `N9e`, `tBe`, `Oa`, `v9e`, `r`, `e`, `oze`, `zje`, `rat`, `Aze`, `xPe`, `uqe`, `y9e`, `.lt`?**
+  _High betweenness centrality (0.573) - this node is a cross-community bridge._
 - **Why does `_` connect `_` to `U`, `V`, `mr`, `W`, `K`, `pt`, `le`, `tn`, `.z`, `ks`, `ar`, `.update`, `q`, `webgl-backgrounds.js`, `.copy`?**
-  _High betweenness centrality (0.070) - this node is a cross-community bridge._
+  _High betweenness centrality (0.096) - this node is a cross-community bridge._
+- **Why does `kn()` connect `share-item-context-modal-9-HbWLCc.js` to `c`, `.lt`, `mCe`, `Fs`, `playlist-detail-song-list-route-CZnAfhnF.js`, `_T`, `album-artist-detail-route-DmkhEjpB.js`, `Cs`, `_`, `Cn`, `radio-list-route-xijgO2Hl.js`?**
+  _High betweenness centrality (0.081) - this node is a cross-community bridge._
 - **Are the 151 inferred relationships involving `$_` (e.g. with `_0e()` and `_7e()`) actually correct?**
   _`$_` has 151 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 73 inferred relationships involving `c()` (e.g. with `aEe` and `f()`) actually correct?**

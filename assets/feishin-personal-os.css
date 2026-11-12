@@ -904,14 +904,14 @@ button.fs-player-button-module-main svg {
     left: 0 !important;
     width: 100vw !important;
     height: 100vh !important;
-    background: rgba(0, 0, 0, 0.08) !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
+    background: rgba(0, 0, 0, 0.55) !important;
+    backdrop-filter: blur(16px) saturate(160%) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(160%) !important;
     z-index: 100000 !important;
     display: none;
 }
 
-/* BOX QUADRADO PERSONAL OS (CLEAR LIQUID GLASS) */
+/* BOX QUADRADO PERSONAL OS (SQUARE LUXURY MODAL) */
 #personal-os-shader-modal {
     position: fixed !important;
     top: 50% !important;
@@ -921,12 +921,12 @@ button.fs-player-button-module-main svg {
     height: min(780px, 88vw, 88vh) !important;
     aspect-ratio: 1 / 1 !important;
     border-radius: 24px !important;
-    background: linear-gradient(180deg, rgba(16, 12, 28, 0.40) 0%, rgba(8, 6, 18, 0.54) 100%) !important;
-    border: 1px solid rgba(255, 255, 255, 0.18) !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.35) !important;
-    backdrop-filter: blur(16px) saturate(190%) !important;
-    -webkit-backdrop-filter: blur(16px) saturate(190%) !important;
-    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.55), inset 0 1px 1px rgba(255, 255, 255, 0.22) !important;
+    background: rgba(14, 15, 21, 0.92) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.28) !important;
+    backdrop-filter: blur(40px) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(40px) saturate(200%) !important;
+    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.75), inset 0 1px 1px rgba(255, 255, 255, 0.15) !important;
     z-index: 100001 !important;
     padding: 20px 22px !important;
     display: none;
@@ -1625,9 +1625,6 @@ body:has(.fs-full-screen-player-module-container) #feishin-alphabet-hud,
 .fs-full-screen-player-module-container #feishin-alphabet-hud,
 body.feishin-tp-open #feishin-alphabet-scrubber,
 body.feishin-tp-open #feishin-alphabet-hud,
-body.feishin-tp-open #feishin-mobile-bottom-nav,
-body.feishin-tp-open #feishin-more-glass-backdrop,
-body.feishin-tp-open #feishin-more-glass-box,
 #feishin-track-page.open ~ #feishin-alphabet-scrubber,
 #feishin-track-page.open ~ #feishin-alphabet-hud {
     display: none !important;

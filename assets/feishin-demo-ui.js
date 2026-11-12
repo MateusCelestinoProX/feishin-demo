@@ -1,6 +1,6 @@
 /* ==========================================================================
-   FEISHIN DEMO UI ORCHESTRATOR
-   Splash Screen Reveal + Glassmorphism APK Modal + Dual Instance Switcher
+   FEISHIN WEB DEMO — DESKTOP MACOS EXPERIENCE ORCHESTRATOR
+   Splash Screen Reveal + Web Service Worker Pipeline
    ========================================================================== */
 (function() {
     'use strict';
@@ -12,7 +12,7 @@
             .catch(err => console.debug('[Demo SW] Notice:', err.message));
     }
 
-    // 2. Build Splash Screen DOM
+    // 2. Build Authentic Desktop macOS Splash Screen
     function createSplashScreen() {
         const splash = document.createElement('div');
         splash.id = 'feishin-demo-splash';
@@ -29,21 +29,20 @@
                     </div>
                 </div>
                 <h1 class="splash-title">Feishin</h1>
-                <div class="splash-subtitle">Portfolio Demo • Audiophile Suite</div>
+                <div class="splash-subtitle">macOS Native Client • Web Edition</div>
                 <div class="splash-progress-track">
                     <div class="splash-progress-bar" id="splash-bar"></div>
                 </div>
-                <div class="splash-status-text" id="splash-status">Sintetizando motor Subsonic...</div>
+                <div class="splash-status-text" id="splash-status">Inicializando subsistema de áudio...</div>
             </div>
         `;
         document.body.appendChild(splash);
 
-        // Progress milestones
         const bar = document.getElementById('splash-bar');
         const status = document.getElementById('splash-status');
 
         const steps = [
-            { p: 25, msg: "Injetando catálogo de 15 faixas masterizadas..." },
+            { p: 25, msg: "Carregando catálogo de faixas masterizadas..." },
             { p: 55, msg: "Inicializando decodificadores de áudio..." },
             { p: 80, msg: "Configurando pipeline de shaders WebGL..." },
             { p: 100, msg: "Interface pronta. Carregando..." }
@@ -57,9 +56,9 @@
                 i++;
             } else {
                 clearInterval(interval);
-                setTimeout(revealApp, 400);
+                setTimeout(revealApp, 350);
             }
-        }, 320);
+        }, 250);
 
         function revealApp() {
             splash.classList.add('splash-exit');
@@ -67,110 +66,14 @@
             if (root) root.classList.add('app-revealed');
             setTimeout(() => {
                 splash.remove();
-                checkApkPromptAuto();
-            }, 800);
-        }
-    }
-
-    // 3. Build Top macOS Discreet APK Action Button
-    function createMacOsApkBadge() {
-        if (document.getElementById('btn-open-apk-modal')) return;
-        const btn = document.createElement('button');
-        btn.id = 'btn-open-apk-modal';
-        btn.className = 'feishin-macos-apk-badge';
-        btn.title = 'Testar APK Android Nativo';
-        btn.innerHTML = `
-            <span class="demo-badge-dot"></span>
-            <span>📱 Baixar APK Android</span>
-        `;
-        btn.onclick = () => openApkModal();
-        document.body.appendChild(btn);
-    }
-
-    // 4. Build Glassmorphism Modal ("Popup de Vidro")
-    function createApkModal() {
-        const modal = document.createElement('div');
-        modal.id = 'feishin-demo-apk-modal';
-        modal.innerHTML = `
-            <div class="apk-glass-card">
-                <div class="apk-card-glow"></div>
-                <div class="apk-icon-box">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85-.29-.15-.65-.06-.83.22l-1.89 3.27C15.01 8.35 13.56 8 12 8s-3.01.35-4.46.94L5.65 5.67c-.18-.28-.54-.37-.83-.22-.3.16-.42.54-.26.85l1.84 3.18C3.76 11.08 2 13.82 2 17h20c0-3.18-1.76-5.92-4.4-7.52zM7 14.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm10 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
-                    </svg>
-                </div>
-                <h2 class="apk-title">Testar App Nativo Android?</h2>
-                <p class="apk-desc">
-                    Este software possui uma versão mobile nativa compilada em APK com reprodução de áudio em background, suporte a atalhos na central de notificações e shaders acelerados por hardware.
-                </p>
-                <div class="apk-chips-row">
-                    <span class="apk-chip">🚀 APK Nativo (13 MB)</span>
-                    <span class="apk-chip">✨ Shaders WebGL 60FPS</span>
-                    <span class="apk-chip">🎧 Sem Internet / Offline</span>
-                </div>
-                <div class="apk-actions-col">
-                    <a href="./apk/feishin-mobile-pro.apk" download="feishin-mobile-pro.apk" class="btn-apk-download" id="btn-download-action">
-                        <span>📲 Baixar Feishin Mobile Pro APK (13 MB)</span>
-                    </a>
-                    <a href="./apk/feishin-media-sync-pro-release.apk" download="feishin-media-sync-pro-release.apk" class="btn-apk-download" style="background: linear-gradient(135deg, #2563eb, #7c3aed);" id="btn-download-sync-action">
-                        <span>⚡ Baixar Feishin Media Sync Pro APK (5.4 MB)</span>
-                    </a>
-                    <div style="font-size: 11px; color: rgba(255,255,255,0.65); padding: 4px 6px; line-height: 1.4;">
-                        ℹ️ <strong>Feishin Media Sync Pro</strong> é concebido exclusivamente como aplicativo nativo Android (APK), gerenciando sincronização tri-direcional e 1 GB de RAM física travada.
-                    </div>
-                    <button class="btn-modal-dismiss" id="btn-dismiss-modal">
-                        Continuar na Versão Web
-                    </button>
-                </div>
-            </div>
-        `;
-        document.body.appendChild(modal);
-
-        document.getElementById('btn-dismiss-modal').onclick = closeApkModal;
-        document.getElementById('btn-download-action').onclick = () => {
-            setTimeout(closeApkModal, 800);
-        };
-        const syncActionBtn = document.getElementById('btn-download-sync-action');
-        if (syncActionBtn) {
-            syncActionBtn.onclick = () => {
-                setTimeout(closeApkModal, 800);
-            };
-        }
-        modal.onclick = (e) => {
-            if (e.target === modal) closeApkModal();
-        };
-    }
-
-    function openApkModal() {
-        const modal = document.getElementById('feishin-demo-apk-modal');
-        if (modal) modal.classList.add('modal-open');
-    }
-
-    function closeApkModal() {
-        const modal = document.getElementById('feishin-demo-apk-modal');
-        if (modal) modal.classList.remove('modal-open');
-        sessionStorage.setItem('feishin_apk_prompt_shown', 'true');
-    }
-
-    function checkApkPromptAuto() {
-        // Automatically show glass modal on first visit after 2 seconds
-        if (!sessionStorage.getItem('feishin_apk_prompt_shown')) {
-            setTimeout(() => {
-                openApkModal();
-            }, 1800);
+            }, 750);
         }
     }
 
     // Initialize when DOM is ready
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => {
-            createSplashScreen();
-            createMacOsApkBadge();
-            createApkModal();
-        });
+        document.addEventListener('DOMContentLoaded', createSplashScreen);
     } else {
         createSplashScreen();
-        createMacOsApkBadge();
-        createApkModal();
     }
 })();

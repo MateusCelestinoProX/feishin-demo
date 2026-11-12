@@ -9,13 +9,6 @@ import './feishin-recently-added.js';
 import './feishin-alphabet-scrubber.js';
 import './feishin-delete-engine.js';
 import './feishin-track-editor.js';
-import { a7 as feishinContextMenuModal } from './index-C3w9ueFE.js';
-
-if (typeof window !== 'undefined') {
-  if (feishinContextMenuModal) {
-    window.__FEISHIN_CONTEXT_MODAL__ = feishinContextMenuModal;
-  }
-}
 
 // ==========================================================================
 // RESILIENCE & CRASH IMMUNITY SAFEGUARDS
@@ -97,10 +90,10 @@ if (typeof window !== 'undefined') {
       const candidates = Array.from(document.querySelectorAll('button, div, [role="button"]'));
       const srvBtn = candidates.find(el => {
         const t = (el.textContent || '').trim();
-        return (t.includes('Feishin Cloud Demo') || t === 'Navidrome') && (el.tagName === 'BUTTON' || el.classList.contains('mantine-UnstyledButton-root') || el.getAttribute('role') === 'button');
+        return (t.includes('Navidrome VPS') || t === 'Navidrome') && (el.tagName === 'BUTTON' || el.classList.contains('mantine-UnstyledButton-root') || el.getAttribute('role') === 'button');
       });
       if (srvBtn) {
-        console.log('[Personal OS Auto-Connect] Reconectando automaticamente ao Feishin Cloud Demo...');
+        console.log('[Personal OS Auto-Connect] Reconectando automaticamente ao Navidrome VPS...');
         srvBtn.click();
       }
     }
@@ -205,84 +198,79 @@ if (typeof window !== 'undefined') {
 
   const BACKGROUND_CATALOG = [
     {
-      category: '🖼️ Fotos',
+      category: '🖼️ Galerias & Fotos HD',
       key: 'galerias',
-      type: 'image',
       items: [
-        { id: 'gym', mode: 'gallery', name: 'GYM', icon: '🏋️', badge: '13', type: 'image' },
-        { id: 'flowers', mode: 'gallery', name: 'Flowers', icon: '🌸', badge: '8', type: 'image' },
-        { id: 'red', mode: 'gallery', name: 'Red', icon: '🔴', badge: '7', type: 'image' },
-        { id: 'soft', mode: 'gallery', name: 'Soft Club', icon: '💿', badge: '20', type: 'image' },
-        { id: 'motivation', mode: 'gallery', name: 'Motivação', icon: '💪', badge: '17', type: 'image' },
-        { id: 'api', mode: 'gallery', name: 'Unsplash', icon: '🌐', badge: '∞', type: 'image' },
-        { id: 'video', mode: 'video', name: 'Vídeos', icon: '🎬', badge: '7', type: 'image' },
-        { id: 'random', mode: 'random', name: 'Mix', icon: '🎲', badge: 'Fotos+GL', type: 'image' },
-        { id: 'galaxybits', mode: 'galaxybits', name: 'Auto GL', icon: '✨', badge: '37 GL', type: 'image' }
+        { id: 'gym', mode: 'gallery', name: 'GYM Aesthetics', icon: '🏋️', badge: '13 Fotos' },
+        { id: 'flowers', mode: 'gallery', name: 'Flowers Dream', icon: '🌸', badge: '8 Fotos' },
+        { id: 'red', mode: 'gallery', name: 'Red Ambient', icon: '🔴', badge: '7 Fotos' },
+        { id: 'soft', mode: 'gallery', name: 'Gen X Soft Club', icon: '💿', badge: '20 Fotos' },
+        { id: 'motivation', mode: 'gallery', name: 'Motivacional', icon: '💪', badge: '17 Fotos' },
+        { id: 'api', mode: 'gallery', name: 'Unsplash / Picsum', icon: '🌐', badge: 'Infinito' },
+        { id: 'video', mode: 'video', name: 'Cinematic Video', icon: '🎬', badge: '7 Vídeos' },
+        { id: 'random', mode: 'random', name: 'Aleatório Dinâmico', icon: '🎲', badge: 'Fotos + Shaders' },
+        { id: 'galaxybits', mode: 'galaxybits', name: 'Shaders Rotativo', icon: '✨', badge: '37 Shaders' }
       ]
     },
     {
-      category: '🌌 Cosmo',
+      category: '🌌 Cósmico & Etéreo',
       key: 'cosmico',
-      type: 'shader',
       items: [
-        { id: 'softaurora', mode: 'shader', name: 'Aurora', icon: '✨', badge: 'GL', type: 'shader' },
-        { id: 'aurora', mode: 'shader', name: 'Borealis', icon: '🌌', badge: 'GL', type: 'shader' },
-        { id: 'antigravity', mode: 'shader', name: 'Antigravity', icon: '🔮', badge: 'GL', type: 'shader' },
-        { id: 'prism', mode: 'shader', name: 'Prism', icon: '💎', badge: 'GL', type: 'shader' },
-        { id: 'prismaticburst', mode: 'shader', name: 'Burst', icon: '🎆', badge: 'GL', type: 'shader' },
-        { id: 'liquidether', mode: 'shader', name: 'Ether', icon: '🌀', badge: 'GL', type: 'shader' },
-        { id: 'orb', mode: 'shader', name: 'Orb', icon: '🪐', badge: 'GL', type: 'shader' }
+        { id: 'softaurora', mode: 'shader', name: 'Soft Aurora', icon: '✨', badge: 'Shader' },
+        { id: 'aurora', mode: 'shader', name: 'Aurora Borealis', icon: '🌌', badge: 'Shader' },
+        { id: 'antigravity', mode: 'shader', name: 'Antigravity', icon: '🔮', badge: 'Shader' },
+        { id: 'prism', mode: 'shader', name: 'Prism Light', icon: '💎', badge: 'Shader' },
+        { id: 'prismaticburst', mode: 'shader', name: 'Prismatic Burst', icon: '🎆', badge: 'Shader' },
+        { id: 'liquidether', mode: 'shader', name: 'Liquid Ether', icon: '🌀', badge: 'Shader' },
+        { id: 'orb', mode: 'shader', name: 'Luminous Orb', icon: '🪐', badge: 'Shader' }
       ]
     },
     {
-      category: '⚡ Energia',
+      category: '⚡ Energia & Ondas',
       key: 'energia',
-      type: 'shader',
       items: [
-        { id: 'plasmawave', mode: 'shader', name: 'Plasma Wave', icon: '🌊', badge: 'GL', type: 'shader' },
-        { id: 'plasma', mode: 'shader', name: 'Core Plasma', icon: '⚡', badge: 'GL', type: 'shader' },
-        { id: 'strands', mode: 'shader', name: 'Strands', icon: '🧵', badge: 'GL', type: 'shader' },
-        { id: 'siderays', mode: 'shader', name: 'Side Rays', icon: '🔆', badge: 'GL', type: 'shader' },
-        { id: 'beams', mode: 'shader', name: 'Beams', icon: '🌠', badge: 'GL', type: 'shader' },
-        { id: 'lightning', mode: 'shader', name: 'Lightning', icon: '🌩️', badge: 'GL', type: 'shader' },
-        { id: 'linewaves', mode: 'shader', name: 'Line Waves', icon: '〰️', badge: 'GL', type: 'shader' },
-        { id: 'lighttunnel', mode: 'shader', name: 'Tunnel', icon: '🚇', badge: 'GL', type: 'shader' }
+        { id: 'plasmawave', mode: 'shader', name: 'Plasma Wave', icon: '🌊', badge: 'Shader' },
+        { id: 'plasma', mode: 'shader', name: 'Core Plasma', icon: '⚡', badge: 'Shader' },
+        { id: 'strands', mode: 'shader', name: 'Neon Strands', icon: '🧵', badge: 'Shader' },
+        { id: 'siderays', mode: 'shader', name: 'Side Rays', icon: '🔆', badge: 'Shader' },
+        { id: 'beams', mode: 'shader', name: 'Beams Flow', icon: '🌠', badge: 'Shader' },
+        { id: 'lightning', mode: 'shader', name: 'Lightning Storm', icon: '🌩️', badge: 'Shader' },
+        { id: 'linewaves', mode: 'shader', name: 'Line Waves', icon: '〰️', badge: 'Shader' },
+        { id: 'lighttunnel', mode: 'shader', name: 'Light Tunnel', icon: '🚇', badge: 'Shader' }
       ]
     },
     {
-      category: '🧪 Fluidos',
+      category: '🧪 Fluidos & Orgânico',
       key: 'fluidos',
-      type: 'shader',
       items: [
-        { id: 'ferrofluid', mode: 'shader', name: 'Ferrofluid', icon: '⚫', badge: 'GL', type: 'shader' },
-        { id: 'liquidchrome', mode: 'shader', name: 'Chrome', icon: '🪞', badge: 'GL', type: 'shader' },
-        { id: 'silk', mode: 'shader', name: 'Silk', icon: '🪡', badge: 'GL', type: 'shader' },
-        { id: 'floatinglines', mode: 'shader', name: 'Floating', icon: '🪄', badge: 'GL', type: 'shader' },
-        { id: 'ghostfibers', mode: 'shader', name: 'Ghost', icon: '🕸️', badge: 'GL', type: 'shader' },
-        { id: 'webthreads', mode: 'shader', name: 'Threads', icon: '🕷️', badge: 'GL', type: 'shader' },
-        { id: 'acidsquares', mode: 'shader', name: 'Acid', icon: '🟩', badge: 'GL', type: 'shader' },
-        { id: 'moltenmetal', mode: 'shader', name: 'Metal', icon: '🪨', badge: 'GL', type: 'shader' }
+        { id: 'ferrofluid', mode: 'shader', name: 'Ferrofluid', icon: '⚫', badge: 'Shader' },
+        { id: 'liquidchrome', mode: 'shader', name: 'Liquid Chrome', icon: '🪞', badge: 'Shader' },
+        { id: 'silk', mode: 'shader', name: 'Pure Silk', icon: '🪡', badge: 'Shader' },
+        { id: 'floatinglines', mode: 'shader', name: 'Floating Lines', icon: '🪄', badge: 'Shader' },
+        { id: 'ghostfibers', mode: 'shader', name: 'Ghost Fibers', icon: '🕸️', badge: 'Shader' },
+        { id: 'webthreads', mode: 'shader', name: 'Web Threads', icon: '🕷️', badge: 'Shader' },
+        { id: 'acidsquares', mode: 'shader', name: 'Acid Squares', icon: '🟩', badge: 'Shader' },
+        { id: 'moltenmetal', mode: 'shader', name: 'Molten Metal', icon: '🪨', badge: 'Shader' }
       ]
     },
     {
-      category: '🎮 Cyber',
+      category: '🎮 Cyber & Arcade',
       key: 'cyber',
-      type: 'shader',
       items: [
-        { id: 'balatro', mode: 'shader', name: 'Balatro', icon: '🃏', badge: 'GL', type: 'shader' },
-        { id: 'dither', mode: 'shader', name: 'Dither', icon: '📺', badge: 'GL', type: 'shader' },
-        { id: 'darkveil', mode: 'shader', name: 'Dark Veil', icon: '🕶️', badge: 'GL', type: 'shader' },
-        { id: 'topography', mode: 'shader', name: 'Topo Map', icon: '🗺️', badge: 'GL', type: 'shader' },
-        { id: 'faultyterminal', mode: 'shader', name: 'Terminal', icon: '📟', badge: 'GL', type: 'shader' },
-        { id: 'gridscan', mode: 'shader', name: 'Grid Scan', icon: '📡', badge: 'GL', type: 'shader' },
-        { id: 'pixelblast', mode: 'shader', name: 'Pixel Blast', icon: '👾', badge: 'GL', type: 'shader' },
-        { id: 'radar', mode: 'shader', name: 'Radar', icon: '🎯', badge: 'GL', type: 'shader' },
-        { id: 'ripplegrid', mode: 'shader', name: 'Ripple', icon: '🌐', badge: 'GL', type: 'shader' },
-        { id: 'magicrings', mode: 'shader', name: 'Rings', icon: '💫', badge: 'GL', type: 'shader' },
-        { id: 'letterglitch', mode: 'shader', name: 'Glitch', icon: '🔡', badge: 'GL', type: 'shader' },
-        { id: 'evileye', mode: 'shader', name: 'Evil Eye', icon: '👁️', badge: 'GL', type: 'shader' },
-        { id: 'particles', mode: 'shader', name: 'Particles', icon: '⭐', badge: 'GL', type: 'shader' },
-        { id: 'morphslider', mode: 'shader', name: 'Morph', icon: '🖼️', badge: 'GL', type: 'shader' }
+        { id: 'balatro', mode: 'shader', name: 'Balatro CRT', icon: '🃏', badge: 'Shader' },
+        { id: 'dither', mode: 'shader', name: 'Dither Noise', icon: '📺', badge: 'Shader' },
+        { id: 'darkveil', mode: 'shader', name: 'Dark Veil', icon: '🕶️', badge: 'Shader' },
+        { id: 'topography', mode: 'shader', name: 'Topography Map', icon: '🗺️', badge: 'Shader' },
+        { id: 'faultyterminal', mode: 'shader', name: 'Faulty Terminal', icon: '📟', badge: 'Shader' },
+        { id: 'gridscan', mode: 'shader', name: 'Grid Scanner', icon: '📡', badge: 'Shader' },
+        { id: 'pixelblast', mode: 'shader', name: 'Pixel Blast', icon: '👾', badge: 'Shader' },
+        { id: 'radar', mode: 'shader', name: 'Pulse Radar', icon: '🎯', badge: 'Shader' },
+        { id: 'ripplegrid', mode: 'shader', name: 'Ripple Grid', icon: '🌐', badge: 'Shader' },
+        { id: 'magicrings', mode: 'shader', name: 'Magic Rings', icon: '💫', badge: 'Shader' },
+        { id: 'letterglitch', mode: 'shader', name: 'Letter Glitch', icon: '🔡', badge: 'Shader' },
+        { id: 'evileye', mode: 'shader', name: 'Evil Eye', icon: '👁️', badge: 'Shader' },
+        { id: 'particles', mode: 'shader', name: 'Starfield Particles', icon: '⭐', badge: 'Shader' },
+        { id: 'morphslider', mode: 'shader', name: 'Morph Slider', icon: '🖼️', badge: 'Shader' }
       ]
     }
   ];
@@ -542,12 +530,12 @@ if (typeof window !== 'undefined') {
     }
 
     const galleryNames = {
-      gym: '🏋️ GYM',
-      flowers: '🌸 Flowers',
-      red: '🔴 Red',
-      soft: '💿 Soft Club',
-      motivation: '💪 Motivação',
-      api: '🌐 Unsplash'
+      gym: '🏋️ GYM Aesthetics',
+      flowers: '🌸 Flowers Dream',
+      red: '🔴 Red Ambient',
+      soft: '💿 Gen X Soft Club',
+      motivation: '💪 Motivacional',
+      api: '🌐 Unsplash / Picsum'
     };
     const baseName = galleryNames[effective] || `${found.icon} ${found.name}`;
     const labelText = targetId === 'random' ? `🎲 ${baseName}` : baseName;
@@ -597,83 +585,6 @@ if (typeof window !== 'undefined') {
     if (item) item.title = `Personal OS — Planos de Fundo (${text})`;
   }
 
-  // 5.9. Visual Previews & Art Map for Background Cards
-  const BACKGROUND_PREVIEWS = {
-    gym: {
-      thumb: "https://kbqxzmyasstdvvbfymft.supabase.co/storage/v1/object/public/binaural-backgrounds/gym/012f4996731b766a5f6fce9ae5fa16a0.jpg",
-      gradient: "linear-gradient(135deg, #18181b, #27272a)"
-    },
-    flowers: {
-      thumb: "https://kbqxzmyasstdvvbfymft.supabase.co/storage/v1/object/public/binaural-backgrounds/flowers/59da96db902a205e9f90e651a4bcaa72.jpg",
-      gradient: "linear-gradient(135deg, #500724, #831843)"
-    },
-    red: {
-      thumb: "https://kbqxzmyasstdvvbfymft.supabase.co/storage/v1/object/public/binaural-backgrounds/red/08c3aa3a5c3631b23cec57233f5c365c.jpg",
-      gradient: "linear-gradient(135deg, #450a0a, #7f1d1d)"
-    },
-    soft: {
-      thumb: "https://kbqxzmyasstdvvbfymft.supabase.co/storage/v1/object/public/binaural-backgrounds/soft/05f22143098023a6978520a73a77637e.jpg",
-      gradient: "linear-gradient(135deg, #1e1b4b, #3730a3)"
-    },
-    motivation: {
-      thumb: "https://kbqxzmyasstdvvbfymft.supabase.co/storage/v1/object/public/binaural-backgrounds/motivation/1000427297.jpg",
-      gradient: "linear-gradient(135deg, #1c1917, #44403c)"
-    },
-    api: {
-      gradient: "linear-gradient(135deg, #0284c7 0%, #0369a1 40%, #075985 100%)"
-    },
-    video: {
-      gradient: "linear-gradient(135deg, #7c3aed 0%, #4f46e5 50%, #1e1b4b 100%)"
-    },
-    random: {
-      gradient: "linear-gradient(135deg, #f43f5e 0%, #a855f7 50%, #06b6d4 100%)"
-    },
-    galaxybits: {
-      gradient: "linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%)"
-    },
-    // Cosmico
-    softaurora: { gradient: "linear-gradient(135deg, #064e3b 0%, #047857 50%, #10b981 100%)" },
-    aurora: { gradient: "linear-gradient(135deg, #0f766e 0%, #0284c7 50%, #3b82f6 100%)" },
-    antigravity: { gradient: "linear-gradient(135deg, #4c1d95 0%, #7c3aed 50%, #a78bfa 100%)" },
-    prism: { gradient: "linear-gradient(135deg, #9d174d 0%, #db2777 50%, #f472b6 100%)" },
-    prismaticburst: { gradient: "linear-gradient(135deg, #c2410c 0%, #ea580c 50%, #fb923c 100%)" },
-    liquidether: { gradient: "linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #60a5fa 100%)" },
-    orb: { gradient: "radial-gradient(circle at center, #fb7185 0%, #9f1239 50%, #0f172a 100%)" },
-    // Energia
-    plasmawave: { gradient: "linear-gradient(135deg, #831843 0%, #be185d 50%, #06b6d4 100%)" },
-    plasma: { gradient: "linear-gradient(135deg, #991b1b 0%, #dc2626 50%, #f87171 100%)" },
-    strands: { gradient: "linear-gradient(135deg, #0369a1 0%, #0284c7 50%, #38bdf8 100%)" },
-    siderays: { gradient: "linear-gradient(135deg, #86198f 0%, #c026d3 50%, #e879f9 100%)" },
-    beams: { gradient: "linear-gradient(135deg, #3730a3 0%, #6366f1 50%, #818cf8 100%)" },
-    lightning: { gradient: "radial-gradient(circle at center, #67e8f9 0%, #0891b2 40%, #082f49 100%)" },
-    linewaves: { gradient: "linear-gradient(135deg, #065f46 0%, #059669 50%, #34d399 100%)" },
-    lighttunnel: { gradient: "radial-gradient(circle at center, #ffffff 0%, #e11d48 40%, #1e1b4b 100%)" },
-    // Fluidos
-    ferrofluid: { gradient: "radial-gradient(circle at 35% 35%, #52525b 0%, #18181b 60%, #09090b 100%)" },
-    liquidchrome: { gradient: "linear-gradient(135deg, #475569 0%, #94a3b8 50%, #1e293b 100%)" },
-    silk: { gradient: "linear-gradient(135deg, #581c87 0%, #9333ea 50%, #c084fc 100%)" },
-    floatinglines: { gradient: "linear-gradient(135deg, #1d4ed8 0%, #3b82f6 50%, #60a5fa 100%)" },
-    ghostfibers: { gradient: "linear-gradient(135deg, #0f172a 0%, #334155 50%, #64748b 100%)" },
-    webthreads: { gradient: "linear-gradient(135deg, #1e293b 0%, #475569 50%, #0f172a 100%)" },
-    acidsquares: { gradient: "linear-gradient(135deg, #064e3b 0%, #10b981 50%, #6ee7b7 100%)" },
-    moltenmetal: { gradient: "linear-gradient(135deg, #7c2d12 0%, #ea580c 50%, #facc15 100%)" },
-    // Cyber
-    balatro: { gradient: "linear-gradient(135deg, #991b1b 0%, #dc2626 50%, #1e1b4b 100%)" },
-    dither: { gradient: "linear-gradient(135deg, #18181b 0%, #27272a 50%, #3f3f46 100%)" },
-    darkveil: { gradient: "linear-gradient(135deg, #09090b 0%, #18181b 50%, #27272a 100%)" },
-    topography: { gradient: "linear-gradient(135deg, #3730a3 0%, #6366f1 50%, #f472b6 100%)" },
-    faultyterminal: { gradient: "linear-gradient(135deg, #052e16 0%, #15803d 50%, #4ade80 100%)" },
-    gridscan: { gradient: "linear-gradient(135deg, #0c4a6e 0%, #0284c7 50%, #38bdf8 100%)" },
-    pixelblast: { gradient: "linear-gradient(135deg, #be123c 0%, #7e22ce 50%, #06b6d4 100%)" },
-    radar: { gradient: "radial-gradient(circle at center, #10b981 0%, #047857 40%, #022c22 100%)" },
-    ripplegrid: { gradient: "linear-gradient(135deg, #0284c7 0%, #6366f1 50%, #e11d48 100%)" },
-    magicrings: { gradient: "radial-gradient(circle at center, #e879f9 0%, #7e22ce 50%, #1e1b4b 100%)" },
-    letterglitch: { gradient: "linear-gradient(135deg, #042f2e 0%, #0d9488 50%, #2dd4bf 100%)" },
-    evileye: { gradient: "radial-gradient(circle at center, #ef4444 0%, #7f1d1d 50%, #050505 100%)" },
-    particles: { gradient: "radial-gradient(circle at center, #e0e7ff 0%, #6366f1 40%, #0f172a 100%)" },
-    morphslider: { gradient: "linear-gradient(135deg, #b91c1c 0%, #4338ca 100%)" }
-  };
-
   // 6. Mount Sidebar Backgrounds Navigation Item & Modal UI
   function mountShaderSwitcherUI() {
     // If top bar exists, ensure it is completely hidden
@@ -682,8 +593,8 @@ if (typeof window !== 'undefined') {
       topBar.style.setProperty('display', 'none', 'important');
     }
 
-    // Invisible Drag handle for moving frameless window on macOS (apenas fora do Android)
-    if (!document.getElementById('personal-os-drag-handle') && !window.AndroidBridge && !('ontouchstart' in window)) {
+    // Invisible Drag handle for moving frameless window on macOS
+    if (!document.getElementById('personal-os-drag-handle')) {
       const dragHandle = document.createElement('div');
       dragHandle.id = 'personal-os-drag-handle';
       document.body.appendChild(dragHandle);
@@ -717,114 +628,102 @@ if (typeof window !== 'undefined') {
         <!-- Puxador de Arraste Mobile (Sheet Handle) -->
         <div class="shader-modal-sheet-handle" id="shader-modal-sheet-handle"></div>
 
-        <!-- Top Bar: Título Compacto + Contador + Botão Fechar -->
         <div class="shader-modal-header">
           <div class="shader-modal-title-group">
-            <div class="shader-modal-icon-badge">✨</div>
-            <div class="shader-modal-title-col">
-              <div class="shader-modal-title-row">
-                <h3 class="shader-modal-title">Backgrounds</h3>
-                <span class="shader-modal-count-tag">46</span>
-              </div>
+            <span class="shader-modal-icon">🎨</span>
+            <div>
+              <h3 class="shader-modal-title">Temas, Shaders & Galerias</h3>
+              <span class="shader-modal-subtitle">Personal OS • 5 Galerias HD • 7 Vídeos • 37 Shaders WebGL</span>
             </div>
           </div>
-          <button class="shader-modal-close" id="shader-modal-close-btn" type="button" title="Fechar (ESC)">✕</button>
-        </div>
-
-        <!-- Linha Superior Mobile / Landscape: Ações Rápidas + Sliders -->
-        <div class="shader-top-controls-row">
-          <!-- Barra de Ações Rápidas (3 botões com nomes curtos) -->
           <div class="shader-header-actions">
-            <button class="shader-ctrl-btn" id="shader-cycle-now-btn" type="button" title="Sortear">
-              <span class="ctrl-icon">🎲</span>
-              <span class="ctrl-label">Sortear</span>
+            <button class="shader-ctrl-btn" id="shader-cycle-now-btn" type="button" title="Avançar para o próximo fundo ou foto">
+              <span>🎲</span> Sortear Agora
             </button>
-            <button class="shader-ctrl-btn ${isRotative ? 'active' : ''}" id="shader-rotative-toggle" type="button" title="Alternar modo rotativo">
-              <span class="ctrl-icon">🔄</span>
-              <span class="ctrl-label">${isRotative ? 'Auto' : 'Fixo'}</span>
+            <button class="shader-ctrl-btn ${isRotative ? 'active' : ''}" id="shader-rotative-toggle" type="button" title="Alternar rotação automática de backgrounds">
+              <span>🔄</span> Rotativo: ${isRotative ? 'Ativo' : 'Fixo'}
             </button>
-            <button class="shader-ctrl-btn ${isEcoMode ? 'active' : ''}" id="shader-eco-toggle" type="button" title="Economia de energia">
-              <span class="ctrl-icon">${isEcoMode ? '▶️' : '🍃'}</span>
-              <span class="ctrl-label">${isEcoMode ? 'Ativo' : 'Eco'}</span>
+            <button class="shader-ctrl-btn ${isEcoMode ? 'active' : ''}" id="shader-eco-toggle" type="button" title="Pausar visuais para economia de bateria">
+              <span>${isEcoMode ? '▶️' : '🍃'}</span> ${isEcoMode ? 'Retomar' : 'Eco Mode'}
             </button>
+            <button class="shader-modal-close" id="shader-modal-close-btn" type="button" title="Fechar (ESC)">✕</button>
+          </div>
+        </div>
+
+        <div class="shader-controls-panel">
+          <!-- Controle Deslizante 1: Blur do Vidro -->
+          <div class="shader-slider-box">
+            <div class="shader-slider-header">
+              <div class="shader-slider-label">
+                <span class="slider-icon">🪟</span>
+                <span>Blur do Vidro</span>
+              </div>
+              <span class="shader-slider-badge" id="val-glass-blur">${glassBlur}px</span>
+            </div>
+            <div class="shader-slider-wrapper">
+              <input type="range" class="shader-range-slider" id="slider-glass-blur" min="0" max="60" value="${glassBlur}" step="1" title="Ajuste o desfoque do vidro translúcido">
+            </div>
+            <div class="shader-slider-presets" id="presets-glass-blur">
+              <button type="button" class="shader-preset-chip ${glassBlur === 0 ? 'active' : ''}" data-val="0">0px Límpido</button>
+              <button type="button" class="shader-preset-chip ${glassBlur === 16 ? 'active' : ''}" data-val="16">16px Suave</button>
+              <button type="button" class="shader-preset-chip ${glassBlur === 28 ? 'active' : ''}" data-val="28">28px Padrão</button>
+              <button type="button" class="shader-preset-chip ${glassBlur === 44 ? 'active' : ''}" data-val="44">44px Intenso</button>
+              <button type="button" class="shader-preset-chip ${glassBlur === 60 ? 'active' : ''}" data-val="60">60px Fosco</button>
+            </div>
           </div>
 
-          <!-- Sliders Compactos: Blur + Escurecimento em 2 Colunas -->
-          <div class="shader-controls-panel">
-            <div class="shader-slider-box">
-              <div class="shader-slider-header">
-                <span class="slider-name">🪟 Blur</span>
-                <span class="shader-slider-badge" id="val-glass-blur">${glassBlur}px</span>
+          <!-- Controle Deslizante 2: Escurecimento do Shader / Sombra de Fundo -->
+          <div class="shader-slider-box">
+            <div class="shader-slider-header">
+              <div class="shader-slider-label">
+                <span class="slider-icon">🌘</span>
+                <span>Escurecimento & Sombra</span>
               </div>
-              <div class="shader-slider-wrapper">
-                <input type="range" class="shader-range-slider" id="slider-glass-blur" min="0" max="60" value="${glassBlur}" step="1" title="Ajuste o blur do vidro">
-              </div>
+              <span class="shader-slider-badge" id="val-shader-dim">${shaderDim}%</span>
             </div>
-
-            <div class="shader-slider-box">
-              <div class="shader-slider-header">
-                <span class="slider-name">🌘 Dim</span>
-                <span class="shader-slider-badge" id="val-shader-dim">${shaderDim}%</span>
-              </div>
-              <div class="shader-slider-wrapper">
-                <input type="range" class="shader-range-slider" id="slider-shader-dim" min="0" max="90" value="${shaderDim}" step="1" title="Ajuste o escurecimento do fundo">
-              </div>
+            <div class="shader-slider-wrapper">
+              <input type="range" class="shader-range-slider" id="slider-shader-dim" min="0" max="90" value="${shaderDim}" step="1" title="Ajuste a sombra e escurecimento do fundo">
+            </div>
+            <div class="shader-slider-presets" id="presets-shader-dim">
+              <button type="button" class="shader-preset-chip ${shaderDim === 0 ? 'active' : ''}" data-val="0">0% Puro</button>
+              <button type="button" class="shader-preset-chip ${shaderDim === 25 ? 'active' : ''}" data-val="25">25% Padrão</button>
+              <button type="button" class="shader-preset-chip ${shaderDim === 50 ? 'active' : ''}" data-val="50">50% Noturno</button>
+              <button type="button" class="shader-preset-chip ${shaderDim === 75 ? 'active' : ''}" data-val="75">75% Profundo</button>
+              <button type="button" class="shader-preset-chip ${shaderDim === 90 ? 'active' : ''}" data-val="90">90% Ultra</button>
             </div>
           </div>
         </div>
 
-        <!-- Navegação Mestra: 2 Tipos Fundamentais + Todos -->
-        <div class="shader-type-nav" id="shader-type-nav">
-          <button type="button" class="shader-type-btn" data-type="images">
-            <span class="type-icon">🖼️</span> Fotos <span class="type-count">9</span>
-          </button>
-          <button type="button" class="shader-type-btn" data-type="shaders">
-            <span class="type-icon">✨</span> Shaders <span class="type-count">37</span>
-          </button>
-          <button type="button" class="shader-type-btn" data-type="all">
-            <span class="type-icon">⚡</span> Todos <span class="type-count">46</span>
-          </button>
+        <div class="shader-category-pills" id="shader-category-pills">
+          <button type="button" class="shader-pill-btn active" data-cat="all">Todos (46)</button>
+          <button type="button" class="shader-pill-btn" data-cat="galerias">🖼️ Galerias & Fotos</button>
+          <button type="button" class="shader-pill-btn" data-cat="cosmico">🌌 Cósmico</button>
+          <button type="button" class="shader-pill-btn" data-cat="energia">⚡ Energia</button>
+          <button type="button" class="shader-pill-btn" data-cat="fluidos">🧪 Fluidos</button>
+          <button type="button" class="shader-pill-btn" data-cat="cyber">🎮 Cyber</button>
         </div>
-
-        <!-- Sub-filtros Contextuais (Sub-chips rolagem suave) -->
-        <div class="shader-category-pills" id="shader-category-pills"></div>
 
         <div class="shader-grid-wrapper">
           <div class="shader-grid-4col" id="shader-grid-list-container">
-            <!-- populated dynamically with 2 columns mobile / 4 columns landscape -->
+            <!-- populated dynamically with 4 columns -->
           </div>
         </div>
       `;
 
       document.body.appendChild(modal);
 
-      // Populate Backgrounds & Shaders into Cards
+      // Populate Backgrounds & Shaders into 4-Column Grid
       const listContainer = modal.querySelector('#shader-grid-list-container');
       BACKGROUND_CATALOG.forEach(cat => {
         cat.items.forEach(item => {
-          const isCurrent = (item.id === activeBackground || item.id === currentEffectiveTarget) && !isEcoMode;
-          const preview = BACKGROUND_PREVIEWS[item.id] || { gradient: 'linear-gradient(135deg, #1e1b4b, #3b82f6)' };
           const card = document.createElement('div');
-          card.className = `shader-item-card ${isCurrent ? 'active' : ''}`;
+          card.className = `shader-item-card ${(item.id === activeBackground || item.id === currentEffectiveTarget) && !isEcoMode ? 'active' : ''}`;
           card.setAttribute('data-shader-id', item.id);
-          card.setAttribute('data-type', item.type || (cat.key === 'galerias' ? 'image' : 'shader'));
           card.setAttribute('data-cat', cat.key || 'galerias');
-
-          const bgStyle = preview.thumb
-            ? `background-image: url('${preview.thumb}'); background-size: cover; background-position: center;`
-            : `background: ${preview.gradient};`;
-
           card.innerHTML = `
-            <div class="shader-card-art" style="${bgStyle}"></div>
-            <div class="shader-card-art-overlay"></div>
-            <div class="shader-card-top-row">
-              <div class="shader-card-icon-pill">${item.icon}</div>
-              <div class="shader-card-active-indicator" style="display: ${isCurrent ? 'block' : 'none'};">✓ ATIVO</div>
-            </div>
-            <div class="shader-card-info">
-              <div class="shader-card-title">${item.name}</div>
-              <div class="shader-card-badge">${item.badge || item.id}</div>
-            </div>
+            <div class="shader-card-icon">${item.icon}</div>
+            <div class="shader-card-title">${item.name}</div>
+            <div class="shader-card-badge">${item.badge || item.id}</div>
           `;
           card.onclick = (e) => {
             e.preventDefault();
@@ -834,112 +733,12 @@ if (typeof window !== 'undefined') {
             const ecoBtn = modal.querySelector('#shader-eco-toggle');
             if (ecoBtn) {
               ecoBtn.classList.remove('active');
-              ecoBtn.innerHTML = '<span class="ctrl-icon">🍃</span> <span class="ctrl-label">Eco</span>';
+              ecoBtn.innerHTML = '<span>🍃</span> Eco Mode';
             }
             applyBackground(item.id);
-            updateModalUI();
           };
           listContainer.appendChild(card);
         });
-      });
-
-      // Navegação por Tipo (Fotos, Shaders, Todos) e Sub-chips
-      let currentNavType = 'images';
-      function selectNavType(type) {
-        currentNavType = type;
-        modal.querySelectorAll('.shader-type-btn').forEach(b => {
-          b.classList.toggle('active', b.getAttribute('data-type') === type);
-        });
-        renderCategoryPills(type);
-        filterCards(type, 'all');
-      }
-
-      function renderCategoryPills(type) {
-        const pillsContainer = modal.querySelector('#shader-category-pills');
-        if (!pillsContainer) return;
-        pillsContainer.innerHTML = '';
-
-        let pills = [];
-        if (type === 'images') {
-          pills = [
-            { id: 'all', label: 'Todas' },
-            { id: 'gym', label: '🏋️ GYM' },
-            { id: 'flowers', label: '🌸 Flowers' },
-            { id: 'red', label: '🔴 Red' },
-            { id: 'soft', label: '💿 Soft' },
-            { id: 'motivation', label: '💪 Motivação' },
-            { id: 'api', label: '🌐 Unsplash' },
-            { id: 'video', label: '🎬 Vídeos' },
-            { id: 'random', label: '🎲 Mix' },
-            { id: 'galaxybits', label: '✨ Auto GL' }
-          ];
-        } else if (type === 'shaders') {
-          pills = [
-            { id: 'all', label: 'Todos' },
-            { id: 'cosmico', label: '🌌 Cosmo' },
-            { id: 'energia', label: '⚡ Energia' },
-            { id: 'fluidos', label: '🧪 Fluidos' },
-            { id: 'cyber', label: '🎮 Cyber' }
-          ];
-        } else {
-          pills = [
-            { id: 'all', label: 'Todos' },
-            { id: 'galerias', label: '🖼️ Fotos' },
-            { id: 'cosmico', label: '🌌 Cosmo' },
-            { id: 'energia', label: '⚡ Energia' },
-            { id: 'fluidos', label: '🧪 Fluidos' },
-            { id: 'cyber', label: '🎮 Cyber' }
-          ];
-        }
-
-        pills.forEach((p, idx) => {
-          const btn = document.createElement('button');
-          btn.type = 'button';
-          btn.className = `shader-pill-btn ${idx === 0 ? 'active' : ''}`;
-          btn.setAttribute('data-filter', p.id);
-          btn.textContent = p.label;
-          btn.onclick = (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            pillsContainer.querySelectorAll('.shader-pill-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            filterCards(currentNavType, p.id);
-          };
-          pillsContainer.appendChild(btn);
-        });
-      }
-
-      function filterCards(type, subFilter) {
-        const cards = modal.querySelectorAll('.shader-item-card');
-        cards.forEach(card => {
-          const cardType = card.getAttribute('data-type');
-          const cardCat = card.getAttribute('data-cat');
-          const cardId = card.getAttribute('data-shader-id');
-
-          const isImg = (type === 'images' || type === 'image') && (cardType === 'images' || cardType === 'image');
-          const isShader = (type === 'shaders' || type === 'shader') && (cardType === 'shaders' || cardType === 'shader');
-          const matchType = (type === 'all') || isImg || isShader || (cardType === type);
-          if (!matchType) {
-            card.style.display = 'none';
-            return;
-          }
-
-          if (!subFilter || subFilter === 'all') {
-            card.style.display = 'flex';
-          } else if (subFilter === cardCat || subFilter === cardId) {
-            card.style.display = 'flex';
-          } else {
-            card.style.display = 'none';
-          }
-        });
-      }
-
-      modal.querySelectorAll('.shader-type-btn').forEach(btn => {
-        btn.onclick = (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          selectNavType(btn.getAttribute('data-type'));
-        };
       });
 
       const cycleBtn = modal.querySelector('#shader-cycle-now-btn');
@@ -951,7 +750,7 @@ if (typeof window !== 'undefined') {
         };
       }
 
-      // Sliders compactos em 2 colunas
+      // Dual Sliders & Preset Control Functions
       setGlassBlur = function(val) {
         glassBlur = Math.max(0, Math.min(60, parseInt(val, 10) || 0));
         document.documentElement.style.setProperty('--personal-os-glass-blur', glassBlur + 'px');
@@ -960,6 +759,9 @@ if (typeof window !== 'undefined') {
         const badge = modal.querySelector('#val-glass-blur');
         if (slider && parseInt(slider.value, 10) !== glassBlur) slider.value = glassBlur;
         if (badge) badge.textContent = `${glassBlur}px`;
+        modal.querySelectorAll('#presets-glass-blur .shader-preset-chip').forEach(chip => {
+          chip.classList.toggle('active', parseInt(chip.getAttribute('data-val'), 10) === glassBlur);
+        });
       };
 
       setShaderDim = function(val) {
@@ -971,8 +773,13 @@ if (typeof window !== 'undefined') {
         const badge = modal.querySelector('#val-shader-dim');
         if (slider && parseInt(slider.value, 10) !== shaderDim) slider.value = shaderDim;
         if (badge) badge.textContent = `${shaderDim}%`;
+        modal.querySelectorAll('#presets-shader-dim .shader-preset-chip').forEach(chip => {
+          chip.classList.toggle('active', parseInt(chip.getAttribute('data-val'), 10) === shaderDim);
+        });
         const dimEl = document.getElementById('bg-webgl-dim');
-        if (dimEl) dimEl.style.backgroundColor = `rgba(0, 0, 0, ${alpha})`;
+        if (dimEl) {
+          dimEl.style.backgroundColor = `rgba(0, 0, 0, ${alpha})`;
+        }
       };
 
       const sliderBlur = modal.querySelector('#slider-glass-blur');
@@ -984,6 +791,24 @@ if (typeof window !== 'undefined') {
       if (sliderDim) {
         sliderDim.addEventListener('input', (e) => setShaderDim(e.target.value));
       }
+
+      // Presets rápidos para Blur do Vidro
+      modal.querySelectorAll('#presets-glass-blur .shader-preset-chip').forEach(chip => {
+        chip.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          setGlassBlur(chip.getAttribute('data-val'));
+        });
+      });
+
+      // Presets rápidos para Escurecimento / Sombra
+      modal.querySelectorAll('#presets-shader-dim .shader-preset-chip').forEach(chip => {
+        chip.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          setShaderDim(chip.getAttribute('data-val'));
+        });
+      });
 
       // Gesto Touch de arrastar para baixo para fechar (Mobile Bottom Sheet)
       let startY = 0;
@@ -1023,9 +848,29 @@ if (typeof window !== 'undefined') {
       // Fechar ao clicar no backdrop escuro
       backdrop.onclick = (e) => {
         e.preventDefault();
-        e.stopPropagation();
         closeModal();
       };
+
+      // Filter pills logic
+      const pillButtons = modal.querySelectorAll('.shader-pill-btn');
+      pillButtons.forEach(btn => {
+        btn.onclick = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          pillButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const targetCat = btn.getAttribute('data-cat');
+          const cards = modal.querySelectorAll('.shader-item-card');
+          cards.forEach(card => {
+            const cardCat = card.getAttribute('data-cat');
+            if (targetCat === 'all' || cardCat === targetCat) {
+              card.style.display = 'flex';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        };
+      });
 
       // Close Modal Button
       modal.querySelector('#shader-modal-close-btn').onclick = (e) => {
@@ -1041,7 +886,7 @@ if (typeof window !== 'undefined') {
         isRotative = !isRotative;
         localStorage.setItem('feishin_shader_rotative', isRotative);
         this.classList.toggle('active', isRotative);
-        this.innerHTML = `<span class="ctrl-icon">🔄</span> <span class="ctrl-label">${isRotative ? 'Auto' : 'Fixo'}</span>`;
+        this.innerHTML = `<span>🔄</span> Rotativo: ${isRotative ? 'Ativo' : 'Fixo'}`;
         if (isRotative) {
           startRotative();
         } else {
@@ -1056,18 +901,17 @@ if (typeof window !== 'undefined') {
         isEcoMode = !isEcoMode;
         localStorage.setItem('feishin_shader_eco', isEcoMode);
         this.classList.toggle('active', isEcoMode);
-        this.innerHTML = `<span class="ctrl-icon">${isEcoMode ? '▶️' : '🍃'}</span> <span class="ctrl-label">${isEcoMode ? 'Ativo' : 'Eco'}</span>`;
+        this.innerHTML = `<span>${isEcoMode ? '▶️' : '🍃'}</span> ${isEcoMode ? 'Retomar' : 'Eco Mode'}`;
         if (isEcoMode) {
           if (window.stopWebGLBackground) window.stopWebGLBackground();
           const v1 = document.getElementById('bg-video-1');
           const v2 = document.getElementById('bg-video-2');
           if (v1) { try { v1.pause(); } catch(e){} v1.style.display = 'none'; }
           if (v2) { try { v2.pause(); } catch(e){} v2.style.display = 'none'; }
-          updatePillLabel('🍃 Eco');
+          updatePillLabel('🍃 Eco Mode');
         } else {
           applyBackground(activeBackground);
         }
-        updateModalUI();
       };
     }
 
@@ -1078,15 +922,7 @@ if (typeof window !== 'undefined') {
       const item = document.getElementById('personal-os-sidebar-backgrounds-item');
       if (item) item.classList.add('active');
 
-      // Selecionar aba certa baseada no background ativo
-      const isCurrentShader = SHADER_TYPES.includes(activeBackground);
-      const targetType = isCurrentShader ? 'shaders' : 'images';
-      const typeNavBtn = modal.querySelector(`.shader-type-btn[data-type="${targetType}"]`);
-      if (typeNavBtn) {
-        typeNavBtn.click();
-      }
-
-      // Sync sliders e badges
+      // Sync sliders, chips and badges
       if (typeof setGlassBlur === 'function') setGlassBlur(glassBlur);
       if (typeof setShaderDim === 'function') setShaderDim(shaderDim);
 
@@ -1152,12 +988,6 @@ if (typeof window !== 'undefined') {
       }
       const modals = findMantineModalsContext();
       if (modals?.openContextModal) {
-        // Garantir que nenhum modal anterior permaneça duplicado
-        try {
-          if (typeof modals.closeAll === 'function') {
-            modals.closeAll();
-          }
-        } catch (e) {}
         modals.openContextModal('settings', {
           innerProps: {},
           size: '60rem',
@@ -1310,13 +1140,7 @@ if (typeof window !== 'undefined') {
     if (!modal) return;
     modal.querySelectorAll('.shader-item-card').forEach(card => {
       const id = card.getAttribute('data-shader-id');
-      const isCurrent = (id === activeBackground || id === currentEffectiveTarget) && !isEcoMode;
-      card.classList.toggle('active', isCurrent);
-      const ind = card.querySelector('.shader-card-active-indicator');
-      if (ind) {
-        ind.style.display = isCurrent ? 'block' : 'none';
-        ind.textContent = '✓ ATIVO';
-      }
+      card.classList.toggle('active', (id === activeBackground || id === currentEffectiveTarget) && !isEcoMode);
     });
   }
 
@@ -1436,20 +1260,12 @@ if (typeof window !== 'undefined') {
 
   // 8. Bootstrap Engine
   function initEngine() {
-    const isMobile = Boolean(
-      (typeof window !== 'undefined' && window.api?.utils?.getPlatform?.() === 'android') ||
-      (typeof navigator !== 'undefined' && navigator.userAgent.includes('FeishinMobile')) ||
-      (typeof window !== 'undefined' && !window.api?.browser && !window.api?.mpvPlayer)
-    );
-
     initNavigationShortcuts();
     ensureShaderContainer();
     mountShaderSwitcherUI();
-    if (!isMobile) {
-      initTrayBridge();
-      initNativeFullScreenSync();
-      initFullScreenFreeSpaceDismiss();
-    }
+    initTrayBridge();
+    initNativeFullScreenSync();
+    initFullScreenFreeSpaceDismiss();
 
     // Enforce album art staying in playerbar dock corner and queue inside full-screen player
     try {
@@ -1469,83 +1285,61 @@ if (typeof window !== 'undefined') {
       }
 
       // Enforce activeTab: "queue" in full-screen player
-      if (!isMobile) {
-        const rawFs = localStorage.getItem('store_full_screen_player');
-        if (rawFs) {
-          const parsedFs = JSON.parse(rawFs);
-          if (parsedFs?.state && parsedFs.state.activeTab !== 'queue') {
-            parsedFs.state.activeTab = 'queue';
-            localStorage.setItem('store_full_screen_player', JSON.stringify(parsedFs));
-          }
+      const rawFs = localStorage.getItem('store_full_screen_player');
+      if (rawFs) {
+        const parsedFs = JSON.parse(rawFs);
+        if (parsedFs?.state && parsedFs.state.activeTab !== 'queue') {
+          parsedFs.state.activeTab = 'queue';
+          localStorage.setItem('store_full_screen_player', JSON.stringify(parsedFs));
         }
       }
 
-      if (!isMobile) {
-        // Garantir Início (Home) em store_settings sidebarItems no localStorage (apenas desktop)
-        const rawSettings = localStorage.getItem('store_settings');
-        if (rawSettings) {
-          const parsedSettings = JSON.parse(rawSettings);
-          const target = parsedSettings?.state?.general?.sidebarItems || parsedSettings?.general?.sidebarItems;
-          if (Array.isArray(target)) {
-            const filtered = target.filter(item => item && item.id !== 'Albums');
-            if (!filtered.some(item => item && item.id === 'Home')) {
-              filtered.unshift({ disabled: false, id: 'Home', label: 'Início', route: '/home' });
-            }
-            if (parsedSettings?.state?.general?.sidebarItems) {
-              parsedSettings.state.general.sidebarItems = filtered;
-            }
-            if (parsedSettings?.general?.sidebarItems) {
-              parsedSettings.general.sidebarItems = filtered;
-            }
-            localStorage.setItem('store_settings', JSON.stringify(parsedSettings));
+      // Garantir Início (Home) em store_settings sidebarItems no localStorage
+      const rawSettings = localStorage.getItem('store_settings');
+      if (rawSettings) {
+        const parsedSettings = JSON.parse(rawSettings);
+        const target = parsedSettings?.state?.general?.sidebarItems || parsedSettings?.general?.sidebarItems;
+        if (Array.isArray(target)) {
+          const prevLen = target.length;
+          const filtered = target.filter(item => item && item.id !== 'Albums');
+          if (!filtered.some(item => item && item.id === 'Home')) {
+            filtered.unshift({ disabled: false, id: 'Home', label: 'Início', route: '/home' });
           }
+          if (parsedSettings?.state?.general?.sidebarItems) {
+            parsedSettings.state.general.sidebarItems = filtered;
+          }
+          if (parsedSettings?.general?.sidebarItems) {
+            parsedSettings.general.sidebarItems = filtered;
+          }
+          localStorage.setItem('store_settings', JSON.stringify(parsedSettings));
         }
+      }
 
-        if (
-          window.location.hash === '' ||
-          window.location.hash === '#' ||
-          window.location.hash === '#/'
-        ) {
-          window.location.replace('#/home');
-        }
-      } else {
-        if (
-          window.location.hash === '' ||
-          window.location.hash === '#' ||
-          window.location.hash === '#/' ||
-          window.location.hash === '#/home'
-        ) {
-          window.location.replace('#/library/songs');
-        }
+      if (
+        window.location.hash === '' ||
+        window.location.hash === '#' ||
+        window.location.hash === '#/'
+      ) {
+        window.location.replace('#/home');
       }
     } catch (e) {}
 
-    if (!isMobile) {
-      initPlayerSplitQueue();
-      initPlayerKillSwitch();
-    }
+    initPlayerSplitQueue();
+    initPlayerKillSwitch();
     initSingleClickTrackPlayback();
     initUnitaryQueueSystem();
-    const qInitTimerOs = setInterval(() => {
-      if (window.__FEISHIN_UNITARY_QUEUE_ENGINE_READY__) {
-        clearInterval(qInitTimerOs);
-      } else {
-        initUnitaryQueueSystem();
-      }
-    }, 500);
+    setInterval(initUnitaryQueueSystem, 500);
 
-    if (!isMobile) {
-      const enforcePlayerCoverArt = () => {
-        const sidebarImg = document.querySelector('.fs-sidebar-module-image-container');
-        if (sidebarImg) {
-          const btn = sidebarImg.querySelector('button');
-          if (btn) btn.click();
-        }
-      };
-      const coverObserver = new MutationObserver(enforcePlayerCoverArt);
-      coverObserver.observe(document.body, { childList: true, subtree: true });
-      enforcePlayerCoverArt();
-    }
+    const enforcePlayerCoverArt = () => {
+      const sidebarImg = document.querySelector('.fs-sidebar-module-image-container');
+      if (sidebarImg) {
+        const btn = sidebarImg.querySelector('button');
+        if (btn) btn.click();
+      }
+    };
+    const coverObserver = new MutationObserver(enforcePlayerCoverArt);
+    coverObserver.observe(document.body, { childList: true, subtree: true });
+    enforcePlayerCoverArt();
 
     // Loop checking until setWebGLBackground is available
     const checkInit = () => {
@@ -1855,42 +1649,16 @@ if (typeof window !== 'undefined') {
   }
 
   // ==========================================================================
-  // CONTROLE GLOBAL DE PERMISSÃO DA FILA DE REPRODUÇÃO
-  // Regra Estrita:
-  // Se não tiver nada na fila -> fica só a hero da imagem da track no centro.
-  // Se tiver em fila (playlist ou adicionar a seguir) -> a fila deve aparecer (split 50/50).
-  // ==========================================================================
-  function isQueueAllowedToDisplay() {
-    const hash = window.location.hash || '';
-    const isPlaylistRoute = hash.startsWith('#/playlists/') || hash.startsWith('#/playlist/');
-    const store = (window.__FEISHIN_PLAYER_STORE__ && window.__FEISHIN_PLAYER_STORE__.getState)
-      ? window.__FEISHIN_PLAYER_STORE__.getState()
-      : null;
-    const cur = (typeof store?.getCurrentSong === 'function' ? store.getCurrentSong() : null) || store?.player?.currentSong;
-    const isPlaylistSong = Boolean(cur && (cur._itemType === 'playlist_song' || cur.playlistId));
-    const isPlaylist = isPlaylistRoute || isPlaylistSong;
-
-    const q = store?.getQueue?.();
-    const queueItems = (q && Array.isArray(q.items)) ? q.items : [];
-    const hasEnqueuedItems = Boolean(window.__FEISHIN_HAS_ENQUEUED_ITEMS__) || queueItems.length > 1;
-
-    // Se estiver em playlist E houver faixas OU se o recurso Adicionar a Seguir foi usado (fila > 1)
-    return Boolean((isPlaylist && queueItems.length > 0) || hasEnqueuedItems);
-  }
-
-  // ==========================================================================
-  // 11. CONTROLE INTELIGENTE DE EXIBIÇÃO DA FILA NO REPRODUTOR FULLSCREEN
-  // Se não tiver nada -> fica só a hero image centralizada.
-  // Se tiver em fila -> obviamente a fila aparece dividindo a tela.
+  // 11. SINCRONIZAÇÃO DA FILA E CONTROLES RETRÁTEIS NO REPRODUTOR FULLSCREEN
+  // A fila é retrátil: quando contraída, a capa expande para o centro da tela (hero image).
+  // Quando expandida, a tela se divide 50/50 lado a lado sem sobreposição (estilo original).
+  // Oculta estritamente o Scrubber A-Z e o HUD quando o Reprodutor Fullscreen estiver aberto.
   // ==========================================================================
   function initPlayerSplitQueue() {
-    console.log('[Personal OS] Ativando Controlador Inteligente de Visibilidade da Fila...');
+    console.log('[Personal OS] Ativando Sincronizador de Fila Retrátil do Player Fullscreen...');
 
     const syncVisibility = () => {
-      const allowed = isQueueAllowedToDisplay();
       const fsContainer = document.querySelector('.fs-full-screen-player-module-container');
-      const respContainer = document.querySelector('.fs-full-screen-player-module-responsive-container');
-      const qg = document.querySelector('.fs-full-screen-player-queue-module-grid-container');
 
       // Ocultar estritamente o Scrubber A-Z e o HUD quando o Reprodutor Fullscreen estiver aberto
       const scrubber = document.getElementById('feishin-alphabet-scrubber');
@@ -1904,94 +1672,25 @@ if (typeof window !== 'undefined') {
           scrubber.style.removeProperty('display');
         }
       }
-
-      if (!allowed) {
-        // Nada na fila: fica só a hero image da track no centro
-        if (respContainer) {
-          respContainer.classList.remove('personal-os-queue-visible');
-        }
-        if (qg) {
-          qg.classList.remove('fs-queue-allowed');
-          qg.classList.add('fs-full-screen-player-queue-module-grid-container-collapsed');
-        }
-        if (window.__FEISHIN_FS_STORE__?.getState) {
-          try {
-            const fsState = window.__FEISHIN_FS_STORE__.getState();
-            if (fsState?.activeTab === 'queue') {
-              fsState.actions?.setStore({ activeTab: '' });
-            }
-          } catch (e) {}
-        }
-        try {
-          const rawFs = localStorage.getItem('store_full_screen_player');
-          if (rawFs) {
-            const parsedFs = JSON.parse(rawFs);
-            if (parsedFs?.state && parsedFs.state.activeTab === 'queue') {
-              parsedFs.state.activeTab = '';
-              localStorage.setItem('store_full_screen_player', JSON.stringify(parsedFs));
-            }
-          }
-        } catch (e) {}
-      } else {
-        // Tiver em fila: obviamente a fila aparece!
-        if (respContainer) {
-          respContainer.classList.add('personal-os-queue-visible');
-        }
-        if (qg) {
-          qg.classList.add('fs-queue-allowed');
-          qg.classList.remove('fs-full-screen-player-queue-module-grid-container-collapsed');
-        }
-        if (window.__FEISHIN_FS_STORE__?.getState) {
-          try {
-            const fsState = window.__FEISHIN_FS_STORE__.getState();
-            if (fsState?.activeTab !== 'queue') {
-              fsState.actions?.setStore({ activeTab: 'queue' });
-            }
-          } catch (e) {}
-        }
-        try {
-          const rawFs = localStorage.getItem('store_full_screen_player');
-          const parsedFs = rawFs ? JSON.parse(rawFs) : null;
-          if (parsedFs?.state && parsedFs.state.activeTab !== 'queue') {
-            parsedFs.state.activeTab = 'queue';
-            localStorage.setItem('store_full_screen_player', JSON.stringify(parsedFs));
-          }
-        } catch (e) {}
-        if (qg && (qg.classList.contains('fs-full-screen-player-queue-module-grid-container-collapsed') || qg.children.length === 0)) {
-          const queueControls = document.querySelector('.fs-full-screen-player-queue-module-controls-container');
-          const btns = queueControls ? queueControls.querySelectorAll('button') : [];
-          if (btns[0]) btns[0].click();
-        }
-      }
     };
 
-    let syncVisRaf = null;
-    function debouncedSyncVisibility() {
-      if (syncVisRaf) cancelAnimationFrame(syncVisRaf);
-      syncVisRaf = requestAnimationFrame(() => {
-        syncVisRaf = null;
-        syncVisibility();
-      });
-    }
+    const playerObserver = new MutationObserver(() => {
+      syncVisibility();
+    });
+    playerObserver.observe(document.body, { childList: true, subtree: true });
+    syncVisibility();
 
-    const fsContainer = document.querySelector('.fs-full-screen-player-module-container') || document.getElementById('feishin-track-page');
-    if (fsContainer) {
-      const playerObserver = new MutationObserver(debouncedSyncVisibility);
-      playerObserver.observe(fsContainer, { childList: true });
-    }
-    window.addEventListener('hashchange', debouncedSyncVisibility);
-
-    // Redireciona clique no botão de fila da dock inferior
+    // Redireciona clique no botão de fila da dock inferior para alternar a fila no fullscreen
     window.addEventListener('click', (e) => {
       const queueToggle = e.target.closest('.fs-playerbar-module-right-grid-item button');
       if (queueToggle && queueToggle.querySelector('rect[width="18"]')) {
-        const allowed = isQueueAllowedToDisplay();
-        if (!allowed) {
+        const fsContainer = document.querySelector('.fs-full-screen-player-module-container');
+        if (fsContainer && window.__FEISHIN_FS_STORE__?.getState) {
           e.preventDefault();
           e.stopPropagation();
-          const cover = document.querySelector('.fs-left-controls-module-image') || document.querySelector('#player-bar img');
-          cover?.click();
-          syncVisibility();
+          const fsStore = window.__FEISHIN_FS_STORE__.getState();
+          const nextTab = fsStore.activeTab === 'queue' ? '' : 'queue';
+          fsStore.actions?.setStore({ activeTab: nextTab });
         }
       }
     }, true);
@@ -2199,80 +1898,16 @@ if (typeof window !== 'undefined') {
       }
     }, true);
 
-    function updateKillButtonState() {
+    // Garantir que a barra de reprodução permaneça limpa e sem botão X (layout clássico original)
+    function removeKillButton() {
       const btn = document.getElementById('feishin-kill-switch-btn');
-      if (!btn) return;
-      const store = (window.__FEISHIN_PLAYER_STORE__ && window.__FEISHIN_PLAYER_STORE__.getState)
-        ? window.__FEISHIN_PLAYER_STORE__.getState()
-        : null;
-      const q = store?.getQueue?.();
-      const hasQueue = q && ((q.items && q.items.length > 0) || (Array.isArray(q) && q.length > 0));
-      const current = store?.getCurrentSong?.();
-      const isPlaying = store?.player?.status === 'playing' || store?.player?.status === 'paused';
-      const active = !!(hasQueue || current || isPlaying);
-
-      if (active) {
-        btn.removeAttribute('data-disabled');
-        btn.style.setProperty('opacity', '0.85', 'important');
-        btn.style.setProperty('cursor', 'pointer', 'important');
-        btn.style.setProperty('pointer-events', 'auto', 'important');
-      } else {
-        btn.setAttribute('data-disabled', 'true');
-        btn.style.setProperty('opacity', '0.35', 'important');
-        btn.style.setProperty('cursor', 'not-allowed', 'important');
-        btn.style.setProperty('pointer-events', 'none', 'important');
-      }
+      if (btn) btn.remove();
     }
-
-    function mountKillButton() {
-      // Alvo: extremo canto direito da barra do player (.fs-playerbar-module-right-grid-item)
-      const rightGrid = document.querySelector('.fs-playerbar-module-right-grid-item');
-      if (!rightGrid) return;
-
-      const flex = rightGrid.querySelector('[class*="mantine-Flex-root"], div');
-      if (!flex) return;
-
-      const row1 = flex.children[1] || flex;
-
-      let btn = document.getElementById('feishin-kill-switch-btn');
-      if (!btn || btn.parentElement !== row1) {
-        if (btn) btn.remove();
-
-        btn = document.createElement('button');
-        btn.id = 'feishin-kill-switch-btn';
-        btn.className = 'mantine-focus-never mantine-active fs-action-icon-module-root m_8d3f4000 mantine-ActionIcon-root m_87cf2631 mantine-UnstyledButton-root feishin-kill-btn feishin-kill-btn-right';
-        btn.setAttribute('type', 'button');
-        btn.setAttribute('title', 'Fechar música e matar fila (X) — ou pressione Esc 2x');
-        btn.innerHTML = `
-          <span class="m_8d3afb97 mantine-ActionIcon-icon">
-            <svg stroke="currentColor" fill="none" stroke-width="2.3" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="15" width="15" xmlns="http://www.w3.org/2000/svg">
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-          </span>
-        `;
-
-        btn.onclick = (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          openKillSwitchGlassDialog();
-        };
-
-        row1.appendChild(btn);
-      }
-      updateKillButtonState();
-    }
-
-    mountKillButton();
+    removeKillButton();
+    const observer = new MutationObserver(removeKillButton);
     const playerBar = document.querySelector('#player-bar, footer');
-    if (playerBar && !document.getElementById('personal-os-player-kill-btn')) {
-      const observer = new MutationObserver(() => {
-        mountKillButton();
-        if (document.getElementById('personal-os-player-kill-btn')) {
-          observer.disconnect();
-        }
-      });
-      observer.observe(playerBar, { childList: true });
+    if (playerBar) {
+      observer.observe(playerBar, { childList: true, subtree: true });
     }
   }
 
@@ -2595,11 +2230,13 @@ if (typeof window !== 'undefined') {
       return origMediaPrevious.call(this, toPrevAlbum);
     };
 
-    store.addToQueueByType = customAddToQueueByType;
-    store.setQueue = customSetQueue;
-    store.mediaNext = customMediaNext;
-    store.mediaAutoNext = customMediaAutoNext;
-    store.mediaPrevious = customMediaPrevious;
+    try {
+      store.addToQueueByType = customAddToQueueByType;
+      store.setQueue = customSetQueue;
+      store.mediaNext = customMediaNext;
+      store.mediaAutoNext = customMediaAutoNext;
+      store.mediaPrevious = customMediaPrevious;
+    } catch (e) {}
 
     if (typeof storeObj.setState === 'function') {
       storeObj.setState({
@@ -2618,137 +2255,3 @@ if (typeof window !== 'undefined') {
     initEngine();
   }
 })();
-
-// ==========================================================================
-// UNIFIED REALTIME LIBRARY REFRESH & QUERY INVALIDATION ENGINE
-// ==========================================================================
-function getReactQueryClient() {
-  if (window.__FEISHIN_QUERY_CLIENT__) return window.__FEISHIN_QUERY_CLIENT__;
-  const root = document.querySelector('#root');
-  if (!root) return null;
-  const key = Object.keys(root).find(k => k.startsWith('__reactFiber$') || k.startsWith('__reactContainer$'));
-  let fiber = root[key];
-  for (let i = 0; i < 30 && fiber; i++) {
-    if (fiber.memoizedProps?.client?.invalidateQueries) {
-      window.__FEISHIN_QUERY_CLIENT__ = fiber.memoizedProps.client;
-      return window.__FEISHIN_QUERY_CLIENT__;
-    }
-    fiber = fiber.child;
-  }
-  return null;
-}
-
-function getEventEmitter() {
-  if (window.__FEISHIN_EVENT_EMITTER__) return window.__FEISHIN_EVENT_EMITTER__;
-  return null;
-}
-
-window.feishinRefreshLibrary = function(reason = 'sync') {
-  console.log(`[PersonalOS Engine] feishinRefreshLibrary acionado (motivo: ${reason})`);
-  
-  // 1. Invalida todas as queries no TanStack React Query
-  const qc = getReactQueryClient();
-  if (qc && typeof qc.invalidateQueries === 'function') {
-    try {
-      qc.invalidateQueries();
-    } catch (e) {
-      console.warn('[PersonalOS Engine] Falha ao invalidar queries:', e);
-    }
-  }
-
-  // 2. Dispara refresh nas tabelas infinitas Feishin
-  const ee = getEventEmitter();
-  if (ee && typeof ee.emit === 'function') {
-    try {
-      ee.emit('ITEM_LIST_REFRESH', { key: 'song' });
-      ee.emit('ITEM_LIST_REFRESH', { key: 'songs' });
-      ee.emit('ITEM_LIST_REFRESH', { key: 'album' });
-      ee.emit('ITEM_LIST_REFRESH', { key: 'albums' });
-      ee.emit('ITEM_LIST_REFRESH', { key: 'artist' });
-      ee.emit('ITEM_LIST_REFRESH', { key: 'artists' });
-    } catch (e) {}
-  }
-
-  // 3. Recarrega a aba Recentes
-  if (window.__FEISHIN_RECENTLY_ADDED__?.reload) {
-    try {
-      window.__FEISHIN_RECENTLY_ADDED__.reload(true);
-    } catch (e) {}
-  }
-
-  // 4. Dispara evento no DOM
-  window.dispatchEvent(new CustomEvent('feishin:refresh-library', { detail: { reason } }));
-};
-
-// SSE Listener em background no Personal OS
-(function initGlobalSSE() {
-  let sse = null;
-  let timer = null;
-
-  function connect() {
-    if (sse) {
-      try { sse.close(); } catch (e) {}
-      sse = null;
-    }
-
-    let serverUrl = '';
-    try {
-      const auth = JSON.parse(localStorage.getItem('store_authentication') || '{}');
-      serverUrl = auth?.state?.currentServer?.url || '';
-    } catch (e) {}
-
-    if (!serverUrl) {
-      timer = setTimeout(connect, 3000);
-      return;
-    }
-
-    const cleanUrl = serverUrl.replace(/\/$/, '');
-    const eventsUrl = `${cleanUrl}/api/engine/events`;
-
-    try {
-      sse = new EventSource(eventsUrl);
-
-      const onSyncEvent = (e) => {
-        console.log(`[PersonalOS SSE] Evento ${e.type} recebido:`, e.data);
-        window.feishinRefreshLibrary(e.type);
-        setTimeout(() => window.feishinRefreshLibrary(e.type), 1500);
-        setTimeout(() => window.feishinRefreshLibrary(e.type), 3500);
-      };
-
-      sse.addEventListener('track_uploaded', onSyncEvent);
-      sse.addEventListener('scan_finished', onSyncEvent);
-      sse.addEventListener('library_updated', onSyncEvent);
-      sse.addEventListener('track_updated', onSyncEvent);
-      sse.addEventListener('track_deleted', onSyncEvent);
-
-      sse.onerror = () => {
-        if (sse) {
-          try { sse.close(); } catch (e) {}
-          sse = null;
-        }
-        clearTimeout(timer);
-        timer = setTimeout(connect, 6000);
-      };
-    } catch (err) {
-      clearTimeout(timer);
-      timer = setTimeout(connect, 10000);
-    }
-  }
-
-  if (typeof window !== 'undefined') {
-    connect();
-
-    // Auto-revalidação ao voltar para a janela após 30 segundos
-    let lastActive = Date.now();
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible') {
-        const now = Date.now();
-        if (now - lastActive > 30000) {
-          window.feishinRefreshLibrary('visibility-focus');
-        }
-        lastActive = now;
-      }
-    });
-  }
-})();
-

@@ -1,2 +1,2 @@
-import{r as o,e as m,j as r,bw as c,dM as d}from"./index-C3w9ueFE.js";const l="fs-animated-page-module-animated-page",p={animatedPage:l},g=o.forwardRef((i,s)=>{return r.jsx("main",{className:p.animatedPage,ref:s,children:i.children})});export{g as A};
+import{r as o,e as m,j as r,bw as c,dM as d}from"./index-C3w9ueFE.js";const l="fs-animated-page-module-animated-page",p={animatedPage:l},g=o.forwardRef((i,s)=>{const a=m.c(4),{children:n}=i;let e;a[0]===Symbol.for("react.memo_cache_sentinel")?(e={...d.fadeIn,transition:{duration:.5,ease:"anticipate"}},a[0]=e):e=a[0];let t;return a[1]!==n||a[2]!==s?(t=r.jsx(c.main,{className:p.animatedPage,ref:s,...e,children:n}),a[1]=n,a[2]=s,a[3]=t):t=a[3],t});export{g as A};
 //# sourceMappingURL=animated-page-c6WcGlbL.js.map

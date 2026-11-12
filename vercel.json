@@ -8,7 +8,7 @@
   "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/((?!assets/|media/|apk/|rest/|sw-demo\\.js|favicon\\.ico|.*\\..*).*)",
+      "source": "/((?!assets/|media/|rest/|sw-demo\\.js|favicon\\.ico|.*\\..*).*)",
       "destination": "/index.html"
     }
   ],
@@ -40,19 +40,6 @@
         {
           "key": "Service-Worker-Allowed",
           "value": "/"
-        }
-      ]
-    },
-    {
-      "source": "/apk/(.*\\.apk)",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "application/vnd.android.package-archive"
-        },
-        {
-          "key": "Content-Disposition",
-          "value": "attachment"
         }
       ]
     },

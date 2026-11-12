@@ -1,30 +1,33 @@
-# 🎵 Feishin — Audiophile Music Suite (Portfolio Demo)
+# 🎵 Feishin — macOS Native Client (Web Edition)
 
 [![Deploy](https://img.shields.io/badge/Deploy-Vercel-black?style=for-the-badge&logo=vercel)](https://feishin-demo.vercel.app)
 
-> **Demo Online Live**: https://feishin-demo.vercel.app  
-> **Demonstração Interativa & Profissional** de Engenharia de Software Frontend/Mobile desenvolvida e adaptada por **Mateus Celestino Pro**.
+> **Live Web Application**: https://feishin-demo.vercel.app  
+> **Conversão de Alta Precisão**: Cliente Desktop Nativo Feishin para macOS (Electron) convertido para Aplicação Web Standalone de Alta Fidelidade por **Mateus Celestino**.
 
 ---
 
-## ⚡ Visão Geral do Projeto
+## ⚡ Visão Geral da Arquitetura
 
-Esta demonstração apresenta a suíte audiófila **Feishin** em uma arquitetura **100% Client-Side (Zero-Backend)**, permitindo que recrutadores, clientes e líderes técnicos experimentem todas as capacidades do software diretamente no navegador ou em dispositivos móveis, sem necessidade de servidores Navidrome/Subsonic externos.
+Esta aplicação é a transposição integral e fiel do **Feishin for macOS** — o reprodutor e gerenciador musical audiófilo baseado em Electron — diretamente para a Web moderna, mantendo **100% da identidade visual, layout desktop, paleta de cores, tipografia, shaders WebGL acelerados e ergonomia do aplicativo nativo de computador**.
 
-### 🌟 Destaques da Demo:
-1. **Engine Subsonic In-Memory**: Interceptação em camada de rede (`Fetch`, `XMLHttpRequest` e `Service Worker`) simulando a API Subsonic REST com resposta instantânea e latência zero.
-2. **Catálogo Integrado de 15 Músicas**: Faixas de alta fidelidade com metadados completos (título, artista, álbum, ano, gênero, duração, capas em alta resolução).
-3. **Instância Dupla Responsiva**:
-   - 💻 **Modo Desktop Cloud**: Interface completa com barra lateral de navegação, tabela de faixas com ordenação avançada, visualizador de áudio e dock de controle.
-   - 📱 **Modo Mobile Nativo**: Interface otimizada para smartphones com barra inferior, mini-player expansível e suporte a gestos de toque.
-   - ⚙️ **Seletor Rápido**: Alternância fluida entre modos via barra flutuante de vidro.
-4. **Animação Cinematográfica de Abertura (Splash Reveal)**: Tela de abertura minimalista com anel de pulso, status em tempo real e transição com blur e escala.
-5. **Popup de Vidro (Glassmorphism Modal)**: Diálogo translúcido com `backdrop-filter: blur(28px)` convidando o visitante a baixar o APK nativo compilado para Android (`feishin-mobile-pro.apk`, 13 MB).
-6. **Privacidade e Proteção de Dados**: Sanitização completa de tokens, credenciais e endereços de servidores privados.
+### 🌟 Destaques da Engenharia Desktop macOS:
+1. **Emulação do Runtime Desktop Electron (Darwin/macOS)**:
+   - Polifill completo do barramento IPC (`window.api`), listeners de ciclo de vida e controle de janelas.
+   - Detecção de ambiente macOS (`platform: 'darwin'`), garantindo a renderização do layout autêntico de desktop com barra lateral expansível, atalhos de teclado e dock de controle.
+2. **Motor Subsonic In-Memory & Zero-Backend**:
+   - Camada virtual de rede (`Fetch`, `XMLHttpRequest` e `Service Worker`) interceptando chamadas Subsonic REST (`/rest/*`) e endpoints de catálogo (`/api/song`), entregando respostas com latência zero e suporte a streaming com `Range` headers.
+3. **Catálogo Masterizado em Alta Fidelidade (15 Faixas)**:
+   - Áudios originais com metadados integrados (capas HD, artistas, álbuns, anos, gêneros, durações e scrobbling in-memory).
+4. **Shaders WebGL & Sistema de Design Personal OS**:
+   - Shaders dinâmicos acelerados por GPU (`plasmawave`, `quantumwaves`, etc.) com ambient glow e blur glassmorphism idênticos ao macOS.
+   - Scrubber de navegação rápida A-Z, modal de editor de tags e motor de cronologia de adições recentes.
+5. **Autonomia e Segurança Total**:
+   - Zero dependência de servidores externos ou credenciais privadas; totalmente isolado e autônomo para entrega estática global em CDNs (Vercel, Cloudflare, Netlify).
 
 ---
 
-## 🎧 Faixas em Destaque no Catálogo
+## 🎧 Faixas no Catálogo Masterizado
 
 1. **Planeta Sonho** — *14 Bis*
 2. **03' Adolescence** — *J. Cole*
@@ -44,31 +47,9 @@ Esta demonstração apresenta a suíte audiófila **Feishin** em uma arquitetura
 
 ---
 
-## 📱 Versões Nativas Android (APK)
-
-O portfólio inclui dois pacotes nativos Android compilados e prontos para teste:
-
-1. **Feishin Mobile Pro APK** ([`feishin-mobile-pro.apk`](./apk/feishin-mobile-pro.apk) - 13 MB):
-   - Player audiófilo completo com aceleração de áudio em segundo plano e WebGL shaders 60FPS.
-2. **Feishin Media Sync Pro APK** ([`feishin-media-sync-pro-release.apk`](./apk/feishin-media-sync-pro-release.apk) - 5.4 MB):
-   - **Nota de Escopo**: Software concebido exclusivamente como aplicativo Android nativo (APK) para sincronização tri-direcional (Celular ➔ Navidrome ➔ Google Drive), retenção de 1 GB de RAM dedicada via subsistema Linux (`memfd_create`) e painel flutuante Samsung Edge Panel.
-   - **Simulador Live**: https://feishin-media-sync-pro-demo.vercel.app
-   - **Repositório dedicado**: [MateusCelestinoProX/feishin-media-sync-pro-demo](https://github.com/MateusCelestinoProX/feishin-media-sync-pro-demo)
-
----
-
-## 📱 Versão Nativa Android (APK)
-
-O repositório inclui a versão mobile nativa já compilada:
-- **Caminho**: `./apk/feishin-mobile-pro.apk`
-- **Tamanho**: ~13 MB
-- **Recursos**: Áudio em segundo plano com integração `MediaSessionCompat`, notificações nativas com controles de reprodução e shaders WebGL a 60FPS.
-
----
-
 ## 🚀 Execução Local
 
-Para visualizar localmente com qualquer servidor HTTP estático:
+Para executar e testar localmente em qualquer porta HTTP:
 
 ```bash
 # Com Python 3:
@@ -78,9 +59,9 @@ python3 -m http.server 3000
 npx serve -l 3000
 ```
 
-Abra no navegador em `http://localhost:3000`.
+Acesse no navegador: `http://localhost:3000`
 
 ---
 
-**Autor & Engenharia:** Mateus Celestino Pro  
+**Autor & Engenharia:** Mateus Celestino  
 **Identidade Oficial:** `Mateus Celestino <202405039459@alunos.estacio.br>`

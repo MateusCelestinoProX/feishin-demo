@@ -2,110 +2,321 @@
 <html>
     <head>
         <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <title>Feishin — macOS Native Client</title>
         <meta name="theme-color" content="#06040D" />
-        <link rel="preconnect" href="." crossorigin>
-        <link rel="dns-prefetch" href=".">
-        <link rel="modulepreload" href="./assets/index-C3w9ueFE.js">
-        <link rel="preload" as="style" href="./assets/index-Cp7aWvHd.css">
-        <link rel="modulepreload" href="./assets/FilePlayer-D2LzmsYE.js">
-        <link rel="modulepreload" href="./assets/webgl-backgrounds.js">
-        
-        <link rel="stylesheet" href="./assets/feishin-demo-ui.css">
-        <script src="./assets/demo_db.js"></script>
-        <script src="./assets/feishin-demo-engine.js"></script>
-        <script src="./assets/feishin-demo-ui.js" defer></script>
-        <script src="./assets/feishin-boot.js"></script>
-        <style>
-          html,body{background:#06040D;margin:0;padding:0;overflow:hidden;width:100vw;height:100dvh}
-          #bg-webgl-container{position:fixed;inset:0;width:100vw;height:100dvh;z-index:-2;background:radial-gradient(120% 70% at 15% 0%,rgba(124,58,237,.55) 0%,transparent 60%),radial-gradient(100% 60% at 95% 100%,rgba(6,182,212,.40) 0%,transparent 60%),#06040D}
-        </style>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
-        <title>Feishin — Audiophile Music Suite (Portfolio Demo)</title>
         
         <script>
-            // 1. Polyfill Navigator MediaSession no Android WebView
-            if (!('mediaSession' in navigator) || !navigator.mediaSession) {
-                var mediaHandlers = {};
-                navigator.mediaSession = {
-                    metadata: null,
-                    playbackState: 'none',
-                    setActionHandler: function(action, handler) {
-                        mediaHandlers[action] = handler;
-                    },
-                    setPositionState: function(state) {}
+            // 1. Emulação de runtime desktop Electron / Darwin para ativação dos componentes nativos
+            window.process = {
+                type: 'renderer',
+                versions: { electron: '31.0.0', node: '20.14.0', chrome: '126.0.0.0' },
+                platform: 'darwin',
+                env: { NODE_ENV: 'production' }
+            };
+
+            // 2. Barramento de eventos e listeners reativo para IPC e serviços
+            var _listeners = new Map();
+            var _singleOn = function(channel, cb) {
+                if (!_listeners.has(channel)) _listeners.set(channel, new Set());
+                _listeners.get(channel).add(cb);
+                return function() {
+                    if (_listeners.has(channel)) _listeners.get(channel).delete(cb);
                 };
-                window.MediaMetadata = window.MediaMetadata || function(data) {
-                    Object.assign(this, data);
-                };
+            };
+
+            function createSafeProxy(baseObj) {
+                return new Proxy(baseObj || {}, {
+                    get: function(target, prop) {
+                        if (prop in target) return target[prop];
+                        return function() { return function() {}; };
+                    }
+                });
             }
 
-            // 2. Polyfill universal para compatibilidade Web/macOS com o core do Feishin Electron
+            // 3. Polyfill universal e completo da API nativa do Feishin (window.api)
             window.api = {
-                lyrics: {
+                autodiscover: {
+                    discover: function(onReply) { return Promise.resolve(); }
+                },
+                browser: createSafeProxy({
+                    clearCache: async function() {},
+                    devtools: function() {},
+                    exit: function() {
+                        if (document.fullscreenElement) document.exitFullscreen().catch(function(){});
+                    },
+                    maximize: function() {
+                        if (!document.fullscreenElement) {
+                            document.documentElement.requestFullscreen().catch(function(){});
+                        }
+                    },
+                    minimize: function() {},
+                    quit: function() {},
+                    unmaximize: function() {
+                        if (document.fullscreenElement) document.exitFullscreen().catch(function(){});
+                    },
+                    setFullScreen: function(flag) {
+                        if (flag && !document.fullscreenElement) document.documentElement.requestFullscreen().catch(function(){});
+                        else if (!flag && document.fullscreenElement) document.exitFullscreen().catch(function(){});
+                    },
+                    toggleFullScreen: function() {
+                        if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(function(){});
+                        else document.exitFullscreen().catch(function(){});
+                    },
+                    isFullScreen: async function() {
+                        return !!document.fullscreenElement;
+                    }
+                }),
+                customThemes: createSafeProxy({
+                    get: async function() { return []; },
+                    onUpdate: function(cb) { return _singleOn("custom-themes-updated", cb); },
+                    openFolder: async function() {},
+                    reload: async function() { return []; }
+                }),
+                discordRpc: createSafeProxy({
+                    clearActivity: function() {},
+                    initialize: function() { return false; },
+                    isConnected: function() { return false; },
+                    quit: function() {},
+                    setActivity: function() {}
+                }),
+                dlnaPlayer: createSafeProxy({
+                    discover: async function() { return []; },
+                    connect: async function() { return false; },
+                    disconnect: async function() {},
+                    disconnectPassive: async function() {},
+                    playUrl: function() {},
+                    setNextUrl: function() {},
+                    clearNextUrl: function() {},
+                    play: function() {},
+                    pause: function() {},
+                    stop: function() {},
+                    seek: function() {},
+                    volume: function() {},
+                    mute: function() {},
+                    getPosition: async function() { return 0; },
+                    setRadioMode: function() {}
+                }),
+                dlnaPlayerListener: createSafeProxy({
+                    rendererCurrentTime: function(cb) { return _singleOn("renderer-dlna-current-time", cb); },
+                    rendererDlnaConnectPlayback: function(cb) { return _singleOn("renderer-dlna-connect-playback", cb); },
+                    rendererDlnaDiscoveryUpdate: function(cb) { return _singleOn("renderer-dlna-discovery-update", cb); },
+                    rendererDlnaGroupMemberVolume: function(cb) { return _singleOn("renderer-dlna-group-member-volume", cb); },
+                    rendererDlnaGroupState: function(cb) { return _singleOn("renderer-dlna-group-state", cb); },
+                    rendererDlnaPrevTrack: function(cb) { return _singleOn("renderer-dlna-prev-track", cb); },
+                    rendererDlnaToast: function(cb) { return _singleOn("renderer-dlna-toast", cb); },
+                    rendererDlnaTransportState: function(cb) { return _singleOn("renderer-dlna-transport-state", cb); },
+                    rendererDlnaVolume: function(cb) { return _singleOn("renderer-dlna-volume", cb); },
+                    rendererTrackEnded: function(cb) { return _singleOn("renderer-dlna-track-ended", cb); }
+                }),
+                getPathForFile: function(file) { return file ? (file.name || '') : ''; },
+                ipc: {
+                    send: function(channel, ...args) {},
+                    on: function(channel, listener) {
+                        if (!_listeners.has(channel)) _listeners.set(channel, new Set());
+                        _listeners.get(channel).add(listener);
+                        return this;
+                    },
+                    once: function(channel, listener) {
+                        var self = this;
+                        var wrap = function() {
+                            self.removeListener(channel, wrap);
+                            listener.apply(this, arguments);
+                        };
+                        return this.on(channel, wrap);
+                    },
+                    removeListener: function(channel, listener) {
+                        if (_listeners.has(channel)) _listeners.get(channel).delete(listener);
+                        return this;
+                    },
+                    removeAllListeners: function(channel) {
+                        if (channel) _listeners.delete(channel);
+                        else _listeners.clear();
+                        return this;
+                    },
+                    listeners: function(channel) {
+                        return _listeners.has(channel) ? Array.from(_listeners.get(channel)) : [];
+                    },
+                    invoke: async function(channel, ...args) { return null; },
+                    postMessage: function() {}
+                },
+                localSettings: createSafeProxy({
+                    get: async function(key) {
+                        try {
+                            var val = localStorage.getItem('feishin_local_setting_' + key);
+                            return val !== null ? JSON.parse(val) : null;
+                        } catch(e) { return null; }
+                    },
+                    set: function(key, val) {
+                        try {
+                            localStorage.setItem('feishin_local_setting_' + key, JSON.stringify(val));
+                        } catch(e) {}
+                    },
+                    setSync: async function(key, val) {
+                        try {
+                            localStorage.setItem('feishin_local_setting_' + key, JSON.stringify(val));
+                        } catch(e) {}
+                    },
+                    passwordGet: async function(k) { return localStorage.getItem('feishin_pwd_' + k) || ''; },
+                    passwordSet: async function(k, v) { localStorage.setItem('feishin_pwd_' + k, v); },
+                    passwordRemove: async function(k) { localStorage.removeItem('feishin_pwd_' + k); },
+                    disableMediaKeys: function() {},
+                    enableMediaKeys: function() {},
+                    fontError: function(cb) { return _singleOn("custom-font-error", cb); },
+                    openFileSelector: async function() { return { canceled: true, filePaths: [] }; },
+                    restart: function() { window.location.reload(); },
+                    setZoomFactor: function(z) { document.body.style.zoom = (z / 100); },
+                    themeSet: function(t) {},
+                    env: {
+                        LEGACY_AUTHENTICATION: false,
+                        REMOTE_URL: "",
+                        SERVER_LOCK: false,
+                        SERVER_NAME: "Feishin Cloud Demo",
+                        SERVER_TYPE: "subsonic",
+                        SERVER_URL: ".",
+                        START_MAXIMIZED: true
+                    }
+                }),
+                lyrics: createSafeProxy({
                     convertFurigana: function(t) { return t; },
                     convertFuriganaFragment: function(t) { return t; },
                     convertRomaji: function(t) { return t; },
                     convertRomajiTokens: function(t) { return t; },
                     parseLyricsTextTokens: function(t) { return t; }
-                },
-                utils: {
+                }),
+                mpris: null,
+                mpvPlayer: null,
+                mpvPlayerListener: createSafeProxy({
+                    rendererCurrentTime: function(cb) { return _singleOn("renderer-mpv-current-time", cb); },
+                    rendererMpvReconnect: function(cb) { return _singleOn("renderer-mpv-reconnect", cb); },
+                    rendererPlayerFallback: function(cb) { return _singleOn("renderer-mpv-fallback", cb); },
+                    rendererTrackEnded: function(cb) { return _singleOn("renderer-mpv-track-ended", cb); },
+                    rendererAutoNext: function(cb) { return _singleOn("renderer-mpv-auto-next", cb); },
+                    rendererError: function(cb) { return _singleOn("renderer-mpv-error", cb); },
+                    rendererNext: function(cb) { return _singleOn("renderer-mpv-next", cb); },
+                    rendererNextAlbum: function(cb) { return _singleOn("renderer-mpv-next-album", cb); },
+                    rendererPause: function(cb) { return _singleOn("renderer-mpv-pause", cb); },
+                    rendererPlay: function(cb) { return _singleOn("renderer-mpv-play", cb); },
+                    rendererPlayPause: function(cb) { return _singleOn("renderer-mpv-play-pause", cb); },
+                    rendererPrevious: function(cb) { return _singleOn("renderer-mpv-previous", cb); },
+                    rendererPreviousAlbum: function(cb) { return _singleOn("renderer-mpv-previous-album", cb); },
+                    rendererQuit: function(cb) { return _singleOn("renderer-mpv-quit", cb); },
+                    rendererSkipBackward: function(cb) { return _singleOn("renderer-mpv-skip-backward", cb); },
+                    rendererSkipForward: function(cb) { return _singleOn("renderer-mpv-skip-forward", cb); },
+                    rendererStop: function(cb) { return _singleOn("renderer-mpv-stop", cb); },
+                    rendererToggleRepeat: function(cb) { return _singleOn("renderer-mpv-toggle-repeat", cb); },
+                    rendererToggleShuffle: function(cb) { return _singleOn("renderer-mpv-toggle-shuffle", cb); },
+                    rendererVolumeDown: function(cb) { return _singleOn("renderer-mpv-volume-down", cb); },
+                    rendererVolumeMute: function(cb) { return _singleOn("renderer-mpv-volume-mute", cb); },
+                    rendererVolumeUp: function(cb) { return _singleOn("renderer-mpv-volume-up", cb); }
+                }),
+                remote: null,
+                utils: createSafeProxy({
                     isLinux: function() { return false; },
                     isMacOS: function() { return true; },
                     isWindows: function() { return false; },
                     getPlatform: function() { return 'darwin'; },
-                    openExternal: function(url) { window.open(url, '_blank'); }
-                },
-                ipc: {
-                    send: function() {},
-                    on: function() {},
-                    invoke: async function() { return null; }
-                },
-                localSettings: null,
-                mpvPlayer: null,
-                discordRpc: null,
-                dlnaPlayer: null,
-                remote: null,
-                customThemes: null,
-                browser: null
+                    openExternal: function(url) { window.open(url, '_blank'); },
+                    cancelReadSongMetadata: function() {},
+                    checkForUpdates: function() {},
+                    customCssUpdatedListener: function(cb) { return _singleOn("custom-css-updated", cb); },
+                    disableAutoUpdates: function() {},
+                    download: function() {},
+                    exportDiagnostics: function() {},
+                    forceGarbageCollection: function() { return false; },
+                    getCustomCss: function() { return ''; },
+                    mainMessageListener: function(cb) { return _singleOn("toast-from-main", cb); },
+                    offBatchProgress: function(cb) { if (_listeners.has("batch-progress")) _listeners.get("batch-progress").delete(cb); },
+                    onBatchProgress: function(cb) { return _singleOn("batch-progress", cb); },
+                    openApplicationDirectory: function() {},
+                    openCustomCssFolder: function() {},
+                    openItem: function() {},
+                    openLogsFolder: function() {},
+                    playerErrorListener: function(cb) { return _singleOn("player-error-listener", cb); },
+                    readLocalImage: function() {},
+                    readSongMetadataBatch: function() {},
+                    rendererOpenCommandPalette: function(cb) { return _singleOn("renderer-open-command-palette", cb); },
+                    rendererOpenCreatePlaylist: function(cb) { return _singleOn("renderer-open-create-playlist", cb); },
+                    rendererOpenManageServers: function(cb) { return _singleOn("renderer-open-manage-servers", cb); },
+                    rendererOpenReleaseNotes: function(cb) { return _singleOn("renderer-open-release-notes", cb); },
+                    rendererOpenSettings: function(cb) { return _singleOn("renderer-open-settings", cb); },
+                    rendererTogglePrivateMode: function(cb) { return _singleOn("renderer-toggle-private-mode", cb); },
+                    rendererToggleSidebar: function(cb) { return _singleOn("renderer-toggle-sidebar", cb); },
+                    rendererUpdateAvailable: function(cb) { return _singleOn("update-available", cb); },
+                    saveCustomCss: function() {},
+                    separator: '/',
+                    setInputFocused: function() {},
+                    startPowerSaveBlocker: function() {},
+                    stopPowerSaveBlocker: function() {},
+                    writeSongTagsBatch: function() {}
+                }),
+                visualizer: createSafeProxy({
+                    setLocalSurfaceVisible: function() {}
+                })
             };
 
+            // 4. Fallback de Proxy resiliente no nível raiz do window.api
+            window.api = createSafeProxy(window.api);
+
+            // 5. Polyfill Navigator MediaSession
+            if (!('mediaSession' in navigator) || !navigator.mediaSession) {
+                var mediaHandlers = {};
+                navigator.mediaSession = {
+                    metadata: null,
+                    playbackState: 'none',
+                    setActionHandler: function(action, handler) { mediaHandlers[action] = handler; },
+                    setPositionState: function(state) {}
+                };
+                window.MediaMetadata = window.MediaMetadata || function(data) { Object.assign(this, data); };
+            }
+
+            // 6. Inicialização de rota e bloqueio de telemetria externa
             (function () {
-                if (!window.location.hash || window.location.hash === '#' || window.location.hash === '#/' || window.location.hash === '#/home' || window.location.hash.startsWith('#/home')) {
+                if (!window.location.hash || window.location.hash === '#' || window.location.hash === '#/' || window.location.hash === '#/home' || window.location.hash.includes('/library/albums')) {
                     window.location.hash = '#/library/songs';
                 }
+                localStorage.setItem('umami.disabled', '1');
             })();
         </script>
-      <script type="module">
-        import './assets/webgl-backgrounds.js';
-        (function () {
-          var orig = window.renderWebGLBackground;
-          if (!orig) return;
-          var eco = localStorage.getItem('feishin_shader_eco') === 'true';
-          var boot = localStorage.getItem('feishin_active_shader') || 'plasmawave';
-          var skipNext = !eco;
-          function wrapped(type) {
-            type = type || localStorage.getItem('feishin_active_shader') || 'plasmawave';
-            var c = document.getElementById('bg-webgl-container');
-            if (skipNext) { skipNext = false; if (type === boot && c && c.querySelector('canvas')) return; }
-            return orig.call(window, type);
-          }
-          window.renderWebGLBackground = wrapped;
-          window.setWebGLBackground = wrapped;
-          if (!eco) {
-            if (window.requestIdleCallback) {
-              window.requestIdleCallback(function() { orig.call(window, boot); }, { timeout: 350 });
-            } else {
-              setTimeout(function() { orig.call(window, boot); }, 80);
-            }
-          }
-        })();
-      </script>
-      <script type="module" crossorigin src="./assets/index-C3w9ueFE.js"></script>
-      <link rel="stylesheet" crossorigin href="./assets/index-Cp7aWvHd.css">
+        
+        <!-- Motores de Banco e Simulação Subsonic para Standalone Web -->
+        <script src="./assets/demo_db.js"></script>
+        <script src="./assets/feishin-demo-engine.js"></script>
+        <script src="./assets/feishin-boot.js"></script>
+        <script src="./assets/feishin-demo-ui.js" defer></script>
+
+        <!-- Módulos Originais e Exclusivos do Cliente Desktop macOS Feishin -->
+        <script src="./assets/pt-br-full.js"></script>
+        <script src="./assets/samsung-music-chronology.js"></script>
+        <script src="./assets/feishin-tags-engine.js" defer></script>
+        <script src="./assets/feishin-alphabet-scrubber.js" defer></script>
+        <script src="./assets/feishin-delete-engine.js" defer></script>
+        <script src="./assets/feishin-track-editor.js" defer></script>
+        <script src="./assets/feishin-recently-added.js" defer></script>
+        <script src="./assets/music-analytics.js" defer></script>
+        <script type="module" crossorigin src="./assets/feishin-personal-os.js"></script>
+
+        <!-- Aplicação Core Feishin -->
+        <script type="module" crossorigin src="./assets/index-C3w9ueFE.js"></script>
+
+        <!-- Folhas de Estilo Oficiais do Cliente macOS -->
+        <link rel="stylesheet" crossorigin href="./assets/index-Cp7aWvHd.css">
+        <link rel="stylesheet" crossorigin href="./assets/feishin-personal-os.css">
+        <link rel="stylesheet" crossorigin href="./assets/feishin-track-editor.css">
+        <link rel="stylesheet" crossorigin href="./assets/music-analytics.css">
+        <link rel="stylesheet" crossorigin href="./assets/feishin-recently-added.css">
+        <link rel="stylesheet" href="./assets/feishin-demo-ui.css">
     </head>
 
     <body style="background-color: transparent">
-        <div id="bg-webgl-container"></div>
+        <div id="bg-slideshow" class="bg-slideshow">
+            <div id="bg-layer-active" class="bg-layer active"></div>
+            <div id="bg-layer-next" class="bg-layer"></div>
+            <video id="bg-video-1" class="bg-video-layer" muted playsinline webkit-playsinline disablePictureInPicture disableremoteplayback x5-playsinline controlslist="nodownload noplaybackrate nofullscreen" style="pointer-events: none !important;"></video>
+            <video id="bg-video-2" class="bg-video-layer" muted playsinline webkit-playsinline disablePictureInPicture disableremoteplayback x5-playsinline controlslist="nodownload noplaybackrate nofullscreen" style="pointer-events: none !important;"></video>
+            <div id="bg-webgl-container"></div>
+            <div class="bg-overlay"></div>
+        </div>
         <div id="bg-webgl-dim"></div>
         <div id="bg-webgl-vignette"></div>
         <div id="root">
