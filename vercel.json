@@ -8,6 +8,14 @@
   "trailingSlash": false,
   "rewrites": [
     {
+      "source": "/rest/stream\\.view(.*)",
+      "destination": "/media/songs/01_14_Bis_Planeta_Sonho.mp3"
+    },
+    {
+      "source": "/rest/getCoverArt\\.view(.*)",
+      "destination": "/media/covers/cover_01.jpg"
+    },
+    {
       "source": "/((?!assets/|media/|rest/|sw-demo\\.js|favicon\\.ico|.*\\..*).*)",
       "destination": "/index.html"
     }

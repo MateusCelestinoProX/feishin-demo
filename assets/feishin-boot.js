@@ -21,51 +21,48 @@
         }
 
         const authStr = localStorage.getItem('store_authentication');
-        let authNeedsInit = false;
+        let authObj = null;
         try {
-            const check = JSON.parse(authStr);
-            if (!check?.state?.currentServer || !check?.state?.currentServer?.credential) {
-                authNeedsInit = true;
-            }
-        } catch (e) {
-            authNeedsInit = true;
-        }
-        if (authNeedsInit) {
-            const defaultAuth = {
+            authObj = authStr ? JSON.parse(authStr) : null;
+        } catch (e) {}
+
+        const demoServerPayload = {
+            credential: "u=PortfolioGuest&p=demo123&v=1.16.1&c=feishin-demo&f=json",
+            id: "feishin_demo_cloud_v1",
+            isAdmin: true,
+            name: "Feishin Cloud Demo",
+            type: "subsonic",
+            url: ".",
+            userId: "demo_user_001",
+            username: "PortfolioGuest",
+            preferRemoteUrl: false,
+            version: "1.16.1 (Demo Engine)"
+        };
+        const legacyServerPayload = Object.assign({}, demoServerPayload, { id: "FsiBb_mTdwLVTb1o_94bm" });
+
+        if (!authObj || !authObj.state) {
+            authObj = {
                 state: {
                     actions: {},
-                    currentServer: {
-                        credential: "u=PortfolioGuest&p=demo123&v=1.16.1&c=feishin-demo&f=json",
-                        id: "FsiBb_mTdwLVTb1o_94bm",
-                        isAdmin: true,
-                        name: "Feishin Cloud Demo",
-                        type: "subsonic",
-                        url: ".",
-                        userId: "3xPL1BPoVa1ulwc1UkzYU6",
-                        username: "PortfolioGuest",
-                        preferRemoteUrl: false,
-                        version: "0.64.2 (10114574)"
-                    },
+                    currentServer: demoServerPayload,
                     deviceId: "7LuHDSkII4F8eaRFsTo4e",
                     serverList: {
-                        "FsiBb_mTdwLVTb1o_94bm": {
-                            credential: "u=PortfolioGuest&p=demo123&v=1.16.1&c=feishin-demo&f=json",
-                            id: "FsiBb_mTdwLVTb1o_94bm",
-                            isAdmin: true,
-                            name: "Feishin Cloud Demo",
-                            type: "subsonic",
-                            url: ".",
-                            userId: "3xPL1BPoVa1ulwc1UkzYU6",
-                            username: "PortfolioGuest",
-                            preferRemoteUrl: false,
-                            version: "0.64.2 (10114574)"
-                        }
+                        "feishin_demo_cloud_v1": demoServerPayload,
+                        "FsiBb_mTdwLVTb1o_94bm": legacyServerPayload
                     }
                 },
                 version: 2
             };
-            localStorage.setItem('store_authentication', JSON.stringify(defaultAuth));
+        } else {
+            if (!authObj.state.serverList) authObj.state.serverList = {};
+            authObj.state.serverList["feishin_demo_cloud_v1"] = demoServerPayload;
+            authObj.state.serverList["FsiBb_mTdwLVTb1o_94bm"] = legacyServerPayload;
+            if (!authObj.state.currentServer || !authObj.state.currentServer.id || !authObj.state.serverList[authObj.state.currentServer.id]) {
+                authObj.state.currentServer = demoServerPayload;
+            }
         }
+        localStorage.setItem('store_authentication', JSON.stringify(authObj));
+        window.__FEISHIN_DEMO_SERVER__ = demoServerPayload;
     } catch (e) {}
 
     // ---- 2. Interceptador de Rede Resiliente: Telemetria & Autenticação Offline ----

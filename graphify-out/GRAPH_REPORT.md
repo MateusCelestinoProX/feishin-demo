@@ -1,16 +1,16 @@
-# Graph Report - feishin-demo  (2026-11-12)
+# Graph Report - feishin-demo  (2026-11-19)
 
 ## Corpus Check
-- 150 files · ~661,072 words
+- 150 files · ~661,316 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 9118 nodes · 35437 edges · 252 communities (169 shown, 73 thin omitted)
+- 9119 nodes · 35437 edges · 253 communities (169 shown, 73 thin omitted)
 - Extraction: 85% EXTRACTED · 15% INFERRED · 0% AMBIGUOUS · INFERRED: 5374 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `4d814a69`
+- Built from commit: `88c1b51a`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -285,7 +285,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (252 total, 73 thin omitted)
+## Communities (253 total, 73 thin omitted)
 
 ### Community 0 - "$_"
 Cohesion: 0.00
@@ -965,18 +965,18 @@ Nodes (218): _0(), a(), aft, aPe(), at, b3, Bc(), bfe() (+210 more)
 
 ## Knowledge Gaps
 - **574 isolated node(s):** `I`, `F`, `B`, `q`, `ee` (+569 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 1992 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 1993 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **73 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `$_` connect `$_` to `c`, `G`, `.toUpperCase`, `m`, `r`, `nze`, `mCe`, `item-detail-list-CjYNqcsP.js`, `i0t`, `playlist-detail-song-list-route-CZnAfhnF.js`, `_T`, `album-artist-detail-route-DmkhEjpB.js`, `kze`, `list-config-settings-modal-DuH0evOB.js`, `setOptions`, `song-edit-context-modal-DGh4JdI9.js`, `visualizer-DY_3zGB_.js`, `o`, `.toString`, `e`, `share-item-context-modal-9-HbWLCc.js`, `Yt`, `visualizer-settings-modal-BNTa4ZQ0.js`, `Pd`, `oVe`, `la`, `find`, `oL`, `bn`, `yN`, `Dh`, `lyrics-settings-modal-BLzimO8L.js`, `.toLowerCase`, `constructor`, `yit`, `taglib-wrapper-D2LEXDmW.js`, `uBe`, `.clear`, `t1t`, `._parse`, `K1`, `search`, `Fs`, `playerbar-waveform-RI7r7IxC.js`, `sidebar-BLJHaOap.js`, `eWe`, `kot`, `Si`, `S0`, `setQueryData`, `nct`, `Gc`, `.then`, `wo`, `fa`, `.remove`, `o1e`, `hit`, `iW`, `.update`, `vo`, `sJ`, `xL`, `.endsWith`, `pL`, `index-DtVGTb_R.js`, `extra-BHam7ubk.js`, `iWe`, `Vimeo-fTD5QOs8.js`, `Su`, `dkt`, `login-route-BIIk57lE.js`, `DailyMotion-DZ8dPZdJ.js`, `.trim`, `yo`, `mW`, `hJ`, `trt`, `bze`, `ja`, `Xt`, `g8`, `.init`, `dge`, `cje`, `Oo`, `wPe`, `nje`, `fje`, `a1t`, `pge`, `_ye`, `$`, `Gy`, `uAe`, `Hft`, `radio-list-route-xijgO2Hl.js`, `p2t`, `ije`, `Zft`, `xbt`, `my`, `q6t`, `Mixcloud-C1g7A36t.js`, `nfe`, `dct`, `KF`, `df`, `Vr`, `SoundCloud-2x6IUpl_.js`, `Preview-CHKHEDLD.js`, `YouTube-BlD2Wbfx.js`, `eea`, `y$e`, `g3e`, `kW`, `kQ`, `skt`, `nKe`, `pC`, `lje`, `rRe`, `fr`, `G1t`, `g9e`, `iye`, `$je`, `g0t`, `lye`, `lze`, `nye`, `qje`, `yat`, `gT`, `N9e`, `tBe`, `Oa`, `v9e`, `r`, `e`, `oze`, `zje`, `rat`, `Aze`, `xPe`, `uqe`, `y9e`, `.lt`?**
-  _High betweenness centrality (0.573) - this node is a cross-community bridge._
+  _High betweenness centrality (0.565) - this node is a cross-community bridge._
 - **Why does `_` connect `_` to `U`, `V`, `mr`, `W`, `K`, `pt`, `le`, `tn`, `.z`, `ks`, `ar`, `.update`, `q`, `webgl-backgrounds.js`, `.copy`?**
-  _High betweenness centrality (0.096) - this node is a cross-community bridge._
+  _High betweenness centrality (0.111) - this node is a cross-community bridge._
 - **Why does `kn()` connect `share-item-context-modal-9-HbWLCc.js` to `c`, `.lt`, `mCe`, `Fs`, `playlist-detail-song-list-route-CZnAfhnF.js`, `_T`, `album-artist-detail-route-DmkhEjpB.js`, `Cs`, `_`, `Cn`, `radio-list-route-xijgO2Hl.js`?**
-  _High betweenness centrality (0.081) - this node is a cross-community bridge._
+  _High betweenness centrality (0.095) - this node is a cross-community bridge._
 - **Are the 151 inferred relationships involving `$_` (e.g. with `_0e()` and `_7e()`) actually correct?**
   _`$_` has 151 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 73 inferred relationships involving `c()` (e.g. with `aEe` and `f()`) actually correct?**

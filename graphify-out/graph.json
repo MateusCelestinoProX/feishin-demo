@@ -37230,7 +37230,7 @@
       "file_type": "code",
       "norm_label": "hookplayerstore()",
       "source_file": "assets/feishin-demo-engine.js",
-      "source_location": "L865"
+      "source_location": "L883"
     },
     {
       "id": "assets_feishin_demo_engine_mockengineeventsource_close",
@@ -37278,7 +37278,7 @@
       "file_type": "code",
       "norm_label": "normalizeitems()",
       "source_file": "assets/feishin-demo-engine.js",
-      "source_location": "L853"
+      "source_location": "L871"
     },
     {
       "id": "assets_feishin_demo_engine_parsequery",
@@ -44922,7 +44922,7 @@
       "file_type": "code",
       "norm_label": "resilientxhr()",
       "source_file": "assets/feishin-boot.js",
-      "source_location": "L147"
+      "source_location": "L144"
     },
     {
       "id": "assets_index_c3w9uefe_g1t",
@@ -45702,7 +45702,7 @@
       "file_type": "code",
       "norm_label": ".play()",
       "source_file": "assets/feishin-boot.js",
-      "source_location": "L324"
+      "source_location": "L321"
     },
     {
       "id": "assets_feishin_personal_os_htmlcanvaselement_getcontext",
@@ -47719,6 +47719,18 @@
       "norm_label": "n()",
       "source_file": "assets/index-C3w9ueFE.js",
       "source_location": "L70"
+    },
+    {
+      "id": "assets_feishin_demo_engine_element_setattribute",
+      "label": ".setAttribute()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 251,
+      "community_name": ".setAttribute",
+      "file_type": "code",
+      "norm_label": ".setattribute()",
+      "source_file": "assets/feishin-demo-engine.js",
+      "source_location": "L826"
     },
     {
       "id": "assets_index_c3w9uefe_c1",
@@ -105248,7 +105260,7 @@
       "file_type": "code",
       "norm_label": "headers",
       "source_file": "vercel.json",
-      "source_location": "L15"
+      "source_location": "L23"
     },
     {
       "id": "vercel_installcommand",
@@ -118899,7 +118911,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "assets/feishin-demo-engine.js",
-      "source_location": "L885",
+      "source_location": "L903",
       "weight": 1.0
     },
     {
@@ -371618,7 +371630,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "assets/feishin-boot.js",
-      "source_location": "L147",
+      "source_location": "L144",
       "weight": 1.0
     },
     {
@@ -371794,7 +371806,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "assets/feishin-demo-engine.js",
-      "source_location": "L853",
+      "source_location": "L871",
       "weight": 1.0
     },
     {
@@ -371805,7 +371817,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "assets/feishin-demo-engine.js",
-      "source_location": "L865",
+      "source_location": "L883",
       "weight": 1.0
     },
     {
@@ -431474,17 +431486,6 @@
     },
     {
       "source": "vercel",
-      "target": "vercel_headers",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "vercel.json",
-      "source_location": "L15",
-      "weight": 1.0
-    },
-    {
-      "source": "vercel",
       "target": "vercel_schema",
       "relation": "contains",
       "_origin": "ast",
@@ -431492,6 +431493,17 @@
       "confidence_score": 1.0,
       "source_file": "vercel.json",
       "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "vercel",
+      "target": "vercel_headers",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "vercel.json",
+      "source_location": "L23",
       "weight": 1.0
     },
     {
@@ -525739,5 +525751,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "4d814a69785d7eddc025205330b2abf59806f75f"
+  "built_at_commit": "88c1b51a2cbe433fb1e64aa3787d2180ec6bfbc7"
 }

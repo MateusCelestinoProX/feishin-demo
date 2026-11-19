@@ -58,7 +58,7 @@ self.addEventListener('fetch', (event) => {
     if (url.includes('/rest/stream.view')) {
         const m = url.match(/id=([^&]+)/);
         const trackNum = resolveTrackIndex(m ? m[1] : '');
-        const targetFile = './media/songs/' + SONG_FILES[trackNum - 1];
+        const targetFile = '/media/songs/' + SONG_FILES[trackNum - 1];
         const rangeHeader = event.request.headers.get('Range');
         const reqInit = rangeHeader ? { headers: { Range: rangeHeader } } : undefined;
         event.respondWith(fetch(targetFile, reqInit));
@@ -69,7 +69,7 @@ self.addEventListener('fetch', (event) => {
     if (url.includes('/rest/getCoverArt.view')) {
         const m = url.match(/id=([^&]+)/);
         const coverNum = resolveTrackIndex(m ? m[1] : '');
-        const targetCover = `./media/covers/cover_${coverNum < 10 ? '0' + coverNum : coverNum}.jpg`;
+        const targetCover = `/media/covers/cover_${coverNum < 10 ? '0' + coverNum : coverNum}.jpg`;
         event.respondWith(fetch(targetCover));
         return;
     }

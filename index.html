@@ -143,6 +143,34 @@
                 localSettings: createSafeProxy({
                     get: async function(key) {
                         try {
+                            var rawSettings = localStorage.getItem('store_settings');
+                            var s = rawSettings ? JSON.parse(rawSettings) : null;
+                            if (s && s.state) {
+                                var o = {
+                                    font: s.state.font || {},
+                                    general: s.state.general || {},
+                                    hotkeys: s.state.hotkeys || {},
+                                    lyrics: s.state.lyrics || {},
+                                    playback: s.state.playback || {},
+                                    window: s.state.window || {}
+                                };
+                                var map = {
+                                    "lyrics": o.lyrics.sources,
+                                    "window_window_bar_style": o.window.windowBarStyle,
+                                    "window_start_minimized": o.window.startMinimized,
+                                    "window_exit_to_tray": o.window.exitToTray,
+                                    "window_minimize_to_tray": o.window.minimizeToTray,
+                                    "disable_auto_updates": o.window.disableAutoUpdate,
+                                    "window_enable_tray": o.window.tray,
+                                    "password_store": o.general.passwordStore,
+                                    "mediaSession": o.playback.mediaSession,
+                                    "playbackType": o.playback.type,
+                                    "global_media_hotkeys": o.hotkeys.globalMediaHotkeys,
+                                    "enableNeteaseTranslation": o.lyrics.enableNeteaseTranslation,
+                                    "local_font_path": o.font.custom
+                                };
+                                if (key in map && map[key] !== undefined) return map[key];
+                            }
                             var val = localStorage.getItem('feishin_local_setting_' + key);
                             return val !== null ? JSON.parse(val) : null;
                         } catch(e) { return null; }

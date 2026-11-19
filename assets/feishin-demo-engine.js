@@ -822,6 +822,24 @@
             });
         }
 
+        const origSetAttribute = Element.prototype.setAttribute;
+        Element.prototype.setAttribute = function(name, val) {
+            if (name === 'src' && typeof val === 'string') {
+                if (val.includes('stream.view')) {
+                    const m = val.match(/id=([^&]+)/);
+                    const id = m ? decodeURIComponent(m[1]) : '';
+                    const localPath = audioUrlMap[id] || db.songs[0]?.localAudioUrl;
+                    if (localPath) val = localPath;
+                } else if (val.includes('getCoverArt.view')) {
+                    const m = val.match(/id=([^&]+)/);
+                    const id = m ? decodeURIComponent(m[1]) : '';
+                    const localCover = coverIdMap[id] || db.songs[0]?.localCoverUrl;
+                    if (localCover) val = localCover;
+                }
+            }
+            return origSetAttribute.call(this, name, val);
+        };
+
         const origImgSrc = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, 'src');
         if (origImgSrc && origImgSrc.set) {
             Object.defineProperty(HTMLImageElement.prototype, 'src', {
