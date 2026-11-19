@@ -360,7 +360,7 @@
         settingsObj.state.general.sidebarItems = defaultMacSidebar;
         localStorage.setItem('store_settings', JSON.stringify(settingsObj));
 
-        // Ensure sidebar is open on desktop macOS
+        // Ensure sidebar is open on desktop macOS and filter sidebar starts collapsed
         const rawApp = localStorage.getItem('store_app');
         let appObj = null;
         try {
@@ -372,6 +372,20 @@
         if (!appObj.state.sidebar) appObj.state.sidebar = {};
         appObj.state.sidebar.collapsed = false;
         appObj.state.sidebar.leftWidth = 260;
+
+        // Recolher por padrão o painel de filtros (pageSidebar) para visualização desktop limpa
+        if (!appObj.state.pageSidebar) appObj.state.pageSidebar = {};
+        if (!sessionStorage.getItem('feishin_filter_sidebar_init')) {
+            sessionStorage.setItem('feishin_filter_sidebar_init', '1');
+            appObj.state.pageSidebar.song = false;
+            appObj.state.pageSidebar.album = false;
+            appObj.state.pageSidebar.artist = false;
+            appObj.state.pageSidebar.albumArtist = false;
+            appObj.state.pageSidebar.genre = false;
+            appObj.state.pageSidebar.folder = false;
+            appObj.state.pageSidebar.playlist = false;
+        }
+
         localStorage.setItem('store_app', JSON.stringify(appObj));
 
         // Força abertura limpa na página de Faixas (Tracks) como verdadeira Home
