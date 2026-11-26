@@ -155,19 +155,19 @@
                                     window: s.state.window || {}
                                 };
                                 var map = {
-                                    "lyrics": o.lyrics.sources,
-                                    "window_window_bar_style": o.window.windowBarStyle,
-                                    "window_start_minimized": o.window.startMinimized,
-                                    "window_exit_to_tray": o.window.exitToTray,
-                                    "window_minimize_to_tray": o.window.minimizeToTray,
-                                    "disable_auto_updates": o.window.disableAutoUpdate,
-                                    "window_enable_tray": o.window.tray,
-                                    "password_store": o.general.passwordStore,
-                                    "mediaSession": o.playback.mediaSession,
-                                    "playbackType": o.playback.type,
-                                    "global_media_hotkeys": o.hotkeys.globalMediaHotkeys,
-                                    "enableNeteaseTranslation": o.lyrics.enableNeteaseTranslation,
-                                    "local_font_path": o.font.custom
+                                    "lyrics": o.lyrics.sources || ["local", "netease"],
+                                    "window_window_bar_style": o.window.windowBarStyle || "native",
+                                    "window_start_minimized": o.window.startMinimized !== undefined ? o.window.startMinimized : false,
+                                    "window_exit_to_tray": o.window.exitToTray !== undefined ? o.window.exitToTray : false,
+                                    "window_minimize_to_tray": o.window.minimizeToTray !== undefined ? o.window.minimizeToTray : false,
+                                    "disable_auto_updates": o.window.disableAutoUpdate !== undefined ? o.window.disableAutoUpdate : false,
+                                    "window_enable_tray": o.window.tray !== undefined ? o.window.tray : true,
+                                    "password_store": o.general.passwordStore || "basic",
+                                    "mediaSession": o.playback.mediaSession !== undefined ? o.playback.mediaSession : false,
+                                    "playbackType": o.playback.type || "web",
+                                    "global_media_hotkeys": o.hotkeys.globalMediaHotkeys !== undefined ? o.hotkeys.globalMediaHotkeys : true,
+                                    "enableNeteaseTranslation": o.lyrics.enableNeteaseTranslation !== undefined ? o.lyrics.enableNeteaseTranslation : false,
+                                    "local_font_path": o.font.custom || null
                                 };
                                 if (key in map && map[key] !== undefined) return map[key];
                             }

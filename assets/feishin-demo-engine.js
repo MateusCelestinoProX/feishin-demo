@@ -360,8 +360,20 @@
         }
 
         if (endpoint.includes('getSong.view')) {
-            const song = songIdMap[p.id] || db.songs[0];
-            return subsonicWrap({ song: song });
+            const songId = p.id;
+            let song = null;
+            if (songId) {
+                song = songIdMap[songId] || db.songs.find(s => s.id === songId || s._uniqueId === songId || String(s.track) === String(songId));
+            }
+            if (!song) {
+                try {
+                    const cur = window.__FEISHIN_PLAYER_STORE__?.getState?.()?.getCurrentSong?.();
+                    if (cur && cur.id && songIdMap[cur.id]) {
+                        song = songIdMap[cur.id];
+                    }
+                } catch(e) {}
+            }
+            return subsonicWrap({ song: song || db.songs[0] });
         }
 
         if (endpoint.includes('getPlaylists.view')) {
@@ -609,6 +621,37 @@
         return queryParams;
     }
 
+    // Helper: Parse parameters from URL and POST body (FormData, URLSearchParams, urlencoded string, JSON)
+    function parseParams(url, body) {
+        const params = parseQuery(url || '');
+        if (body) {
+            if (typeof FormData !== 'undefined' && body instanceof FormData) {
+                try {
+                    for (const [k, v] of body.entries()) {
+                        params[k] = v;
+                    }
+                } catch (e) {}
+            } else if (typeof URLSearchParams !== 'undefined' && body instanceof URLSearchParams) {
+                try {
+                    for (const [k, v] of body.entries()) {
+                        params[k] = v;
+                    }
+                } catch (e) {}
+            } else if (typeof body === 'string') {
+                const trimmed = body.trim();
+                if (trimmed.startsWith('{') && trimmed.endsWith('}')) {
+                    try {
+                        Object.assign(params, JSON.parse(trimmed));
+                    } catch (e) {}
+                } else if (trimmed.includes('=')) {
+                    const parsed = parseQuery('?' + trimmed);
+                    Object.assign(params, parsed);
+                }
+            }
+        }
+        return params;
+    }
+
     // 5. Intercept fetch API
     const _origFetch = window.fetch ? window.fetch.bind(window) : null;
     window.fetch = function(resource, init) {
@@ -659,11 +702,11 @@
         if (url.includes('/rest/')) {
             const urlPath = url.split('?')[0];
             const endpoint = urlPath.substring(urlPath.lastIndexOf('/') + 1);
-            const params = parseQuery(url);
+            const params = parseParams(url, init ? init.body : null);
 
             if (endpoint.includes('getCoverArt.view')) {
                 const coverId = params.id;
-                const localCover = coverIdMap[coverId] || db.songs[0]?.localCoverUrl;
+                const localCover = coverIdMap[coverId] || (coverId ? db.songs.find(s => s.coverArt === coverId || s.id === coverId)?.localCoverUrl : null) || db.songs[0]?.localCoverUrl;
                 if (localCover && _origFetch) {
                     return _origFetch(localCover, init);
                 }
@@ -671,7 +714,7 @@
 
             if (endpoint.includes('stream.view')) {
                 const songId = params.id;
-                const localAudio = audioUrlMap[songId] || db.songs[0]?.localAudioUrl;
+                const localAudio = audioUrlMap[songId] || (songId ? db.songs.find(s => s.id === songId || s._uniqueId === songId)?.localAudioUrl : null) || db.songs[0]?.localAudioUrl;
                 if (localAudio && _origFetch) {
                     return _origFetch(localAudio, init);
                 }
@@ -769,7 +812,7 @@
             if (requestUrl.includes('/rest/')) {
                 const urlPath = requestUrl.split('?')[0];
                 const endpoint = urlPath.substring(urlPath.lastIndexOf('/') + 1);
-                const params = parseQuery(requestUrl);
+                const params = parseParams(requestUrl, body);
                 respondJson(handleSubsonicEndpoint(endpoint, params));
                 return;
             }
