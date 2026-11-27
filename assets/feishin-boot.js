@@ -370,18 +370,16 @@
         appObj.state.sidebar.collapsed = false;
         appObj.state.sidebar.leftWidth = 260;
 
-        // Recolher por padrão o painel de filtros (pageSidebar) para visualização desktop limpa
+        // Recolher por padrão o painel de filtros (pageSidebar) para visualização desktop limpa e opcional
         if (!appObj.state.pageSidebar) appObj.state.pageSidebar = {};
-        if (!sessionStorage.getItem('feishin_filter_sidebar_init')) {
-            sessionStorage.setItem('feishin_filter_sidebar_init', '1');
-            appObj.state.pageSidebar.song = false;
-            appObj.state.pageSidebar.album = false;
-            appObj.state.pageSidebar.artist = false;
-            appObj.state.pageSidebar.albumArtist = false;
-            appObj.state.pageSidebar.genre = false;
-            appObj.state.pageSidebar.folder = false;
-            appObj.state.pageSidebar.playlist = false;
-        }
+        appObj.state.pageSidebar.song = false;
+        appObj.state.pageSidebar.album = false;
+        appObj.state.pageSidebar.artist = false;
+        appObj.state.pageSidebar.albumArtist = false;
+        appObj.state.pageSidebar.genre = false;
+        appObj.state.pageSidebar.folder = false;
+        appObj.state.pageSidebar.playlist = false;
+        appObj.version = 5;
 
         localStorage.setItem('store_app', JSON.stringify(appObj));
 

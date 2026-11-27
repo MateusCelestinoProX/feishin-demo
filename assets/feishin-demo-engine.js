@@ -123,6 +123,18 @@
         settings.state.playback.transcode = 'none';
         settings.state.playback.replayGainType = 'none';
         localStorage.setItem('store_settings', JSON.stringify(settings));
+
+        // Ensure filter panel (pageSidebar) defaults to closed (optional display)
+        try {
+            const rawApp = localStorage.getItem('store_app');
+            let appObj = rawApp ? JSON.parse(rawApp) : { state: {}, version: 5 };
+            if (!appObj.state) appObj.state = {};
+            if (!appObj.state.pageSidebar) appObj.state.pageSidebar = {};
+            appObj.state.pageSidebar.song = false;
+            appObj.state.pageSidebar.album = false;
+            appObj.version = 5;
+            localStorage.setItem('store_app', JSON.stringify(appObj));
+        } catch(e) {}
     } catch(err) {
         console.warn('[Feishin Demo Engine] LocalStorage init warn:', err);
     }
